@@ -3,19 +3,30 @@
 
 #include "session_options.hpp"
 #include "session_state.hpp"
-#include "message.hpp"
 #include "writer.hpp"
 #include "timer.hpp"
 #include "connection_interface.hpp"
 #include "session_interface.hpp"
 #include "event_manager_interface.hpp"
-
+#include "utils.hpp"
 #include "fix_message.hpp"
 #include "tag.hpp"
+#include "session_options.hpp"
 
 namespace qffixlib
 {
     using namespace qfapp;
+
+    namespace encode_options {
+        constexpr int none               = 0b00000;
+        constexpr int set_checksum       = 0b00001;
+        constexpr int set_body_length    = 0b00010;
+        constexpr int set_begin_string   = 0b00100;
+        constexpr int set_msg_seq_num    = 0b01000;
+        constexpr int set_sending_time   = 0b10000;
+        constexpr int standard           = set_checksum | set_body_length | set_begin_string | set_msg_seq_num | set_sending_time;
+        constexpr int standard_no_sending = set_checksum | set_body_length | set_begin_string | set_msg_seq_num;
+    }
 
     class Session : public ConnectionInterface
     {
@@ -38,21 +49,19 @@ namespace qffixlib
 
         bool isConnected() override { return false; }
 
-        void send(Message& message, int options = encode_options::standard);
-
         template<char MsgType, typename... Args>
         void send(FIXMessage<MsgType, Args...>& message, int options = encode_options::standard);
 
         //void send(message& message, int options, const std::string& sending_time);
 
-        const std::string& begin_string() const noexcept;
-        void begin_string(const std::string& begin_string);    
+        const std::string& beginString() const noexcept;
+        void beginString(const std::string& begin_string);    
 
-        const std::string& sender_comp_id() const noexcept;
+        const std::string& senderCompId() const noexcept;
         void sender_comp_id(const std::string& sender_comp_id);    
 
-        const std::string& target_comp_id() const noexcept;
-        void target_comp_id(const std::string& target_comp_id);
+        const std::string& targetCompId() const noexcept;
+        void targetCompId(const std::string& target_comp_id);
 
         const std::string& username() const noexcept;
         void username(const std::string& username);
@@ -63,23 +72,23 @@ namespace qffixlib
         const std::string& secretKey() const noexcept;
         void secretKey(const std::string& secretKey);
     
-        uint32_t heartbeat_interval() const noexcept;
-        void heartbeat_interval(uint32_t interval) noexcept;
+        uint32_t heartbeatInterval() const noexcept;
+        void heartbeatInterval(uint32_t interval) noexcept;
 
-        uint32_t test_request_delay() const noexcept;
-        void test_request_delay(uint32_t delay);
+        uint32_t testRequestDelay() const noexcept;
+        void testRequestDelay(uint32_t delay);
 
-        qffixlib::timestamp_format timestamp_format() const noexcept;
-        void timestamp_format(qffixlib::timestamp_format format) noexcept;
+        qffixlib::timestamp_format timestampFormat() const noexcept;
+        void timestampFormat(qffixlib::timestamp_format format) noexcept;
 
         uint32_t incoming_msg_seq_num() const noexcept;
-        void incoming_msg_seq_num(uint32_t msg_seq_num) noexcept;
+        void incomingMsgSeqNum(uint32_t msg_seq_num) noexcept;
 
-        uint32_t outgoing_msg_seq_num() const noexcept;
-        void outgoing_msg_seq_num(uint32_t msg_seq_num) noexcept;
+        uint32_t outgoingMsgSeqNum() const noexcept;
+        void outgoingMsgSeqNum(uint32_t msg_seq_num) noexcept;
 
-        bool use_next_expected_msg_seq_num() const noexcept;
-        void use_next_expected_msg_seq_num(bool value) noexcept;
+        bool useNextExpectedMsgSeqNum() const noexcept;
+        void useNextExpectedMsgSeqNum(bool value) noexcept;
 
         //void on_message(const std::string&);
         void fillHeader(Header& header);
@@ -92,25 +101,16 @@ namespace qffixlib
 
         void onMessageRead(char MsgType, int msgSeqNum, bool posDupFlag, TokenIterator& fixIt);
 
-        void onMessageRead(qffixlib::Message& message);
-
         void logon();
         
-        bool process_logon(const qffixlib::Message& logon);
         template<char MsgType, typename... Args>
         bool processLogon(FIXMessage<MsgType, Args...>& message);
 
-        
-        void process_logout(const qffixlib::Message& logout);
         void processLogout(const std::string&);
-
 
         void processTestRequest(std::optional<std::string>);
 
         void processHeartbeat(std::optional<std::string>);
-        void process_heartbeat(const qffixlib::Message& heartbeat);
-
-        void process_sequence_reset(const qffixlib::Message& sequence_reset, bool poss_dup);
 
         template<char MsgType, typename... Args>
         void processSequenceReset(const FIXMessage<MsgType, Args...>&);
@@ -126,11 +126,6 @@ namespace qffixlib
 
         void perform_resend(uint32_t begin_msg_seq_num, uint32_t end_msg_seq_num);
 
-        bool extract_heartbeat_interval(const qffixlib::Message& logon);
-        bool validateChecksum(const qffixlib::Message& message);
-        bool validateBodyLength(const qffixlib::Message& message);
-        bool validateBeginString(const qffixlib::Message& message);
-        bool validateCompIds(const qffixlib::Message& message);
         bool validateFirstMessage(char);
         bool validateSequenceNumbers(int msgSeqNum);
 
@@ -141,15 +136,12 @@ namespace qffixlib
         void reset();
 
         uint32_t allocateTestRequestId();
-        uint32_t allocate_outgoing_msg_seq_num();
+        uint32_t allocateMsgSeqNumOut();
 
         void startHeartbeatTimer();
         void sendHeartbeat();
         void stopHeartbeatTimer();
         void stop_test_request_timer();
-
-        static constexpr size_t SENDING_BUFFER_SIZE = 1024;
-        char mSendingBuffer[SENDING_BUFFER_SIZE];
 
         SendingBuffer mToSend;
         Header mHeader;
@@ -180,16 +172,16 @@ namespace qffixlib
     void Session::send(FIXMessage<MsgType, Args...>& message, int options) {
         if (message.MsgType == FIX::MsgType::Logon && message.mHeader-> template get<FIX::Tag::ResetSeqNumFlag>()) {
             state(SessionState::resetting);
-            outgoing_msg_seq_num(1);
-            incoming_msg_seq_num(1);
+            outgoingMsgSeqNum(1);
+            incomingMsgSeqNum(1);
         }
         
         if ((options & encode_options::set_msg_seq_num) != 0) {
-            message.mHeader-> template set<FIX::Tag::MsgSeqNum>(allocate_outgoing_msg_seq_num());
+            message.mHeader-> template set<FIX::Tag::MsgSeqNum>(allocateMsgSeqNumOut());
         }
 
         if ((options & encode_options::set_sending_time) != 0) {
-            message.mHeader-> template set<FIX::Tag::SendingTime>(timestamp_string(timestamp_format()));
+            message.mHeader-> template set<FIX::Tag::SendingTime>(timestamp_string(timestampFormat()));
         }
 
         message.serialize(mToSend);

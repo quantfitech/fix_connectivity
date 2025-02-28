@@ -16,7 +16,7 @@ namespace qffixlib {
 		
         int receiveMessage(char*, std::size_t, std::size_t) override;
 		int sendMessage(const char*, std::size_t) override;
-        //int getFd() const override { return socket_fd;}
+		
         RecvCode getLastErrorNoRead(std::size_t);
 
 	private:

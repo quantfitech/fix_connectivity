@@ -13,7 +13,6 @@
 #include "app_options.hpp"
 #include "logger_options.hpp"
 #include "session_interface.hpp"
-#include "message.hpp"
 #include "tag.hpp"
 
 #include "order_book.hpp"

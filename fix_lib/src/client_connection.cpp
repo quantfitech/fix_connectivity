@@ -53,10 +53,6 @@ namespace qffixlib {
 			//no begin and length
 			return false;
 		}
-
-		//if (mBuffer.data()[0] == FIELD_SEPARATOR) {
-		//	return false;
-		//}
 		
 		auto result = mReadingBuffer.tryGetTag("8=", mReadingBuffer.begin());
 		if (result.first == result.second) {
@@ -95,61 +91,15 @@ namespace qffixlib {
 
 		mConnectionObserver->onMessage(msgType, msgSeqNo, mReadingBuffer.data() + beginToBodyEnd, messageLength - beginToBodyEnd);
 
-		/*auto end = mBuffer.begin() + mBufferSize;
-		LOG_DEBUG("EXTRACT {}", std::string( mBuffer.begin(), end));
-		std::string begin = "8=";
-		auto begin_it = std::search(mBuffer.begin(), end, begin.begin(), begin.end());
-		if (begin_it == end) { return false; }
-
-		std::string bodyLengthRaw = "9=";
-		auto bodyLength_it = std::search(mBuffer.begin(), end, bodyLengthRaw.begin(), bodyLengthRaw.end());
-		if (bodyLength_it == end) { return false; }
-			
-		auto length_end = std::find(bodyLength_it + 2, end, SOH);  // Find end of tag value
-		if (length_end == end) { return false;} 
-
-		auto bodyLength = std::stoi(std::string(bodyLength_it + 2 , length_end));
-		if (bodyLength == -1) return false;  // Can't determine message length
-		
-		LOG_DEBUG("body length: {} buff {}", bodyLength, mBufferSize);
-
-		// Approximate message length (header + body + checksum)
-		size_t messageLength = std::distance(begin_it, length_end) + 1 + bodyLength + 7;
-		if (mBufferSize < messageLength) return false;  // Not enough data
-
-		LOG_DEBUG("msg length: {} buff {}", messageLength, mBufferSize);
-		
-
-		mConnectionObserver->onMessage(mBuffer.data(), messageLength);
-
-		if (messageLength == mBufferSize) {
-			mBufferSize = 0;
-			return false;
-		} else {
-			std::move(mBuffer.begin() + messageLength, mBuffer.begin() + mBufferSize, mBuffer.begin());
-			mBufferSize -= messageLength;
-			return true;
-		}*/
 		return mReadingBuffer.consume(messageLength);
 
 	}
 
 	int ClientConnection::onData() {
 		LOG_DEBUG("on data fd={}", getFd());
-		while(true) {
-			/*auto remaining = mBufferCapacity - mBufferSize;
-			if (remaining < 0) {
-				LOG_WARN("growing data buffer {} 2 times", mBufferCapacity);
-				mBuffer.resize(mBufferCapacity * 2);
-				mBufferCapacity *=2;
-				remaining = mBufferCapacity - mBufferSize;
-			}
-			auto bytesReceived = mSocket->receiveMessage(mBuffer.data(), mBufferSize, remaining);
-			*/
+		while(true) {			
 			auto bytesReceived = mSocket->receiveMessage(mReadingBuffer.data(), mReadingBuffer.offset(), mReadingBuffer.remaining());
        		if (bytesReceived > 0) {
-          	    //LOG_DEBUG("received {} length {}", std::string(mBuffer.begin() + mBufferSize, mBuffer.begin() + mBufferSize + bytesReceived), bytesReceived);
-				//mBufferSize += bytesReceived;
 				mReadingBuffer.append(bytesReceived);
 				while (extractMessage()) {
 				}

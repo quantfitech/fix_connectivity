@@ -2,9 +2,6 @@ set(LIB_NAME fixlib)
 
 # Add the library source files
 set(LIB_SOURCES
-    src/field.cpp
-    src/field_collection.cpp
-    src/message.cpp
     src/session.cpp
     src/client_connection.cpp
     src/session_state.cpp
@@ -13,6 +10,7 @@ set(LIB_SOURCES
     src/tcp_socket.cpp
     src/ssl_socket.cpp
     src/utils.cpp
+    src/token_iterator.cpp
 )
 
 # Add the library include directory

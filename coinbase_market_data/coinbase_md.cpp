@@ -28,10 +28,10 @@ int main() {
     auto session_obs = std::make_shared<CoinbaseMdSession>();
 
 	auto sess = std::make_shared<qffixlib::Session>(session_obs, eventManager);
-	sess->begin_string("FIXT.1.1");
+	sess->beginString("FIXT.1.1");
     sess->sender_comp_id("pv3hnDiPUkJrGS5K"); 
-    sess->target_comp_id("CBINTLMD");
-	sess->username(sess->sender_comp_id());
+    sess->targetCompId("CBINTLMD");
+	sess->username(sess->senderCompId());
     sess->password("jhgJHGJHFGHf765jhgffghg");
     sess->secretKey("QzAxdm1lUEZFWWoxSlZlNVNRNFpCOENUQ0pEbGZabkI3NE5yTlhjUUg4SkJsZGltN3pBbFg3SElRSzFlYUt4WQ==");
 

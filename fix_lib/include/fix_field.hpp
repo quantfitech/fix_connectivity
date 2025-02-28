@@ -53,11 +53,9 @@ namespace qffixlib {
             buff.set(VALUE_SEPARATOR);
 
             buff.set(FIELD_SEPARATOR);
-
         }
 
         void deserialize(TokenIterator& iter) {
-            std::cout << " undef tag " << tag << " iter tag " << iter->tag << std::endl;
             if ((*iter).tag == tag) {
                 setValue(LexicalCast<Type>::cast((*iter).data, (*iter).length));
                 ++iter;
@@ -98,7 +96,6 @@ namespace qffixlib {
         }
 
         void deserialize(TokenIterator& iter) {
-            //std::cout << " char tag " << tag << " iter tag " << iter->tag << std::endl;
             if ((*iter).tag == tag) {
                 setValue((*iter).data[0]);
                 ++iter;
@@ -139,8 +136,7 @@ namespace qffixlib {
 
                 buff.set(VALUE_SEPARATOR);
 
-                std::memcpy(buff.current(), checkSum.data(), checkSum.length());
-                buff.offset += checkSum.length();
+                buff.append(checkSum);
 
                 buff.set(FIELD_SEPARATOR);
                 return;
@@ -156,9 +152,8 @@ namespace qffixlib {
             if(tag == FIX::Tag::BodyLength) {
                 buff.bodyValueBegin();
             }
-            
-            std::memcpy(buff.current(), value.data(), value.length());
-            buff.offset += value.length();
+
+            buff.append(value);
 
             buff.set(FIELD_SEPARATOR);
 
@@ -168,7 +163,6 @@ namespace qffixlib {
         }
 
         void deserialize(TokenIterator& iter) {
-             //std::cout << " string tag " << tag << " iter tag " << iter->tag << std::endl;
             if ((*iter).tag == tag) {
                 setValue(std::string((*iter).data, (*iter).length));
                 ++iter;
@@ -208,7 +202,6 @@ namespace qffixlib {
         }
 
         void deserialize(TokenIterator& iter) {
-            //std::cout << " int tag " << tag << " iter tag " << iter->tag <<std::endl;
             if ((*iter).tag == tag) {
                 setValue(LexicalCast<ValueType>::cast((*iter).data, (*iter).length));
                 ++iter;
@@ -250,7 +243,6 @@ namespace qffixlib {
         }
 
         void deserialize(TokenIterator& iter) {
-            //std::cout << " bool tag " << tag << " iter tag " << iter->tag << std::endl;
             if ((*iter).tag == tag) {
                 setValue(LexicalCast<ValueType>::cast((*iter).data, (*iter).length));
                 ++iter;
@@ -285,14 +277,13 @@ namespace qffixlib {
             buff.set(VALUE_SEPARATOR);
             
             auto length = modp_dtoa(value, buff.current(), DOUBLE_PRECISION);
-            buff.offset += length;
+            buff.advance(length);
 
             buff.set(FIELD_SEPARATOR);
 
         }
 
         void deserialize(TokenIterator& iter) {
-            //std::cout << " double tag " << tag << " iter tag " << iter->tag <<std::endl;
             if ((*iter).tag == tag) {
                 setValue(LexicalCast<ValueType>::cast((*iter).data, (*iter).length));
                 ++iter;
@@ -349,11 +340,7 @@ namespace qffixlib {
 
                 // Append milliseconds to the string
                 oss << "." << std::setfill('0') << std::setw(3) << milliseconds.count();
-
-                std::string str_val = oss.str();
-
-                std::memcpy(buff.current(), str_val.data(), str_val.length());
-                buff.offset += str_val.length();
+                buff.append(oss.str());
             }
 
             buff.set(FIELD_SEPARATOR);
@@ -361,7 +348,6 @@ namespace qffixlib {
         }
 
         void deserialize(TokenIterator& iter) {
-            //std::cout << " utctimest tag " << tag << " iter tag " << iter->tag << std::endl;
             if ((*iter).tag == tag) {
                 setValue(LexicalCast<ValueType>::cast((*iter).data, (*iter).length));
                 ++iter;
@@ -409,16 +395,12 @@ namespace qffixlib {
                 std::string date = oss.str();
                 rawValue = date;
             }
-
-            std::memcpy(buff.current(), rawValue.data(), rawValue.length());
-            buff.offset += rawValue.length();
+            buff.append(rawValue);
 
             buff.set(FIELD_SEPARATOR);
-
         }
 
         void deserialize(TokenIterator& iter) {
-            //std::cout << " date tag " << tag << " iter tag " << iter->tag << std::endl;
             if ((*iter).tag == tag) {
                 setValue(LexicalCast<ValueType>::cast((*iter).data, (*iter).length));
                 ++iter;
@@ -467,15 +449,12 @@ namespace qffixlib {
                 rawValue = time;
             }
 
-            std::memcpy(buff.current(), rawValue.data(), rawValue.length());
-            buff.offset += rawValue.length();
+            buff.append(rawValue);
 
             buff.set(FIELD_SEPARATOR);
-
         }
 
         void deserialize(TokenIterator& iter) {
-            //std::cout << " time tag " << tag << " iter tag " << iter->tag << std::endl;
             if ((*iter).tag == tag) {
                 setValue(LexicalCast<ValueType>::cast((*iter).data, (*iter).length));
                 ++iter;

@@ -26,7 +26,7 @@ void replace_substring_with_char(std::string& str, const std::string& substr, ch
         pos += 1; // Move past the replacement character
     }
 }
-/*
+
 TEST(message_test, parse_w_coinbase)
 {
     std::string msg = "8=FIXT.1.1x019=505x0135=Wx0149=CBINTLMDx0156=pv3hnDiPUkJrGS5Kx0134=5x0150=TESTx0152=20250227-13:18:36.855151x01369=4x01262=unique_market_data_idx0155=GIGA-PERPx01167=PERPx01268=8x01269=3x01270=0.0203455x0160=20250227-13:18:36.085266x01269=mx01270=0.02135x0160=20250227-13:18:36.085266x01269=gx01270=0.02135x0160=20250227-13:18:36.085266x01269=hx01270=0.01933x0160=20250227-13:18:36.085266x01269=px01270=0.002x0160=20250227-13:18:36.085266x01269=fx01270=0.001956x0160=20250227-13:00:00.000012x01269=6x01270=0.02132x0160=20250227-13:15:00.610000x01269=Cx01271=41644x0160=20250225-22:26:43.054204x0110=045x01";
@@ -45,7 +45,9 @@ TEST(message_test, parse_w_coinbase)
             auto px = group. template get<FIX::Tag::MDEntryPx>();
             auto size = group. template get<FIX::Tag::MDEntrySize>();
             auto tstamp = group. template get<FIX::Tag::TransactTime>();
-            LOG_DEBUG("recv w {} {} {}", level, px, size);
+            EXPECT_EQ(level, 1);
+            EXPECT_EQ(px, 1);
+            break;
             
         }
     }
@@ -70,12 +72,15 @@ TEST(message_test, parse_w_coinbase_bid_present)
             auto px = group. template get<FIX::Tag::MDEntryPx>();
             auto size = group. template get<FIX::Tag::MDEntrySize>();
             auto tstamp = group. template get<FIX::Tag::TransactTime>();
-            LOG_DEBUG("recv w {} {} {}", level, px, size);
             
+            EXPECT_EQ(level, 1);
+            EXPECT_EQ(px, 1);
+            break;
         }
     }
+    EXPECT_TRUE(snapshot.mTrailer.isSet);
 }
-*/
+
 
 TEST(message_test, security_list_parse)
 {
@@ -85,6 +90,8 @@ TEST(message_test, security_list_parse)
     v50sp2::Message::SecurityList snapshot(&header);
     TokenIterator it(msg.data(), msg.length());
     snapshot.deserialize(it);
+
+    EXPECT_TRUE(snapshot.mTrailer.isSet);
 }
 
 TEST(message_test, handle_incomming_data)

@@ -52,9 +52,6 @@ namespace qffixlib {
 
         std::cout << "k[" << key << "]data[" << data << std::endl;
 
-        std::string encoded_key = "QzAxdm1lUEZFWWoxSlZlNVNRNFpCOENUQ0pEbGZabkI3NE5yTlhjUUg4SkJsZGltN3pBbFg3SElRSzFlYUt4WQ==";
-    
-        //auto b_key = base64_decode(encoded_key);
         auto b_key = base64_decode(bEncodedKey);
 
         std::cout << std::string(b_key.begin(), b_key.end()) << std::endl;

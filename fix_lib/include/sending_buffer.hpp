@@ -7,30 +7,38 @@
 namespace qffixlib {
 
     class SendingBuffer {
-        public:
+    private:
+        char mData[1024];
+        size_t mOffset{0};
+        size_t mBodyLengthEnd{0};
+        size_t mBodyLengthValueBegin{0};
 
-        char data[1024];
-        size_t offset{0};
-        size_t bodyLengthEnd{0};
-        size_t bodyLengthValueBegin{0};
-
+    public:
         void reset() {
-            offset = 0;
-            bodyLengthEnd = 0;
-            bodyLengthValueBegin = 0;
+            mOffset = 0;
+            mBodyLengthEnd = 0;
+            mBodyLengthValueBegin = 0;
         }
+
+        void advance(size_t size) {mOffset += size;}
+
+        void append(const std::string& data) {
+            std::memcpy(current(), data.data(), data.length());
+            mOffset += data.length();
+        }
+
 
         void set(char aChar) {
             *(current()) = aChar;
-            offset += 1;
+            mOffset += 1;
         }
 
         void bodyLength() {
-            bodyLengthEnd = offset;
+            mBodyLengthEnd = mOffset;
         }
 
         void bodyValueBegin() {
-            bodyLengthValueBegin = offset;
+            mBodyLengthValueBegin = mOffset;
         }
         
         void set(int64_t value) {
@@ -39,7 +47,7 @@ namespace qffixlib {
             if (ec != std::errc()) {
                 throw std::runtime_error("failed to copy tag to buffer");
             }
-            offset = ptr - data;
+            mOffset = ptr - mData;
 
             if (current() >= end()) {
                 throw std::runtime_error("failed to copy tag to buffer");
@@ -52,7 +60,7 @@ namespace qffixlib {
             if (ec != std::errc()) {
                 throw std::runtime_error("failed to copy tag to buffer");
             }
-            offset = ptr - data;
+            mOffset = ptr - mData;
 
             if (current() >= end()) {
                 throw std::runtime_error("failed to copy tag to buffer");
@@ -60,22 +68,22 @@ namespace qffixlib {
         }
 
         void setBodyLength() {
-            size_t bodyLength = offset - bodyLengthEnd;
+            size_t bodyLength = mOffset - mBodyLengthEnd;
             if (bodyLength < 0 || bodyLength > 999) {   
                 throw std::runtime_error("invalid body length");
             }
             auto boyLengthFormatted = std::format("{:03}", bodyLength);
-            std::memcpy(data + bodyLengthValueBegin, boyLengthFormatted.data(), boyLengthFormatted.length());
+            std::memcpy(mData + mBodyLengthValueBegin, boyLengthFormatted.data(), boyLengthFormatted.length());
         }
 
         int checkSum() {
             return std::reduce(begin(), current(), 0) % 256;
         }
 
-        size_t length() { return offset; }
-        char* begin() { return  data; }
-        char* current() { return  data + offset; }
-        char* end() {return data + 1023; }
+        size_t length() { return mOffset; }
+        char* begin() { return  mData; }
+        char* current() { return  mData + mOffset; }
+        char* end() {return mData + 1023; }
     };
 }
 

@@ -5,6 +5,10 @@
 #include <string>
 #include <memory>
 #include "utils.hpp"
+#include <ctime>
+#include <iomanip>
+#include <chrono>
+
 
 // other interesting references on num to string convesion
 // http://www.jb.man.ac.uk/~slowe/cpp/itoa.html
@@ -16,6 +20,49 @@
  */
 
 namespace qffixlib {
+
+    char const * const seconds_format =  "%Y%m%d-%H:%M:%S";
+
+    std::string timestamp_string(timestamp_format format)
+    {
+        auto now = std::chrono::system_clock::now();
+        auto now_time_t = std::chrono::system_clock::to_time_t(now);
+
+        std::tm utc_tm = *std::gmtime(&now_time_t);
+        std::ostringstream oss;
+        oss << std::put_time(&utc_tm, seconds_format);
+
+        std::string value = oss.str();
+
+        switch (format)
+        {
+            case timestamp_format::seconds:
+                break;
+
+            case timestamp_format::milliseconds:
+            {
+                auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
+                auto buffer = std::to_string(milliseconds.count());
+                static const char* padding = "000";
+                value += "." + ((padding + buffer.length()) + buffer);
+                break;
+            }
+
+            case timestamp_format::microseconds:
+            {
+                auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch()) % 1000000;
+                auto buffer = std::to_string(microseconds.count());
+                static const char* padding = "000000";
+                value += "." + ((padding + buffer.length()) + buffer); 
+                break;
+            }
+
+            default:
+                throw "unsupported timestamp format " + std::to_string(static_cast<int>(format));
+        };
+    
+        return value;
+    }
 
     static const double pow10_[] = {1, 10, 100, 1000, 10000, 100000, 1000000,
                                 10000000, 100000000, 1000000000};

@@ -11,39 +11,9 @@
 
 namespace qffixlib {
 
-    /*int wait_for_connection(int sock) {
-        fd_set write_fds;
-        FD_ZERO(&write_fds);
-        FD_SET(sock, &write_fds);
-
-        struct timeval timeout;
-        timeout.tv_sec = 5;  // 5 seconds timeout
-        timeout.tv_usec = 0;
-
-        int ret = select(sock + 1, nullptr, &write_fds, nullptr, &timeout);
-        if (ret > 0) {
-            int err;
-            socklen_t len = sizeof(err);
-            getsockopt(sock, SOL_SOCKET, SO_ERROR, &err, &len);
-            if (err == 0) {
-                LOG_INFO("Connection established!");
-                return 0;  // Success
-            } else {
-                LOG_INFO("Connection failed: {}", strerror(err));
-                return -1;
-            }
-        } else if (ret == 0) {
-            LOG_INFO("Connection timed out");
-            return -1;
-        } else {
-            LOG_INFO("select() failed: {}",strerror(errno));
-            return -1;
-        }
-    }*/
-
 
 	bool SSLSocket::openConnection(const std::string& host, int port) {
-		        // Initialize OpenSSL
+		 // Initialize OpenSSL
         SSL_library_init();
         SSL_load_error_strings();
         OpenSSL_add_ssl_algorithms();
@@ -53,8 +23,6 @@ namespace qffixlib {
         ctx = SSL_CTX_new(method);
         if (!ctx) {
             LOG_ERROR("Unable to create SSL context");
-            //ERR_print_errors_fp(stderr);
-            //exit(EXIT_FAILURE);
             return false;
         }
 
@@ -86,11 +54,6 @@ namespace qffixlib {
             LOG_DEBUG("Connected immediately!");
         } else if (errno == EINPROGRESS) {
             LOG_DEBUG("Connection in progress, waiting...");
-            /*if (wait_for_connection(socket_fd) != 0) {
-                LOG_ERROR("Connection failed error");
-                SSL_CTX_free(ctx);
-                    return false;
-            }*/
         } else {
             std::cerr << "connect() failed: " << strerror(errno) << "\n";
             LOG_ERROR("Connection failed error");
@@ -109,28 +72,6 @@ namespace qffixlib {
         }
 
         SSL_set_fd(ssl, socket_fd);
-
-        /*
-        while (true) {
-            // Perform SSL handshake
-            int ret = SSL_connect(ssl);
-             if (ret == 1) {
-                std::cout << "SSL handshake successful!\n";
-                break;
-            }
-            int err = SSL_get_error(ssl, ret);
-            if (err == SSL_ERROR_WANT_READ || err == SSL_ERROR_WANT_WRITE) {
-                std::cout << "Waiting for read...\n";
-                usleep(1000); // Simulate event-driven polling (use epoll in real cases)
-                continue;
-            }
-            LOG_ERROR("SSL handshake failed");
-            ERR_print_errors_fp(stderr);
-            SSL_free(ssl);
-            close(socket_fd);
-            SSL_CTX_free(ctx);
-            return false;
-        }*/
         return true;
 	}
 
@@ -143,14 +84,6 @@ namespace qffixlib {
 	}
 
 	int SSLSocket::sendMessage(const char* data, std::size_t length) {
-        /*if (mOverflowOffset > 0) {
-            if (mOverflowOffset + length >= MAX_OVERFLOW_BUFFER) {
-                throw std::runtime_error("overflow buffer is full");
-            }
-            std::memcpy(mOverflowBuffer + mOverflowOffset, data, length);
-            mOverflowOffset += length;
-            return length;
-        }*/
        if (!mWriteBuffer.isEmpty()) {
             mWriteBuffer.append(data, length);
        }
@@ -179,21 +112,6 @@ namespace qffixlib {
             usleep(1000); // ugly but speeds up connection process
             return SSL_connect(ssl);
         } else {
-            /*if (mOverflowOffset > 0) {
-                auto nrBytesSent = SSL_write(ssl, mOverflowBuffer, mOverflowOffset);
-                if (nrBytesSent <= 0) {
-                    LOG_ERROR("Failed to send message");
-                    ERR_print_errors_fp(stderr);
-                    throw std::runtime_error("failed to send");
-                }
-                //wipe out sent data
-                size_t length = mOverflowOffset - nrBytesSent;
-                if (length > 0) {
-                    memmove(mOverflowBuffer, mOverflowBuffer + nrBytesSent, length);
-                }
-                mOverflowOffset -= nrBytesSent;
-                return mOverflowOffset;
-            }*/
             if (!mWriteBuffer.isEmpty()) {
                 auto nrBytesSent = SSL_write(ssl, mWriteBuffer.data(), mWriteBuffer.size());
                 if (nrBytesSent <= 0) {
