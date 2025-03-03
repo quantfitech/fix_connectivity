@@ -2,7 +2,6 @@ set(LIB_NAME fixlib)
 
 # Add the library source files
 set(LIB_SOURCES
-    src/session.cpp
     src/client_connection.cpp
     src/session_state.cpp
     src/reader_buffer.cpp

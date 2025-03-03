@@ -104,6 +104,7 @@ namespace qffixlib {
                     element.deserialzie(iter);
                 } else {
                     LOG_WARN("could not find tag {}", iter->tag);
+                    //std::cout << "could not find tag: "  << iter->tag << std::endl;
                 }
                 ++iter;
             }
@@ -153,13 +154,11 @@ namespace qffixlib {
             for(auto& gr : groups) {
                 gr.serialize(buff);
             }
-            std::cout << "end group." << std::endl;
         }
 
         template <int FieldTag, typename Value>
         void set(int group_index, const Value& newValue) {
             constexpr size_t index = get_index_by_tag<FieldTag, Fields...>();
-            //std::get<index>(fields).value = newValue;
             std::get<index>(groups[group_index]).value = newValue;
         }
 
@@ -175,7 +174,6 @@ namespace qffixlib {
                 ++iter;
                 groups.resize(value);
                 for (int i=0; i < value; i++) {
-                    //std::apply([&iter](auto&... elems) { ((elems.deserialize(iter)), ...); }, groups[i]);
                     groups.at(i).deserialize(iter);
                 }
             }

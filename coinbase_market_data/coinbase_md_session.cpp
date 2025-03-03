@@ -1,21 +1,23 @@
 #include "coinbase_md_session.hpp"
 #include "v50sp2/messages.hpp"
+#include "version_selector.hpp"
 
 namespace quantfi { namespace coinbase_md {
 
 
-    void CoinbaseMdSession::onMessage(char msgType, TokenIterator& fixIter) 
+    template <Version V>
+    void CoinbaseMdSession<V>::onMessage(char msgType, TokenIterator& fixIter) 
     {
         switch(msgType)
         {
             case FIX::MsgType::Logon:
             {
                 Header header;
-                session->fillHeader(header);
+                this->fillHeader(header);
                 v50sp2::Message::SecurityListRequest securityList(&header);
                 securityList.set<FIX::Tag::SecurityReqID>("unique_request_id");
                 securityList.set<FIX::Tag::SecurityListRequestType>(4);
-                session->send(securityList, encode_options::standard);
+                this->send(securityList, encode_options::standard);
                 break;
             }
             case FIX::MsgType::SecurityList:
@@ -28,12 +30,12 @@ namespace quantfi { namespace coinbase_md {
                 LOG_DEBUG("recv tot symbols {} last {}", toRelSymbols, lastFragment);
                 if (lastFragment) {
                     Header header;
-                    session->fillHeader(header);
+                    this->fillHeader(header);
                     v50sp2::Message::MarketDataRequest mdRequest(&header);
                     mdRequest.set<FIX::Tag::MDReqID>("unique_market_data_id");
                     mdRequest.set<FIX::Tag::SubscriptionRequestType>('1');
                     mdRequest.set<FIX::Tag::MarketDepth>(20);
-                    session->send(mdRequest, encode_options::standard);
+                    this->send(mdRequest, encode_options::standard);
                     break;
                 }
                 break;
@@ -116,5 +118,6 @@ namespace quantfi { namespace coinbase_md {
         }       
     } 
 
+    template class CoinbaseMdSession<Version::v50sp2>;
 }
 }

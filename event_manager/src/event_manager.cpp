@@ -88,17 +88,14 @@ namespace qfapp {
         close(epollFd);
     }
 
-    void EventManager::addFileDescriptor(std::shared_ptr<FileDescriptor> fd) {
+    void EventManager::makeReadableWritable(int) {}
+
+
+    void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG) {
         std::cout << "addFileDes " << fd->getFd() << std::endl;
         struct epoll_event event;
-        //event.data.fd = fd->getFd();
-        event.data.ptr = fd.get();
-        if (fd->isServer()) {
-            event.events = EPOLLIN | EPOLLET;
-        }
-        else {
-            event.events = EPOLLIN | EPOLLOUT | EPOLLERR | EPOLLET;
-        }
+        event.data.ptr = fd;
+        event.events = EPOLLIN | EPOLLOUT | EPOLLERR | EPOLLET;
 
         std::cout << "bef added fd=" << " event " << event.data.fd << std::endl; 
 
@@ -108,13 +105,10 @@ namespace qfapp {
         }
         
         std::cout << "added fd=" << fd->getFd() << " event " << event.data.fd << std::endl; 
-        if (!fd->isServer())
-        {
-            fdMap[fd->getFd()] = std::move(fd);
-        }
+        fdMap[fd->getFd()] = fd;
     }
 
-    void EventManager::removeFileDescriptor(int fd) {
+    void EventManager::removeFileDescriptor(int fd, RW_FLAG) {
         std::cout << fd << " has been removed" << std::endl;
 
         if (epoll_ctl(epollFd, EPOLL_CTL_DEL, fd, nullptr) == -1) {

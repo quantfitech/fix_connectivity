@@ -22,7 +22,7 @@ namespace qffixlib {
 	public:
 		ClientConnection(std::shared_ptr<ConnectionInterface>, SocketInterface*, std::shared_ptr<EventManager>);
 		~ClientConnection() = default;
-		void open_connection(const std::string& host, int port);
+		void openConnection(const std::string& host, int port);
 		void disconnect();
 
 		//void onConnected();

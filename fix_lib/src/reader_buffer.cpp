@@ -30,7 +30,7 @@
     std::pair<BufferIt, BufferIt> ReaderBuffer::tryGetTag(const std::string& tag, BufferIt begin) {
         auto end = mBuffer.begin() + mOffset;
 
-		LOG_DEBUG("EXTRACT {}", std::string(mBuffer.begin(), end));
+		//LOG_DEBUG("EXTRACT {}", std::string(mBuffer.begin(), end));
 
 		auto it_begin = std::search(begin, end, tag.begin(), tag.end());
 		if (it_begin == end) { return std::make_pair(end, end); }

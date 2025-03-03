@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <functional>
+#include <stdint.h>
+
 
 namespace qffixlib {
 

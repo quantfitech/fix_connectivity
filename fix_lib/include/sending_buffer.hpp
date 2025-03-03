@@ -3,12 +3,15 @@
 
 #include <string>
 #include <charconv>
+#include <cstring>
+#include <numeric> 
 
 namespace qffixlib {
 
     class SendingBuffer {
     private:
-        char mData[1024];
+        static const unsigned BUFFER_SIZE = 8192;
+        char mData[BUFFER_SIZE];
         size_t mOffset{0};
         size_t mBodyLengthEnd{0};
         size_t mBodyLengthValueBegin{0};
@@ -20,15 +23,26 @@ namespace qffixlib {
             mBodyLengthValueBegin = 0;
         }
 
-        void advance(size_t size) {mOffset += size;}
+        void advance(size_t size) {
+            if (mOffset + size >= BUFFER_SIZE) {
+                throw std::runtime_error("advance out of size!");
+            }
+            mOffset += size;
+            }
 
         void append(const std::string& data) {
+            if (mOffset + data.length() >= BUFFER_SIZE) {
+                throw std::runtime_error("append out of size!");
+            }
             std::memcpy(current(), data.data(), data.length());
             mOffset += data.length();
         }
 
 
         void set(char aChar) {
+            if (mOffset + 1 >= BUFFER_SIZE) {
+                throw std::runtime_error("set out of size!");
+            }
             *(current()) = aChar;
             mOffset += 1;
         }
@@ -69,7 +83,7 @@ namespace qffixlib {
 
         void setBodyLength() {
             size_t bodyLength = mOffset - mBodyLengthEnd;
-            if (bodyLength < 0 || bodyLength > 999) {   
+            if (bodyLength > 999) {   
                 throw std::runtime_error("invalid body length");
             }
             auto boyLengthFormatted = std::format("{:03}", bodyLength);

@@ -3,7 +3,7 @@
 
 #include "fix_group.hpp"
 #include "fix_header.hpp"
-#include "logger.hpp"
+//#include "logger.hpp"
 
 
 namespace qffixlib {
@@ -34,7 +34,8 @@ namespace qffixlib {
             std::apply([&iter](auto&... elems) { ((elems.deserialize(iter)), ...); }, this->fields);
             mTrailer.deserialize(iter);
             if (!mTrailer.isSet) {
-                LOG_WARN("deserialize failed for msg {}, stuck on {}, trailer not reached!", MsgType, iter->tag);
+                //LOG_WARN("deserialize failed for msg {}, stuck on {}, trailer not reached!", MsgType, iter->tag);
+                std::cout << "deserialize failed for msg {}, stuck on {}, trailer not reached!" << std::endl;
             }
         }
 

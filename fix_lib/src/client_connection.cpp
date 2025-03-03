@@ -19,7 +19,7 @@ namespace qffixlib {
 		mBuffer.reserve(mBufferCapacity);
 	}
 
-	void ClientConnection::open_connection(const std::string& host, int port) {
+	void ClientConnection::openConnection(const std::string& host, int port) {
 		LOG_INFO("open connection {}:{}", host, port);
 
 		mSocket->openConnection(host, port);
@@ -53,6 +53,8 @@ namespace qffixlib {
 			//no begin and length
 			return false;
 		}
+
+		LOG_DEBUG("EXTRACT {}", std::string(mReadingBuffer.begin(), mReadingBuffer.begin() + mReadingBuffer.offset()));
 		
 		auto result = mReadingBuffer.tryGetTag("8=", mReadingBuffer.begin());
 		if (result.first == result.second) {

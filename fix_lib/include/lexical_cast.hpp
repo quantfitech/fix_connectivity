@@ -7,6 +7,7 @@
 #include <ctime>
 #include <iomanip>
 #include <charconv>
+#include <cmath>
 #include "tag.hpp"
 
 
@@ -16,6 +17,7 @@ namespace qffixlib {
     {
         static T cast(const char*, size_t)
         {
+            static_assert("Undefined FIC type");
             return {};
         }
     };

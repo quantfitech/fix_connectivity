@@ -5,6 +5,7 @@
 #include <openssl/evp.h>
 #include <openssl/buffer.h>
 #include <iostream>
+#include <vector>
 
 namespace qffixlib {
 

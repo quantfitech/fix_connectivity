@@ -2,8 +2,7 @@
 #define SESSION_INTERFACE_H
 
 #include  <string>
-#include "fix_message.hpp"
-
+#include "token_iterator.hpp"
 
 namespace qffixlib {
 

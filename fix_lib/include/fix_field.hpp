@@ -44,6 +44,7 @@ namespace qffixlib {
 
 
         void serialize(SendingBuffer& buff) const {   
+            throw std::runtime_error("undefined field type");
             if (!isSet) {
                 return;
             }
@@ -56,6 +57,7 @@ namespace qffixlib {
         }
 
         void deserialize(TokenIterator& iter) {
+            throw std::runtime_error("undefined field type");
             if ((*iter).tag == tag) {
                 setValue(LexicalCast<Type>::cast((*iter).data, (*iter).length));
                 ++iter;
@@ -65,17 +67,17 @@ namespace qffixlib {
 
     template <int Tag>
     struct FieldT<Tag,char> {
-
+        using ValueType = char;
         static constexpr int tag = Tag;
-        char value;
+        ValueType value;
 
         FieldT() = default;
-        explicit FieldT(char t) : value(t) {}
-        using ValueType = char;
+        explicit FieldT(ValueType t) : value(t) {}
+        
 
         bool isSet{false};
 
-        void setValue(char val) {
+        void setValue(ValueType val) {
             value = val;
             isSet = true; 
         }
@@ -105,22 +107,22 @@ namespace qffixlib {
 
     template <int Tag>
     struct FieldT<Tag,std::string> {
-
+        using ValueType = std::string;
         static constexpr int tag = Tag;
-        std::string value;
+        ValueType value;
 
         FieldT() = default;
-        explicit FieldT(const std::string& t) : value(t) {}
-        using ValueType = std::string;
+        explicit FieldT(const ValueType& t) : value(t) {}
+       
 
         bool isSet{false};
 
-        void setValue(const std::string& val) {
+        void setValue(const ValueType& val) {
             value = val;
             isSet = true; 
         }
 
-        void setValue(std::string&& val) {
+        void setValue(ValueType&& val) {
             value = std::move(val);
             isSet = true; 
         }
@@ -172,17 +174,17 @@ namespace qffixlib {
 
     template <int Tag>
     struct FieldT<Tag,int64_t> {
-
+         using ValueType = int64_t;
         static constexpr int tag = Tag;
-        int64_t value;
+        ValueType value;
 
         FieldT() = default;
-        explicit FieldT(int64_t t) : value(t) {}
-        using ValueType = int64_t;
+        explicit FieldT(ValueType t) : value(t) {}
+       
 
         bool isSet{false};
 
-        void setValue(int64_t val) {
+        void setValue(ValueType val) {
             value = val;
             isSet = true; 
         }
@@ -212,17 +214,17 @@ namespace qffixlib {
 
     template <int Tag>
     struct FieldT<Tag,bool> {
-
+        using ValueType = bool;
         static constexpr int tag = Tag;
-        bool value;
+        ValueType value;
 
         FieldT() = default;
-        explicit FieldT(bool t) : value(t) {}
-        using ValueType = bool;
+        explicit FieldT(ValueType t) : value(t) {}
+       
 
         bool isSet{false};
 
-        void setValue(bool val) {
+        void setValue(ValueType val) {
             value = val;
             isSet = true; 
         }
@@ -252,17 +254,16 @@ namespace qffixlib {
 
     template <int Tag>
     struct FieldT<Tag,double> {
-
+        using ValueType = double;
         static constexpr int tag = Tag;
         double value;
 
         FieldT() = default;
-        explicit FieldT(double t) : value(t) {}
-        using ValueType = double;
+        explicit FieldT(ValueType t) : value(t) {}
 
         bool isSet{false};
 
-        void setValue(double val) {
+        void setValue(ValueType val) {
             value = val;
             isSet = true; 
         }
@@ -293,19 +294,19 @@ namespace qffixlib {
 
     template <int Tag>
     struct FieldT<Tag,FIX::UTCTimestamp> {
-
+        using ValueType = FIX::UTCTimestamp;
         static constexpr int tag = Tag;
-        FIX::UTCTimestamp value;
+        ValueType value;
 
         FieldT() = default;
-        explicit FieldT(const FIX::UTCTimestamp& t) : value(t) {}
-        using ValueType = FIX::UTCTimestamp;
+        explicit FieldT(const ValueType& t) : value(t) {}
+        
 
         std::string rawValue;
 
         bool isSet{false};
 
-        void setValue(FIX::UTCTimestamp val) {
+        void setValue(ValueType&& val) {
             value = val;
             isSet = true; 
         }
@@ -357,19 +358,19 @@ namespace qffixlib {
 
     template <int Tag>
     struct FieldT<Tag,FIX::UTCDate> {
-
+        using ValueType = FIX::UTCDate;
         static constexpr int tag = Tag;
-        FIX::UTCDate value;
+        ValueType value;
 
         FieldT() = default;
-        explicit FieldT(const FIX::UTCDate& t) : value(t) {}
-        using ValueType = FIX::UTCDate;
+        explicit FieldT(const ValueType& t) : value(t) {}
+        
 
         std::string rawValue;
 
         bool isSet{false};
 
-        void setValue(FIX::UTCDate val) {
+        void setValue(const ValueType& val) {
             value = val;
             isSet = true; 
         }
@@ -410,19 +411,18 @@ namespace qffixlib {
 
     template <int Tag>
     struct FieldT<Tag,FIX::UTCTimeOnly> {
-
+        using ValueType = FIX::UTCTimeOnly;
         static constexpr int tag = Tag;
-        FIX::UTCTimeOnly value;
+        ValueType value;
 
         FieldT() = default;
-        explicit FieldT(const FIX::UTCTimeOnly& t) : value(t) {}
-        using ValueType = FIX::UTCTimeOnly;
+        explicit FieldT(const ValueType& t) : value(t) {}
 
         std::string rawValue;
 
         bool isSet{false};
 
-        void setValue(FIX::UTCTimeOnly val) {
+        void setValue(ValueType val) {
             value = val;
             isSet = true; 
         }

@@ -6,6 +6,13 @@
 #include <sstream>
 #include <charconv>
 #include <span>
+#include <vector>
+#include <cmath>
+#include <string>
+#include <cstdint>
+#include <cstring>
+#include <algorithm>
+
 
     template<typename T> struct LexicalCast
     {

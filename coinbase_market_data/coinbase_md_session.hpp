@@ -12,7 +12,7 @@
 #include "application.hpp"
 #include "app_options.hpp"
 #include "logger_options.hpp"
-#include "session_interface.hpp"
+// #include "session_interface.hpp"
 #include "tag.hpp"
 
 #include "order_book.hpp"
@@ -21,14 +21,13 @@ namespace quantfi { namespace coinbase_md {
  
 using namespace qffixlib;
  
- class CoinbaseMdSession : public SessionInterface {
+
+ template<Version V>
+ class CoinbaseMdSession : public Session<V> {
     public:
         virtual ~CoinbaseMdSession() {};
-        void onConnected() {}
-        void onDisconnected() {}
-        void onMessage(char, TokenIterator&);
-
-        std::shared_ptr<qffixlib::Session> session;
+        CoinbaseMdSession(std::shared_ptr<EventManagerInterface> em):Session<V>(em){}
+        void onMessage(char msgType, TokenIterator& fixIter) override;
         OrderBookManager mOrderBookManager;
 };
 

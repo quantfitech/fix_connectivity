@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-
+#include "logger.hpp"
 #include "fix_message.hpp"
 #include "client_connection.hpp"
 #include "v50sp2/messages.hpp"

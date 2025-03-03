@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 
 #include "fix_group.hpp"
 #include "fix_message.hpp"
@@ -53,10 +53,10 @@ namespace qffixlib
             using MarketDataRequestReject = FIXMessage<FIX::MsgType::MarketDataRequestReject, Types::MDReqID, Types::MDReqRejReason, Types::Text>;
 
 
-			using MarketDataSnapshot = FIXMessage<FIX::MsgType::MarketDataSnapshotFullRefresh,
-                                                  Types::MDReqID, Types::Symbol, Types::SecurityType, 
-                                                  Group<FIX::Tag::NoMDEntries, Types::MDEntryType, Types::MDEntryID, Types::MDEntryPx, Types::MDEntrySize, Types::TransactTime,
-                                                  Types::MDPriceLevel, Types::AggressorSide>>;
+            using MarketDataSnapshot = FIXMessage<FIX::MsgType::MarketDataSnapshotFullRefresh,
+                                                Types::MDReqID, Types::Symbol, Types::SecurityType, 
+                                                Group<FIX::Tag::NoMDEntries, Types::MDEntryType, Types::MDEntryID, Types::MDEntryPx, Types::MDEntrySize, Types::TransactTime,
+                                                Types::MDPriceLevel, Types::AggressorSide>>;
 
             using MarketDataIncrementalRefresh = FIXMessage<FIX::MsgType::MarketDataIncrementalRefresh, Types::MDReqID, 
                                                             Group<FIX::Tag::NoMDEntries, Types::MDUpdateAction, Types::MDEntryType, Types::MDEntryID, Types::Symbol, 
