@@ -6,6 +6,7 @@
 #include <openssl/buffer.h>
 #include <iostream>
 #include <vector>
+#include "logger.hpp"
 
 namespace qffixlib {
 
@@ -16,7 +17,11 @@ namespace qffixlib {
 
         BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL);  // No newlines
         BIO_write(b64, input, length);
-        BIO_flush(b64);
+        int result = BIO_flush(b64);
+        if(result < 1) {
+            LOG_WARN("bio failed in base64 encode {}");
+        }
+
         
         BUF_MEM *bptr;
         BIO_get_mem_ptr(b64, &bptr);
@@ -24,8 +29,6 @@ namespace qffixlib {
         std::string encoded(bptr->data, bptr->length);
         BIO_free_all(b64);
 
-        std::cout << "input(" << input << ")base64" << encoded << std::endl;
-        
         return encoded;
     }
 
@@ -47,16 +50,10 @@ namespace qffixlib {
         return decoded;
     }
 
-    std::string hmac_sha256_base64(const std::string& key, const std::string& bEncodedKey, const std::string& data) {
+    std::string hmac_sha256_base64(const std::string& bEncodedKey, const std::string& data) {
         unsigned char hash[EVP_MAX_MD_SIZE];
         unsigned int hash_len = 0;
-
-        std::cout << "k[" << key << "]data[" << data << std::endl;
-
         auto b_key = base64_decode(bEncodedKey);
-
-        std::cout << std::string(b_key.begin(), b_key.end()) << std::endl;
-
         HMAC(EVP_sha256(), b_key.data(), b_key.size(),
             (unsigned char*)data.c_str(), data.length(),
             hash, &hash_len);

@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <chrono>
+#include <string>
 
 namespace qfapp {
 

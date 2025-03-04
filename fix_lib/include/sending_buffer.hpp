@@ -54,7 +54,14 @@ namespace qffixlib {
         void bodyValueBegin() {
             mBodyLengthValueBegin = mOffset;
         }
-        
+
+        void setChars(char* data, int length) {
+            if (mOffset + 1 >= BUFFER_SIZE) {
+                throw std::runtime_error("set out of size!");
+            }
+            std::memcpy(current(), data, length);
+            mOffset += length;
+        } 
         void set(int64_t value) {
             auto [ptr, ec] = std::to_chars(current(), end(), value);
 
@@ -86,8 +93,10 @@ namespace qffixlib {
             if (bodyLength > 999) {   
                 throw std::runtime_error("invalid body length");
             }
-            auto boyLengthFormatted = std::format("{:03}", bodyLength);
-            std::memcpy(mData + mBodyLengthValueBegin, boyLengthFormatted.data(), boyLengthFormatted.length());
+            //auto boyLengthFormatted = std::format("{:03}", bodyLength);
+            char boyLengthFormatted[4];
+            snprintf (boyLengthFormatted, 4, "%03d", static_cast<int>(bodyLength));
+            std::memcpy(mData + mBodyLengthValueBegin, boyLengthFormatted, 3);
         }
 
         int checkSum() {

@@ -18,15 +18,17 @@ set(LIB_INCLUDES
 )
 
 if (APPLE)
-    include_directories(/opt/homebrew/opt/tinyxml2/include)
     include_directories(/opt/homebrew/include)
 endif()
+
+find_package(OpenSSL REQUIRED)
+find_package(spdlog REQUIRED)
 
 # Create a static library target
 add_library(${LIB_NAME} STATIC ${LIB_SOURCES})
 
 # Include the library's headers
-target_include_directories(${LIB_NAME} PUBLIC ${LIB_INCLUDES} ../event_manager/include)
+target_include_directories(${LIB_NAME} PUBLIC ${LIB_INCLUDES}  ${OPENSSL_INCLUDE_DIR} ${SPDLOG_INCLUDE_DIR} ../event_manager/include)
 
 # Optional: Add compile options or flags
 target_compile_options(${LIB_NAME} PRIVATE -Wall -Wextra -Werror)

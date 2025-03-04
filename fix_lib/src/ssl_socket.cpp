@@ -110,7 +110,10 @@ namespace qffixlib {
     int SSLSocket::onWrite() {
         if (isConnecting) {
             usleep(1000); // ugly but speeds up connection process
-            return SSL_connect(ssl);
+            auto result = SSL_connect(ssl);
+            getLastReadResult(result);
+            LOG_DEBUG("ssl connect result: {}", result);
+            return result;
         } else {
             if (!mWriteBuffer.isEmpty()) {
                 auto nrBytesSent = SSL_write(ssl, mWriteBuffer.data(), mWriteBuffer.size());
@@ -129,6 +132,7 @@ namespace qffixlib {
 
     RecvCode SSLSocket::getLastReadResult(std::size_t bytes) {
         int err = SSL_get_error(ssl, bytes);
+        LOG_DEBUG("last ssl error {}", err);
         switch (err)
         {
             case SSL_ERROR_NONE:

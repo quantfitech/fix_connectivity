@@ -132,13 +132,15 @@ namespace qffixlib {
 
                 buff.setBodyLength();
 
-                auto checkSum = std::format("{:03}", buff.checkSum());
+                //auto checkSum = std::format("{:03}", buff.checkSum());
+                char checkSum[4];
+                snprintf (checkSum, 4, "%03d", buff.checkSum());
 
                 buff.set(tag);
 
                 buff.set(VALUE_SEPARATOR);
 
-                buff.append(checkSum);
+                buff.setChars(checkSum, 3);
 
                 buff.set(FIELD_SEPARATOR);
                 return;

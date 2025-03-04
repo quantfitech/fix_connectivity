@@ -7,9 +7,9 @@ namespace qffixlib {
 
 
     enum class RecvCode {
-        NO_ERROR,
-        WOULD_BLOCK,
-        ERROR,
+        NO_ERROR = 0,
+        WOULD_BLOCK = 1,
+        ERROR = 2,
     };
 
 	class SocketInterface {

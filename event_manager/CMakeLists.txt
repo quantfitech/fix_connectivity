@@ -18,11 +18,13 @@ if (APPLE)
     include_directories(/opt/homebrew/include)
 endif()
 
+find_package(spdlog REQUIRED)
+
 # Add the static library target
 add_library(${LIB_NAME} STATIC ${LIB_SOURCES})
 
 # Specify include directories for consumers of the library
-target_include_directories(${LIB_NAME} PUBLIC ${LIB_HEADERS})
+target_include_directories(${LIB_NAME} PUBLIC ${LIB_HEADERS} lib/include)
 
 # Optional: Add compile options or flags
 #target_compile_options(${LIB_NAME}  PRIVATE -Wall -Wextra -Werror)
