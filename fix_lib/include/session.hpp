@@ -118,6 +118,10 @@ namespace qffixlib
             mEventManagerInterface->addTimer(mOutgoingMsgTimer);
         }
 
+        void addRecurringTimer(std::shared_ptr<RecurringTimer> timer) {
+             mEventManagerInterface->addTimer(timer);
+        }
+
         void stopHeartbeatTimer()
         {
             mEventManagerInterface->removeTimer(mOutgoingMsgTimer);

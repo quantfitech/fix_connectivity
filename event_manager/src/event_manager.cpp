@@ -42,11 +42,11 @@ namespace qfapp {
         struct kevent event;
 
         int flag = EVFILT_READ;
-        EV_SET(&event, fd, flag, EV_DELETE, 0, 0, nullptr);
+        EV_SET(&event, fd, flag, EV_ADD | EV_ENABLE, 0, 0, nullptr);
 
         if (kevent(kqueueFd, &event, 1, nullptr, 0, nullptr) == -1) {
             perror("kevent");
-            LOG_ERROR("kevent remove fd={} failed", fd);
+            LOG_ERROR("kevent add fd={} failed", fd);
             throw std::runtime_error("Failed to add file descriptor to kqueue");
         }
 
@@ -88,43 +88,29 @@ namespace qfapp {
         close(epollFd);
     }
 
-    void EventManager::makeReadableWritable(int fd) {
-        LOG_DEBUG("remove  event fd={}", fd) ;
-        if (epoll_ctl(epollFd, EPOLL_CTL_DEL, fd, nullptr) == -1) {
-            perror("epoll_ctl");
-            throw std::runtime_error("Failed to remove file descriptor from epoll");
-        }
-        struct epoll_event event;
-        event.data.ptr = fdMap[fd];
-        event.events = EPOLLIN | EPOLLOUT;
-        if (epoll_ctl(epollFd, EPOLL_CTL_ADD, fd, &event) == -1) {
-            perror("epoll_ctl");
-            throw std::runtime_error("Failed to add file descriptor to epoll");
-        }
-    }
+    void EventManager::makeReadableWritable(int) {}
 
 
-    void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG flag) {
-        LOG_DEBUG("addFileDes fd={}", fd->getFd());
+    void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG) {
+        std::cout << "addFileDes " << fd->getFd() << std::endl;
         struct epoll_event event;
         event.data.ptr = fd;
-        if (flag == RW_FLAG::FL_WRITE) {
-            event.events = EPOLLOUT;
-        } else if (flag == RW_FLAG::FL_READ) {
-             event.events = EPOLLIN;
-        }
+        event.events = EPOLLIN | EPOLLOUT | EPOLLERR | EPOLLET;
+
+        std::cout << "bef added fd=" << " event " << event.data.fd << std::endl; 
 
         if (epoll_ctl(epollFd, EPOLL_CTL_ADD, fd->getFd(), &event) == -1) {
             perror("epoll_ctl");
             throw std::runtime_error("Failed to add file descriptor to epoll");
         }
-        LOG_DEBUG("fd added fd={} event {}", fd->getFd(), int(flag)); 
         
+        std::cout << "added fd=" << fd->getFd() << " event " << event.data.fd << std::endl; 
         fdMap[fd->getFd()] = fd;
     }
 
     void EventManager::removeFileDescriptor(int fd, RW_FLAG) {
-        LOG_DEBUG("remove fd={}", fd);
+        std::cout << fd << " has been removed" << std::endl;
+
         if (epoll_ctl(epollFd, EPOLL_CTL_DEL, fd, nullptr) == -1) {
             perror("epoll_ctl");
             throw std::runtime_error("Failed to remove file descriptor from epoll");
@@ -183,7 +169,23 @@ namespace qfapp {
                             int ssl_res = fd->onWrite();                                                           
                             if (ssl_res == 1) {
                                 LOG_DEBUG("SSL handshake done!");
+
+                                //struct kevent event;
+                                // Remove the write event:
+                                //EV_SET(&event, fd->getFd(), EVFILT_WRITE, EV_DELETE, 0, 0, fdMap[fd->getFd()].get());
+                                //if (kevent(kqueueFd, &event, 1, nullptr, 0, nullptr) == -1) {
+                                //    perror("kevent");
+                                //    LOG_ERROR("kevent add fd={} failed", fd->getFd());
+                                //    throw std::runtime_error("Failed to add file descriptor to kqueue");
+                                //}
                                 removeFileDescriptor(fd->getFd(), RW_FLAG::FL_WRITE);
+                                // Read the event: 
+                                //EV_SET(&event, fd->getFd(), EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, fdMap[fd->getFd()].get());
+                                //if (kevent(kqueueFd, &event, 1, nullptr, 0, nullptr) == -1) {
+                                //    perror("kevent");
+                                //    LOG_ERROR("kevent add fd={} failed", fd->getFd());
+                                //    throw std::runtime_error("Failed to add file descriptor to kqueue");
+                                //}
                                 addFileDescriptor(fd, RW_FLAG::FL_READ);
                                 fd->onConnected();
                             }
@@ -232,42 +234,15 @@ namespace qfapp {
             }
             
             for (int i = 0; i < numEvents; ++i) {
-                LOG_DEBUG("handling {} fd={}", events[i].events, events[i].data.fd);
+                std::cout << "handling " << events[i].events << " on fd " <<  events[i].data.fd << std::endl;
                 
                 auto* handler = static_cast<FileDescriptor*>(events[i].data.ptr);
-                LOG_DEBUG("handler data fd={} events={}", handler->getFd(), events[i].events);
+                std::cout << "handler data from " << handler->getFd() << ", events " << events[i].events << std::endl;
 
                 if (events[i].events & EPOLLERR) {
                     handler->onError();
-                    removeFileDescriptor(handler->getFd(), RW_FLAG::FL_READ);
                 } else if (events[i].events & EPOLLIN) {
-                    auto recved = handler->onData();
-                    if (recved == 0) {
-                        handler->onClose();
-                        removeFileDescriptor(handler->getFd(), RW_FLAG::FL_READ);
-                    } else if (recved < 0) {
-                        handler->onError();
-                        removeFileDescriptor(handler->getFd(), RW_FLAG::FL_READ);
-                    }
-                    //handler->onData();
-                } else if (events[i].events & EPOLLOUT) {
-                    if (!handler->isConnected()) {
-                        int ssl_res = handler->onWrite(); 
-                        if (ssl_res == 1) {
-                            LOG_DEBUG("SSL handshake done!");
-                            removeFileDescriptor(handler->getFd(), RW_FLAG::FL_WRITE);
-                            addFileDescriptor(handler, RW_FLAG::FL_READ);
-                            handler->onConnected();
-                        } 
-                    } else {
-                        LOG_DEBUG("do write");;
-                        int bytesSent = handler->onWrite();
-                        if (bytesSent == 0) {
-                            LOG_INFO("temporary buffer is empty, all data sent, make readable only");
-                            removeFileDescriptor(handler->getFd(), RW_FLAG::FL_WRITE);
-                            addFileDescriptor(handler, RW_FLAG::FL_READ);
-                        }
-                    }
+                    handler->onData();
                 } else {
                     //handler->onEvent(events[i].events);
                 }

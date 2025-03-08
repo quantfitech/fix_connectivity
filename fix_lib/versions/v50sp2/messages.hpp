@@ -63,12 +63,27 @@ namespace qffixlib
                                                             Types::MDEntryPx,Types:: MDEntrySize, Types::TransactTime, Types::MDPriceLevel, Types::AggressorSide>
                                                             >;
 
-            using NewOrderSingle = FIXMessage<'D', Types::ClOrdID, Group<FIX::Tag::NoPartyIDs, Types::PartyRole>, Types::ExecInst, Types::OrderQty, Types::OrdType, Types::Price,
+            using NewOrderSingle = FIXMessage<'D', Types::ClOrdID, Group<FIX::Tag::NoPartyIDs, Types::PartyID, Types::PartyRole>, Types::ExecInst, Types::OrderQty, Types::OrdType, Types::Price,
                                                    Types::Side, Types::Symbol, Types::TimeInForce, 
                                                    Types::ExpireTime, Types::StopPx, Types::StopLimitPx, Types::SelfTradePreventionStrategy, Types::TargetStrategy>; 
 
-            using OrderCancelReplaceRequest = FIXMessage<'G', Types::ClOrdID, Group<FIX::Tag::NoPartyIDs, Types::PartyRole>, Types::OrigClOrdID, Types::OrderQty,  Types::Price, Types::Symbol,
+            using OrderCancelReplaceRequest = FIXMessage<'G', Types::ClOrdID, Group<FIX::Tag::NoPartyIDs, Types::PartyID, Types::PartyRole>, Types::OrigClOrdID, Types::OrderQty,  Types::Price, Types::Symbol,
                                                             Types::StopPx>;
+
+            using OrderCancelReject =  FIXMessage<'9', Types::ClOrdID, Types::OrigClOrdID, Types::OrderID, Types::Text, Types::CxlRejReason, Types::CxlRejResponseTo>;
+
+            using OrderCancelRequest = FIXMessage<'F', Types::ClOrdID, Group<FIX::Tag::NoPartyIDs, Types::PartyID, Types::PartyRole>, Types::OrigClOrdID, Types::Symbol>;
+
+            using OrderMassCancelRequest = FIXMessage<'q', Types::ClOrdID, Types::Side, Types::Symbol, Group<FIX::Tag::NoPartyIDs, Types::PartyID, Types::PartyRole>>;
+
+            using ExecutionReport = FIXMessage<'8', Types::LastMsgSeqNumProcessed, Types::ClOrdID, Types::OrigClOrdID, Types::TrdMatchID, Types::ExecID, Types::ExecTransType, Types::OrderID, Group<FIX::Tag::NoPartyIDs, Types::PartyID, Types::PartyRole>,
+                                                Types::ExecType, Types::OrdStatus, Types::OrdRejReason, Types::Symbol, Types::Side, Types::OrderQty, Types::OrdType, Types::Price, Types::StopPx, Types::StopLimitPx,
+                                                Types::Currency, Types::TimeInForce, Types::ExpireTime, Types::LastShares, Types::LastPx, Types::LeavesQty, Types::CumQty, Types::AvgPx, Types::TransactTime, Types::Text,
+                                                Types::LastLiquidityInd, Group<FIX::Tag::NoMiscFees, Types::MiscFeeAmt, Types::MiscFeeCurr, Types::MiscFeeType>, Types::SelfTradePreventionStrategy, Types::ExecInst, Types::TargetStrategy>;
+
+            using BusinessMessageReject = FIXMessage<'j', Types::RefSeqNum, Types::RefMsgType, Types::BusinessRejectRefID, Types::BusinessRejectReason, Types::Text>;
+
+            using OrderMassCancelReport = FIXMessage<'r',   Types::ClOrdID, Types::MassActionReportID, Types::Symbol, Types::Side, Types::MassCancelResponse, Types::MassCancelRejectReason, Types::TotalAffectedOrders, Types::TransactTime, Types::Text>;
 
 
 		} // namespace Message		

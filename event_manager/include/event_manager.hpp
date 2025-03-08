@@ -31,10 +31,6 @@ namespace qfapp {
         void run();
         void stop();
 
-        void addTimer1(std::shared_ptr<Timer>& timer) {
-            mTimers.push_back(timer);      
-        }
-
     private:
         static constexpr int MAX_EVENTS = 64;
         static constexpr int POLL_TIMEOUT = 500;
@@ -46,7 +42,6 @@ namespace qfapp {
     #endif
 
         bool isRunning;
-        //std::unordered_map<int, std::shared_ptr<FileDescriptor>> fdMap;
         std::unordered_map<int, FileDescriptor* > fdMap;
         std::vector<std::shared_ptr<Timer>> mTimers;
     public:

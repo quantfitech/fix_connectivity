@@ -442,6 +442,7 @@
         using EncodedListStatusTextLen = FieldT<445, int64_t>;
         using EncodedListStatusText = FieldT<446, FIX::Data>;
         using NetChgPrevDay = FieldT<451, double>;
+        using PartyID = FieldT<448, std::string>;
         using PartyRole = FieldT<452, int64_t>;
         using NoSecurityAltID = FieldT<454, int64_t>;
         using SecurityAltID = FieldT<455, std::string>;
@@ -461,6 +462,9 @@
         using FundRenewWaiv = FieldT<497, char>;
         using NestedPartyID = FieldT<524, std::string>;
         using NestedPartyIDSource = FieldT<525, std::string>;
+        using MassCancelResponse = FieldT<531, char>;
+        using MassCancelRejectReason = FieldT<532, int64_t>;
+        using TotalAffectedOrders = FieldT<533, int64_t>;
         using QuoteType = FieldT<537, int64_t>;
         using NestedPartyRole = FieldT<538, int64_t>;
         using NoNestedPartyIDs = FieldT<539, int64_t>;
@@ -534,6 +538,7 @@
         using ApplQueueDepth = FieldT<813, int64_t>;
         using ApplQueueResolution = FieldT<814, int64_t>;
         using TargetStrategy = FieldT<847, int64_t>;
+        using LastLiquidityInd = FieldT<851, int64_t>;
         using NoEvents = FieldT<864, int64_t>;
         using EventType = FieldT<865, int64_t>;
         using EventDate = FieldT<866, FIX::LocalMktDate>;
@@ -549,6 +554,7 @@
         using UnderlyingCPProgram = FieldT<877, std::string>;
         using UnderlyingCPRegType = FieldT<878, std::string>;
         using UnderlyingQty = FieldT<879, FIX::Qty>;
+        using TrdMatchID = FieldT<880, std::string>;
         using UnderlyingDirtyPrice = FieldT<882, FIX::Price>;
         using UnderlyingEndPrice = FieldT<883, FIX::Price>;
         using UnderlyingStartValue = FieldT<884, double>;
@@ -584,6 +590,7 @@
         using DefaultSelfTradePreventionStrategy = FieldT<8001, bool>;
         using CancelOrdersOnDisconnect = FieldT<8013, bool>;
         using CancelOrdersOnInternalDisconnect = FieldT<8014, bool>;
+        using MassActionReportID = FieldT<1369, std::string>;
 
         using DefaultMarginRatio = FieldT<21000, double>;
         using AggressorSide = FieldT<2446, int64_t>;

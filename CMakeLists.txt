@@ -30,6 +30,8 @@ add_subdirectory(event_manager)
 # Add the example application
 add_subdirectory(coinbase_market_data)
 
+# Add the example application
+add_subdirectory(coinbase_order_execution)
 
 #enable_testing()
 #add_subdirectory(tests)
