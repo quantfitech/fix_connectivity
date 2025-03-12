@@ -2,6 +2,8 @@
 #define CONNECTION_INTERFACE_H
 
 #include  <string>
+#include "fix_chars.hpp"
+
 
 namespace qffixlib {
 
@@ -11,9 +13,7 @@ namespace qffixlib {
 
 		virtual void onConnected() = 0;
 		virtual void onDisconnected() = 0;
-		virtual void onMessage(char, int, const char*, std::size_t) = 0;
-
-		virtual bool isConnected() = 0;
+		virtual void onMessage(const MsgChars&, int, const char*, std::size_t) = 0;
 	};
 
 }

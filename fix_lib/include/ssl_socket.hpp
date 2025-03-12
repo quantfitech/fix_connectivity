@@ -13,7 +13,7 @@ namespace qffixlib {
 
 	class SSLSocket : public SocketInterface {
 	public:
-		SSLSocket() = default;
+		//SSLSocket() = default;
 		virtual ~SSLSocket() = default;
 		bool openConnection(const std::string& host, int port) override;
 		void closeConnection() override;
@@ -25,9 +25,6 @@ namespace qffixlib {
         RecvCode getLastReadResult(std::size_t) override;
 
 	private:
-		
-		//char mOverflowBuffer[MAX_OVERFLOW_BUFFER];
-		//size_t mOverflowOffset{0};
 
 		WriterBuffer mWriteBuffer;
 

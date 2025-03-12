@@ -11,9 +11,11 @@
 
 namespace qffixlib {
 
-	ClientConnection::ClientConnection(std::shared_ptr<ConnectionInterface> observer, SocketInterface * socket, std::shared_ptr<EventManager> eventManager): 
+	ClientConnection::ClientConnection(std::shared_ptr<ConnectionInterface> observer, 
+									   std::unique_ptr<SocketInterface> socket,
+									   std::shared_ptr<EventManager> eventManager): 
 	mConnectionObserver(observer),
-	mSocket(socket),
+	mSocket(std::move(socket)),
 	mEventManager(eventManager)
 	{
 		mBuffer.reserve(mBufferCapacity);
@@ -34,12 +36,7 @@ namespace qffixlib {
 		}
 	}
 
-	void ClientConnection::disconnect() {
-		LOG_INFO("close connection fd={}", getFd());
-		mSocket->closeConnection();
-	}
-
-	void  ClientConnection::sendMessage(const char* data, std::size_t length) {
+	void ClientConnection::sendMessage(const char* data, std::size_t length) {
 		LOG_DEBUG("sending from fd={}", getFd());
 		auto sentSize = mSocket->sendMessage(data, length);
 		if (sentSize < static_cast<int>(length)) {
@@ -53,8 +50,6 @@ namespace qffixlib {
 			//no begin and length
 			return false;
 		}
-
-		LOG_DEBUG("EXTRACT {}", std::string(mReadingBuffer.begin(), mReadingBuffer.begin() + mReadingBuffer.offset()));
 		
 		auto result = mReadingBuffer.tryGetTag("8=", mReadingBuffer.begin());
 		if (result.first == result.second) {
@@ -81,8 +76,18 @@ namespace qffixlib {
 		if (result.first == result.second) {
 			throw std::runtime_error("msg type not found!");
 		}
-
-		char msgType = *(result.first);
+	
+		MsgChars msgType;
+		auto msgTypeLength = std::distance(result.first, result.second);
+		if (msgTypeLength == 1) {
+			msgType[0] = *(result.first);
+			msgType[1] = '\n';
+		} else if (msgTypeLength == 2) {
+			msgType[0] = *(result.first);
+			msgType[1] = *(result.first+1);
+		} else {
+			throw std::runtime_error("unexpected messagetype, length {}" + std::to_string(msgTypeLength));
+		}
 
 		result = mReadingBuffer.tryGetTag("34=", bodylengthEnd);
 		if (result.first == result.second) {
@@ -90,6 +95,13 @@ namespace qffixlib {
 		}
 
 		auto msgSeqNo = std::stoi(std::string(result.first, result.second));
+
+		spdlog::level::level_enum current_level = spdlog::default_logger()->level();
+		if (current_level == spdlog::level::debug) {
+			std::string msgStr(mReadingBuffer.data(), messageLength);
+			std::replace(msgStr.begin(), msgStr.end(), '\x01', '|');
+			LOG_DEBUG("EXTRACT {}", msgStr);
+		}
 
 		mConnectionObserver->onMessage(msgType, msgSeqNo, mReadingBuffer.data() + beginToBodyEnd, messageLength - beginToBodyEnd);
 
@@ -112,28 +124,30 @@ namespace qffixlib {
 				} 
 				else {
 					LOG_ERROR("Failed to read response from server");
-					mConnectionObserver->onDisconnected();
-					mSocket->closeConnection();
+					close();
 					return 0;
 				}
 			}
 		}
 		return 1;
 	}
-	void ClientConnection::onError() {
-		LOG_ERROR("onError fd={}", getFd());
+
+	void ClientConnection::close() {
 		if (mConnectionObserver) {
 			mConnectionObserver->onDisconnected();
 		}
+		mSocket->closeConnection();
 		mIsConnected = false;
+	}
+
+	void ClientConnection::onError() {
+		LOG_ERROR("onError fd={}", getFd());
+		close();
 	}
 
 	void ClientConnection::onClose() {
 		LOG_ERROR("onClose fd={}", getFd());
-		if (mConnectionObserver) {
-			mConnectionObserver->onDisconnected();
-		}
-		mIsConnected = false;
+		close();
 	}
 
 	int ClientConnection::onWrite() {

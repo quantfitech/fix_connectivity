@@ -5,12 +5,12 @@
 
 using namespace qfapp;
 
-Logger::Logger(const LoggerOptions &options, const std::string &app_name)
+Logger::Logger(const LoggerOptions &options, const std::string &app_name, const spdlog::pattern_time_type time_type)
 {
-  Init(options, app_name);
+  Init(options, app_name, time_type);
 }
 
-void Logger::Init(const LoggerOptions &options, const std::string &app_name)
+void Logger::Init(const LoggerOptions &options, const std::string &app_name, const spdlog::pattern_time_type time_type)
 {
   if (options.rotating_logger) {
     auto error_logger{std::make_shared<spdlog::sinks::daily_file_sink_mt>(options.error_log_filename, 0, 0)};
@@ -56,7 +56,7 @@ void Logger::Init(const LoggerOptions &options, const std::string &app_name)
 
   // set log pattern in UTC:
   // [date,time][thread id=%t][logger name=%n][short loglevel=%L][sourcefile:line=%s:%#] log line=%v
-  m_combined_logger->set_pattern("[%Y-%m-%dT%H:%M:%S.%FZ][%t][%n][%^%L%$][%s:%#] %v", spdlog::pattern_time_type::utc);
+  m_combined_logger->set_pattern("[%Y-%m-%dT%H:%M:%S.%FZ][%t][%n][%^%L%$][%s:%#] %v", time_type);
 
   spdlog::set_default_logger(m_combined_logger);
   m_combined_logger->flush_on(options.base_level);

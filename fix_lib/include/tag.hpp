@@ -40,22 +40,25 @@ namespace FIX {
 
 
 	namespace MsgType {
-		constexpr char Heartbeat = '0';
-		constexpr char TestRequest = '1';
-		constexpr char ResendRequest = '2';
-		constexpr char Reject = '3';
-		constexpr char SequenceReset = '4';
-		constexpr char Logout = '5';
-		constexpr char Logon = 'A';
+		constexpr std::array<char, 2> Heartbeat = {'0', '\n'};
+		constexpr std::array<char, 2> TestRequest = {'1', '\n'};
+		constexpr std::array<char, 2> ResendRequest = {'2', '\n'};
+		constexpr std::array<char, 2> Reject = {'3', '\n'};
+		constexpr std::array<char, 2> SequenceReset = {'4', '\n'};
+		constexpr std::array<char, 2> Logout = {'5', '\n'};
+		constexpr std::array<char, 2> Logon = {'A', '\n'};
 		//app messages
-		constexpr char SecurityListRequest = 'x';
-		constexpr char SecurityList = 'y';
-		constexpr char SecurityDefinition = 'd';
-		constexpr char MarketDataRequest = 'V';
-		constexpr char MarketDataRequestReject = 'Y';
+		constexpr std::array<char, 2> SecurityListRequest = {'x', '\n'};
+		constexpr std::array<char, 2> SecurityList = {'y', '\n'};
+		constexpr std::array<char, 2> SecurityDefinition = {'d', '\n'};
+		constexpr std::array<char, 2> MarketDataRequest = {'V', '\n'};
+		constexpr std::array<char, 2> MarketDataRequestReject = {'Y', '\n'};
 		//app messages prices
-		constexpr char MarketDataSnapshotFullRefresh = 'W';
-		constexpr char MarketDataIncrementalRefresh = 'X';
+		constexpr std::array<char, 2> MarketDataSnapshotFullRefresh = {'W', '\n'};
+		constexpr std::array<char, 2> MarketDataIncrementalRefresh = {'X', '\n'};
+
+		constexpr std::array<char, 2> NewOrderSingle = {'D', '\n'};
+		constexpr std::array<char, 2> OrderCancelReplaceRequest = {'G', '\n'};
 	}
 	namespace Tag {
 		constexpr int BeginSeqNo = 7;

@@ -12,21 +12,13 @@
 
 namespace qffixlib {
 
-
-    //#define INCOMMING_BUFFER_SIZE 8192
-    // #define SOH '\x01'
-
 	using namespace qfapp;
 	
 	class ClientConnection : public FileDescriptor, public Writer {
 	public:
-		ClientConnection(std::shared_ptr<ConnectionInterface>, SocketInterface*, std::shared_ptr<EventManager>);
+		ClientConnection(std::shared_ptr<ConnectionInterface>, std::unique_ptr<SocketInterface>, std::shared_ptr<EventManager>);
 		~ClientConnection() = default;
-		void openConnection(const std::string& host, int port);
-		void disconnect();
-
-		//void onConnected();
-		void onDisconnected();
+		void openConnection(const std::string& host, int port);		
 
 		int onData() override;    // Called when data is available
         void onError() override;   // Called on errors
@@ -34,12 +26,10 @@ namespace qffixlib {
 		int onWrite() override;
 		void onConnected() override;
 
+		void close();
 
 		bool extractMessage();
-		//void close_connection();
 		void sendMessage(const char*, std::size_t) override;
-		
-		//void receive_message();
 
 		int getFd() const override { return mSocket->getFd(); }
 		bool isInitiator() const override { return true; }
@@ -52,7 +42,7 @@ namespace qffixlib {
 
 	private:
 		bool mIsConnected = false;
-		//int client_fd = 0;
+
 		std::size_t mBufferCapacity = 8192;
 		std::vector<char> mBuffer; 
 		std::size_t mBufferSize {0};
@@ -60,7 +50,7 @@ namespace qffixlib {
 		ReaderBuffer mReadingBuffer;
 
 		std::shared_ptr<ConnectionInterface> mConnectionObserver;
-		SocketInterface* mSocket{nullptr};
+		std::unique_ptr<SocketInterface> mSocket{nullptr};
 		std::shared_ptr<qfapp::Timer> mConnectionRetry;
 		std::shared_ptr<qfapp::EventManager> mEventManager;
 	};

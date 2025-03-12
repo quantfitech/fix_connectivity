@@ -17,13 +17,13 @@
 #include "sending_buffer.hpp"
 #include "token_iterator.hpp"
 #include "lexical_cast.hpp"
+#include "fix_chars.hpp"
 
 namespace qffixlib {
 
     static constexpr const char VALUE_SEPARATOR = '=';
 	static constexpr const char FIELD_SEPARATOR = '\01'; // '|';
     static constexpr const char DOUBLE_PRECISION = 9;
-
 
     template <int Tag, typename Type>
     struct FieldT {

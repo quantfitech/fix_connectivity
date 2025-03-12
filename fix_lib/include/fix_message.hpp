@@ -3,7 +3,8 @@
 
 #include "fix_group.hpp"
 #include "fix_header.hpp"
-//#include "logger.hpp"
+#include "logger.hpp"
+#include <string_view>
 
 
 namespace qffixlib {
@@ -12,15 +13,19 @@ namespace qffixlib {
 
 
     // FIXMessage definition:
-    template <char MsgTypeChar, typename... Fields>
+    template <MsgChars Msg_Type, typename... Fields>
     class FIXMessage : public BaseMessage<Fields...> {
         public:
         FIXMessage() = default;
-        FIXMessage(Header* header): mHeader(header) { 
-            mHeader->set<FIX::Tag::MsgType>(MsgType);
+        FIXMessage(Header* header): mHeader(header) {
+            if (MsgType[1] == '\n') {
+                mHeader->set<FIX::Tag::MsgType>(std::string(MsgType.data(), 1));
+            } else {
+                mHeader->set<FIX::Tag::MsgType>(std::string(MsgType.data(), 2));
+            }
         }
 
-        char MsgType = MsgTypeChar;
+        static constexpr MsgChars MsgType = Msg_Type;
 
         Header* mHeader{nullptr};
 

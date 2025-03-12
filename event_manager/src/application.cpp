@@ -6,26 +6,18 @@
 
 namespace qfapp {
 
-Application::Application(AppOptions app_options, LoggerOptions loggerOptions): mLogger(loggerOptions, app_options.application_name), mAppOptions(app_options) { 
-}
+    Application::Application(AppOptions app_options, LoggerOptions loggerOptions, const spdlog::pattern_time_type time_pattern): 
+        mLogger(loggerOptions, app_options.application_name, time_pattern), mAppOptions(app_options) 
+        { 
+            mEventManager = std::make_shared<EventManager>();
+        }
 
-void Application::start(){
-
-}
-
-void Application::add_timer(std::chrono::milliseconds , TimerCallback ) {
-    //LOG_INFO(" adding timer: duration {}", std::to_string(duration.count()));
-    //mEventManager.addTimer(duration, callback);
-}
-void Application::add_file_descriptor(FileDescriptor* fileDescriptor, RW_FLAG flag) {
-    //LOG_INFO(" adding fd {}", fileDescriptor.get()->getFd());
-    mEventManager.addFileDescriptor(fileDescriptor, flag);
-}
-
-
-void Application::run() {
-
-}
+    void Application::run() {
+        setup();
+        start();
+        LOG_INFO("run application {}", mAppOptions.application_name);
+        mEventManager->run();
+    }
 
 
 }

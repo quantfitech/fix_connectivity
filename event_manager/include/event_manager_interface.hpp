@@ -21,6 +21,7 @@ namespace qfapp {
         virtual void removeFileDescriptor(int, RW_FLAG) = 0;
         virtual void addTimer(std::shared_ptr<Timer>) = 0;
         virtual void removeTimer(std::shared_ptr<Timer>) = 0;
+        virtual void stop() = 0;
     };
 
 }

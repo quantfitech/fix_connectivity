@@ -45,7 +45,7 @@
         using LastShares = FieldT<32, FIX::Qty>;
         using LinesOfText = FieldT<33, int64_t>;
         using MsgSeqNum = FieldT<34, int64_t>;
-        using MsgType = FieldT<35, char>;
+        using MsgType = FieldT<35, std::string>;
         using NewSeqNo = FieldT<36, int64_t>;
         using OrderID = FieldT<37, std::string>;
         using OrderQty = FieldT<38, FIX::Qty>;
@@ -303,7 +303,7 @@
         using UnderlyingSymbol = FieldT<311, std::string>;
         using UnderlyingSymbolSfx = FieldT<312, std::string>;
         using UnderlyingMaturityMonthYear = FieldT<313, std::string>;
-        //using UnderlyingMaturityDay = FieldT<314, FIX::DayOfMonth>;
+        //using UnderlyingMaturityDay = FieldT<314, FIX::MultipleValueString>;
         using UnderlyingPutOrCall = FieldT<315, int64_t>;
         using UnderlyingStrikePrice = FieldT<316, FIX::Price>;
         using UnderlyingOptAttribute = FieldT<317, char>;

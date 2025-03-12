@@ -1,6 +1,5 @@
 if (APPLE)
-    include_directories(/opt/homebrew/opt/tinyxml2/include)
-    include_directories(/opt/homebrew/opt/tinyxml2/lib)
+    include_directories(/opt/homebrew/Cellar)
     include_directories(/opt/homebrew/include)
     find_package(TinyXML2 REQUIRED)
 endif()
@@ -51,6 +50,7 @@ function(fixlib_bench bench_name)
 endfunction()
 
 fixlib_test(message_test)
+fixlib_test(session_test)
 
 add_executable(run_bench_test bench_test.cc)
 # configure_file(${CMAKE_SOURCE_DIR}/tests/data/fix42.log ${CMAKE_CURRENT_BINARY_DIR}/data/fix42.log COPYONLY)
