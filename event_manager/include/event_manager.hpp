@@ -29,7 +29,7 @@ namespace qfapp {
         void addTimer(std::shared_ptr<Timer>) override;
         void removeTimer(std::shared_ptr<Timer>) override;
         void run();
-        void stop();
+        void stop() override;
 
         void addTimer1(std::shared_ptr<Timer>& timer) {
             mTimers.push_back(timer);      

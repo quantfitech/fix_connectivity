@@ -12,9 +12,7 @@ public:
 
     void onConnected() override {}
     void onDisconnected() override {}
-    void onMessage(char, int, const char*, std::size_t) override {}
-
-    bool isConnected() override { return true;}
+    void onMessage(const MsgChars&, int, const char*, std::size_t) override {}
 };
 
 

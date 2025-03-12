@@ -44,51 +44,51 @@ namespace qffixlib
         public:
        
         Session(std::shared_ptr<EventManagerInterface> event_manager)
-        : mEventManagerInterface(event_manager) {}
+        : mEventManagerInterface(event_manager) {
+            beginString(std::string(VersionSelector<V>::VERSION_STR.data(), VersionSelector<V>::VERSION_STR.size()));
+        }
 
-        void setWriter(Writer* writer)
+        void setWriter(std::shared_ptr<Writer> writer)
         {
             mWriter = writer;
         }
 
         void fillHeader(Header& header){
-            header.set<FIX::Tag::BeginString>("FIXT.1.1");
+            header.set<FIX::Tag::BeginString>(beginString());
             header.set<FIX::Tag::BodyLength>("000");
             header.set<FIX::Tag::SenderCompID>(senderCompId());
             header.set<FIX::Tag::TargetCompID>(targetCompId());
         }
 
-        void onDisconnected() override {}
+        void onDisconnected() override {
+            close();
+        }
 
-        virtual void onMessage(char msgType, TokenIterator& fixIter) {}
-
-        bool isConnected() override { return false; }
+        virtual void onMessage(const MsgChars& msgType, TokenIterator& fixIter) {}
 
         void onConnected() override
         {
             LOG_INFO("session senderCompId=({}) connected", senderCompId());
             state(SessionState::connected);
-            // set header
-            mHeader. template set<FIX::Tag::BeginString>("FIXT.1.1");
-            mHeader. template set<FIX::Tag::BodyLength>("000");
-            mHeader. template set<FIX::Tag::SenderCompID>(senderCompId());
-            mHeader. template set<FIX::Tag::TargetCompID>(targetCompId());
-            logon();
+            // set header fields
+            fillHeader(mHeader);
+            sendLogon(false);
         }
 
         void stop(const std::string& reason) {
             sendLogout(reason);
         }
 
-        void close()
-        {
+        void close() {
             state(SessionState::disconnected);
+            stopHeartbeatTimer();
+            mEventManagerInterface->stop();
         }
 
-        void onMessage(char msgType, int msgSeqNo, const char* data, std::size_t length) override{
+        void onMessage(const MsgChars& msgType, int msgSeqNo, const char* data, std::size_t length) override {
 
             TokenIterator fixIter(data, length);
-            LOG_DEBUG("recv msg {}", msgType);
+            LOG_DEBUG("recv msg {}", msgType.data(), 2);
 
             onMessageRead(msgType, msgSeqNo, false, fixIter);
             onMessage(msgType, fixIter);
@@ -120,6 +120,7 @@ namespace qffixlib
 
         void stopHeartbeatTimer()
         {
+            LOG_INFO("stop timers");
             mEventManagerInterface->removeTimer(mOutgoingMsgTimer);
             mOutgoingMsgTimer = nullptr; 
             mEventManagerInterface->removeTimer(mIncommingMsgTimer);
@@ -131,12 +132,18 @@ namespace qffixlib
             if (state() != SessionState::logged_on) {
                 return;
             }
+            LOG_INFO("heartbeat");
 
-            v50sp2::Message::Heartbeat heartbeat(&mHeader);
+            Heartbeat heartbeat(&mHeader);
             send(heartbeat);
         }
 
-        void onMessageRead(char msgType, int msgSeqNum, bool possDupFlag, TokenIterator& fixIter) {
+        void removeResendTImer() {
+            mEventManagerInterface->removeTimer(mResendTimer);
+            mResendTimer.reset();
+        }
+
+        void onMessageRead(const MsgChars& msgType, int msgSeqNum, bool possDupFlag, TokenIterator& fixIter) {
             if (!validateFirstMessage(msgType)) {
                 return;
             }
@@ -144,14 +151,14 @@ namespace qffixlib
             if (msgType == FIX::MsgType::SequenceReset) {
                 Header header;
                 
-                v50sp2::Message::SequenceReset sequenceReset(&header);
+                SequenceReset sequenceReset(&header);
                 sequenceReset.deserialize(fixIter);
                 processSequenceReset(sequenceReset);
                 return;
             }
 
             if (possDupFlag) {
-                LOG_WARN("Ignoring PossDup Admin message with MsgType={}", msgType);
+                LOG_WARN("Ignoring PossDup Admin message with MsgType={}", msgType.data(), 2);
                 return;
             }
 
@@ -169,74 +176,65 @@ namespace qffixlib
                 }
             }
 
-            incomingMsgSeqNum(msgSeqNum + 1);
-
-            switch(msgType)
-            {
-                case FIX::MsgType::Logout:
-                {
-                    Header header;
-                    Logout logout(&header);
-                    logout.deserialize(fixIter);
-                    auto logout_text = logout. template get<FIX::Tag::Text>();
-                    processLogout(logout. template get<FIX::Tag::Text>());
-                    break;
-                }
-                case FIX::MsgType::Heartbeat:
-                {
-                    Header header;
-                    Heartbeat heartbeat(&header);
-                    heartbeat.deserialize(fixIter);
-                    std::optional<std::string> testReqId;
-                    if (heartbeat. template isSet<FIX::Tag::TestReqID>()) {
-                        testReqId = heartbeat. template get<FIX::Tag::TestReqID>();
-                    }
-                    processHeartbeat(testReqId);
-                    break;
-                }
-                case FIX::MsgType::TestRequest:
-                {
-                    Header header;
-                    TestRequest testRequest(&header);
-                    testRequest.deserialize(fixIter);
-                    std::optional<std::string> testReqId;
-                    if (testRequest. template isSet<FIX::Tag::TestReqID>()) {
-                        testReqId = testRequest. template get<FIX::Tag::TestReqID>();
-                    }
-                    processTestRequest(testReqId);
-                    break;
-                }
-                case FIX::MsgType::ResendRequest:
-                {
-                    Header header;
-                    ResendRequest resendRequest(&header);
-                    resendRequest.deserialize(fixIter);
-                    if (!(resendRequest. template isSet<FIX::Tag::BeginSeqNo>() && resendRequest. template isSet<FIX::Tag::BeginSeqNo>())) {
-                        LOG_ERROR("invalid resend reqest");
-                        stop("invalid resend reqest ");
-                        return;
-                    }
-                    auto beginSeqNo = resendRequest. template get<FIX::Tag::BeginSeqNo>();
-                    auto endSeqNo = resendRequest. template get<FIX::Tag::EndSeqNo>();
-                    processResendRequest(beginSeqNo, endSeqNo);
-                    break;
-                }
-                case FIX::MsgType::Reject:
-                {
-                    Header header;
-                    Reject reject(&header);
-                    reject.deserialize(fixIter);
-                    LOG_ERROR("rejected recv: refTag {} reason{} text {}", reject. template get<FIX::Tag::RefTagID>(),
-                                                          reject. template get<FIX::Tag::SessionRejectReason>(),
-                                                          reject. template get<FIX::Tag::Text>());
-                    //stop("reject recv");
-                    break;
-                }
-                default:
-                    break;
+            if (state() == SessionState::resending && mIncomingTargetMsgSeqNum == msgSeqNum) {
+                LOG_INFO("Resend complete");
+                state(SessionState::logged_on);
+                removeResendTImer();
             }
 
-            mIncommingMsgTimer->reset( );
+            incomingMsgSeqNum(msgSeqNum + 1);
+
+            if (msgType == FIX::MsgType::Logout) {
+                Header header;
+                Logout logout(&header);
+                logout.deserialize(fixIter);
+                auto logout_text = logout. template get<FIX::Tag::Text>();
+                processLogout(logout. template get<FIX::Tag::Text>());
+            }
+            else if (msgType == FIX::MsgType::Heartbeat) {
+                Header header;
+                Heartbeat heartbeat(&header);
+                heartbeat.deserialize(fixIter);
+                std::optional<std::string> testReqId;
+                if (heartbeat. template isSet<FIX::Tag::TestReqID>()) {
+                    testReqId = heartbeat. template get<FIX::Tag::TestReqID>();
+                }
+                processHeartbeat(testReqId);
+            }
+            else if (msgType == FIX::MsgType::TestRequest) {
+                Header header;
+                TestRequest testRequest(&header);
+                testRequest.deserialize(fixIter);
+                std::optional<std::string> testReqId;
+                if (testRequest. template isSet<FIX::Tag::TestReqID>()) {
+                    testReqId = testRequest. template get<FIX::Tag::TestReqID>();
+                }
+                processTestRequest(testReqId);
+            }
+            else if (msgType == FIX::MsgType::ResendRequest) {
+                Header header;
+                ResendRequest resendRequest(&header);
+                resendRequest.deserialize(fixIter);
+                if (!(resendRequest. template isSet<FIX::Tag::BeginSeqNo>() && resendRequest. template isSet<FIX::Tag::BeginSeqNo>())) {
+                    LOG_ERROR("invalid resend reqest");
+                    stop("invalid resend reqest ");
+                    return;
+                }
+                auto beginSeqNo = resendRequest. template get<FIX::Tag::BeginSeqNo>();
+                auto endSeqNo = resendRequest. template get<FIX::Tag::EndSeqNo>();
+                processResendRequest(beginSeqNo, endSeqNo);
+            }
+            else if (msgType == FIX::MsgType::Reject) {
+                Header header;
+                Reject reject(&header);
+                reject.deserialize(fixIter);
+                LOG_ERROR("rejected recv: refTag {} reason{} text {}", reject. template get<FIX::Tag::RefTagID>(),
+                                                        reject. template get<FIX::Tag::SessionRejectReason>(),
+                                                        reject. template get<FIX::Tag::Text>());
+                stop("rejected message detected");
+            }
+
+            mIncommingMsgTimer->reset();
         }
 
         bool validateSequenceNumbers(int msgSeqNum)
@@ -254,9 +252,6 @@ namespace qffixlib
 
         bool sequenceNumberIsHigh(int64_t msgSeqNum)
         {
-            if (mState == SessionState::resending) {
-                LOG_WARN("request resend needed while previous is pending")
-            }
             if (msgSeqNum > incomingMsgSeqNum()) {
                 requestResend(msgSeqNum);
                 return true;
@@ -270,17 +265,29 @@ namespace qffixlib
             if (msgSeqNum < incomingMsgSeqNum()) {
                 const std::string text = "MsgSeqNum too low, expecting " + std::to_string(incomingMsgSeqNum()) + " but received " + std::to_string(msgSeqNum);
                 LOG_ERROR(text);
-                sendLogout(text);
+                stop(text);
                 return true;
             }
 
             return false;
         }
 
+        void resendingTimerOut() {
+            LOG_ERROR("could not recover using resend request, loging out!");
+            stop("could not recover from gap");
+        }
+
         void requestResend(uint32_t received_msg_seq_num)
         {
             LOG_INFO("Recoverable message sequence error, expected " + std::to_string(incomingMsgSeqNum()) + 
                         " received " + std::to_string(received_msg_seq_num) + " - initiating recovery");
+
+            if (mState == SessionState::resending) {
+                LOG_WARN("request resend needed while previous is pending");
+            } else {
+                mResendTimer = std::make_shared<Timer>([this]() { this->resendingTimerOut(); }, std::chrono::seconds(10), "resend_timer");
+                mEventManagerInterface->addTimer(mResendTimer);
+            }
 
             state(SessionState::resending);
 
@@ -290,15 +297,15 @@ namespace qffixlib
             LOG_INFO("Requesting resend, BeginSeqNo " + std::to_string(incomingMsgSeqNum()) + 
                         " EndSeqNo " + std::to_string(received_msg_seq_num));
 
-            v50sp2::Message::ResendRequest resendRequest(&mHeader);
+            ResendRequest resendRequest(&mHeader);
 
-            resendRequest.set<FIX::Tag::BeginSeqNo>(incomingMsgSeqNum());
-            resendRequest.set<FIX::Tag::EndSeqNo>(received_msg_seq_num);
+            resendRequest. template set<FIX::Tag::BeginSeqNo>(incomingMsgSeqNum());
+            resendRequest. template set<FIX::Tag::EndSeqNo>(received_msg_seq_num);
 
             send(resendRequest);
         }
 
-        bool validateFirstMessage(char msgType)
+        bool validateFirstMessage(const MsgChars& msgType)
         {
             if (mLogonReceived) {
                 return true;
@@ -309,28 +316,21 @@ namespace qffixlib
             } 
 
             if (msgType == FIX::MsgType::Reject ||
-                msgType == FIX::MsgType::Logout)
-            {
+                msgType == FIX::MsgType::Logout) {
                 return true;
             }
 
             const std::string text = "First message is not a Logon";
             LOG_ERROR(text);
-            sendLogout(text);
+            stop(text);
             
             return false;
-        }
-
-        void logon()
-        {
-            sendLogon(false);
         }
 
         void sendLogon(bool reset_seq_num_flag)
         {
             auto sending_time = timestamp_string(qffixlib::timestamp_format::milliseconds);
 
-            //v50sp2::Message::Logon msg(&mHeader);
             Logon msg(&mHeader);
             msg.mHeader-> template set<FIX::Tag::SendingTime>(sending_time);
 
@@ -350,7 +350,7 @@ namespace qffixlib
             state(SessionState::logging_on);
 
         }
-        template<char MsgType, typename... Args>
+        template<MsgChars MsgType, typename... Args>
         bool processLogon(FIXMessage<MsgType, Args...>& logon)
         {
             LOG_INFO("process logon");
@@ -366,7 +366,7 @@ namespace qffixlib
                 if (!logon. template isSet<FIX::Tag::NextExpectedMsgSeqNum>()) {
                     const std::string text = "Logon does not contain NextExpectedMsgSeqNum";
                     LOG_ERROR(text);
-                    sendLogout(text);
+                    stop(text);
                     return false;
                 }
 
@@ -375,7 +375,7 @@ namespace qffixlib
                 if (next_expected > outgoingMsgSeqNum()) {
                     const std::string text = "NextExpectedMsgSeqNum too high, expecting " + std::to_string(outgoingMsgSeqNum()) + " but received " + std::to_string(next_expected);
                     LOG_ERROR(text);
-                    sendLogout(text);
+                    stop(text);
                     return false;
                 }
 
@@ -425,9 +425,9 @@ namespace qffixlib
         }
 
 
-        void processLogout(const std::string& /*logout*/)
+        void processLogout(const std::string& text)
         {
-            LOG_INFO("Closing session in response to Logout");
+            LOG_INFO("Closing session in response to Logout {}", text);
             close();
         }
 
@@ -441,19 +441,11 @@ namespace qffixlib
 
         void sendLogout(const std::string& text)
         {
-            v50sp2::Message::Logout logout(&mHeader);
-            logout.set<FIX::Tag::Text>(text);
+            LOG_INFO("logging out with text {}", text);
+            Logout logout(&mHeader);
+            logout. template set<FIX::Tag::Text>(text);
 
             send(logout);
-
-            if (state() == SessionState::logged_on) {
-                stopHeartbeatTimer();
-            }
-        }
-
-        void stop_test_request_timer()
-        {
-
         }
 
         void sendPostLogonTestRequest()
@@ -473,8 +465,8 @@ namespace qffixlib
         {
             mExpectedTestRequestId = allocateTestRequestId();
 
-            v50sp2::Message::TestRequest testRequest(&mHeader);
-            testRequest.set<FIX::Tag::TestReqID>( std::to_string(*mExpectedTestRequestId) );
+            TestRequest testRequest(&mHeader);
+            testRequest. template set<FIX::Tag::TestReqID>(std::to_string(*mExpectedTestRequestId) );
 
             send(testRequest);
         }
@@ -499,8 +491,8 @@ namespace qffixlib
                 LOG_INFO("handle test request {}", *testReqId);
             }
 
-            v50sp2::Message::Heartbeat heartbeat(&mHeader);
-            heartbeat.set<FIX::Tag::TestReqID>(*testReqId);
+            Heartbeat heartbeat(&mHeader);
+            heartbeat. template set<FIX::Tag::TestReqID>(*testReqId);
 
 
             send(heartbeat);
@@ -509,13 +501,11 @@ namespace qffixlib
         void processHeartbeat(std::optional<std::string> testRequestId) {
             if (state() != SessionState::logging_on && 
                 state() != SessionState::resetting && 
-                state() != SessionState::resending) 
-            {
+                state() != SessionState::resending) {
                 return;
             }
 
-            if (testRequestId) 
-            {
+            if (testRequestId) {
                 if (!mExpectedTestRequestId) {
                     LOG_WARN("Received a Heartbeat with an unexpected TestReqID");
                     return;
@@ -529,7 +519,7 @@ namespace qffixlib
             }
         }
 
-        template<char MsgType, typename... Args>
+        template<MsgChars MsgType, typename... Args>
         void processSequenceReset(const FIXMessage<MsgType, Args...>& sequenceReset)
         {
             if (!sequenceReset. template isSet<FIX::Tag::NewSeqNo>()) {
@@ -547,7 +537,6 @@ namespace qffixlib
             }
 
             const bool GapFill = sequenceReset. template get<FIX::Tag::GapFillFlag>();
-
 
             if (NewSeqNo <= incomingMsgSeqNum()) {
                 const std::string text = "NewSeqNo is not greater than expected MsgSeqNum = " + std::to_string(incomingMsgSeqNum());
@@ -581,16 +570,14 @@ namespace qffixlib
 
             if (state() == SessionState::resending && mIncomingResentMsgSeqNum >= mIncomingTargetMsgSeqNum) {
                 LOG_INFO("Resend complete");
+                state(SessionState::logged_on);
+                removeResendTImer();
                 sendTestRequest();
             }
         }
 
-
-
         void processResendRequest(int beginSeqNo, int endSeqNo)
         {
-            stop_test_request_timer();
-
             LOG_INFO("Performing resend from BeginSeqNo=({}) to EndSeqNo=({})", beginSeqNo, endSeqNo);
 
             perform_resend(beginSeqNo, endSeqNo);
@@ -600,11 +587,11 @@ namespace qffixlib
 
         void sendGapFill(uint32_t msg_seq_num, uint32_t new_seq_no)
         {   
-            v50sp2::Message::SequenceReset sequenceReset(&mHeader);
-            sequenceReset.mHeader->set<FIX::Tag::MsgSeqNum>(msg_seq_num);
-            sequenceReset.set<FIX::Tag::GapFillFlag>(true);
-            sequenceReset.set<FIX::Tag::PossDupFlag>(true);
-            sequenceReset.set<FIX::Tag::NewSeqNo>(new_seq_no);
+            SequenceReset sequenceReset(&mHeader);
+            sequenceReset.mHeader-> template set<FIX::Tag::MsgSeqNum>(msg_seq_num);
+            sequenceReset. template set<FIX::Tag::GapFillFlag>(true);
+            sequenceReset. template set<FIX::Tag::PossDupFlag>(true);
+            sequenceReset. template set<FIX::Tag::NewSeqNo>(new_seq_no);
 
             send(sequenceReset, encode_options::standard & ~encode_options::set_msg_seq_num);
         }
@@ -765,7 +752,7 @@ namespace qffixlib
             mOptions.use_next_expected_msg_seq_num(value);
         }
 
-        template<char MsgType, typename... Args>
+        template<MsgChars MsgType, typename... Args>
         void send(FIXMessage<MsgType, Args...>& message, int options = encode_options::standard) {
             if (message.MsgType == FIX::MsgType::Logon && message.mHeader-> template get<FIX::Tag::ResetSeqNumFlag>()) {
                 state(SessionState::resetting);
@@ -798,10 +785,10 @@ namespace qffixlib
         Header mHeader;
 
         session_options mOptions;
-        SessionState mState = SessionState::disconnected;
-        bool mLogonReceived = false;
+        SessionState mState {SessionState::disconnected};
+        bool mLogonReceived {false};
 
-        std::optional<uint32_t> mExpectedTestRequestId;
+        std::optional<uint32_t> mExpectedTestRequestId {};
         uint32_t mNextTestRequestId {0};
         
         // TODO - these two need to go into a struct for persistence
@@ -811,11 +798,13 @@ namespace qffixlib
         uint32_t mIncomingResentMsgSeqNum {0};
         uint32_t mIncomingTargetMsgSeqNum {0};
 
-        std::shared_ptr<RecurringTimer> mIncommingMsgTimer;
-        std::shared_ptr<RecurringTimer> mOutgoingMsgTimer;
+        std::shared_ptr<Timer> mResendTimer {nullptr};
 
-        Writer* mWriter = nullptr;
-        std::shared_ptr<EventManagerInterface> mEventManagerInterface;
+        std::shared_ptr<RecurringTimer> mIncommingMsgTimer {nullptr};
+        std::shared_ptr<RecurringTimer> mOutgoingMsgTimer {nullptr};
+
+        std::shared_ptr<Writer> mWriter {nullptr};
+        std::shared_ptr<EventManagerInterface> mEventManagerInterface {nullptr};
     };
 }
 

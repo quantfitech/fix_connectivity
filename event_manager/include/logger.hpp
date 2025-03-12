@@ -11,20 +11,18 @@ namespace qfapp {
 
     class Logger {
     public:
-    Logger() = default;
-    ~Logger() = default;
-    Logger(const Logger &) = delete;
-    Logger(Logger &&) = delete;
-    Logger &operator=(const Logger &) = delete;
-    Logger &operator=(Logger &&) = delete;
+        Logger(const Logger &) = delete;
+        Logger(Logger &&) = delete;
+        Logger &operator=(const Logger &) = delete;
+        Logger &operator=(Logger &&) = delete;
 
-    explicit Logger(const LoggerOptions &options, const std::string &app_name);
-    void Init(const LoggerOptions &options, const std::string &app_name);
+        explicit Logger(const LoggerOptions &options, const std::string &app_name, const spdlog::pattern_time_type);
+        void Init(const LoggerOptions &options, const std::string &app_name, const spdlog::pattern_time_type);
 
     private:
-     LoggerOptions m_options;
-    std::vector<spdlog::sink_ptr> m_sinks;
-    std::shared_ptr<spdlog::logger> m_combined_logger;
+        LoggerOptions m_options;
+        std::vector<spdlog::sink_ptr> m_sinks;
+        std::shared_ptr<spdlog::logger> m_combined_logger;
     };
 
 }   // namespace quantfiapp

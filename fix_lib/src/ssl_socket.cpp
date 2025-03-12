@@ -94,7 +94,14 @@ namespace qffixlib {
             ERR_print_errors_fp(stderr);
             throw std::runtime_error("failed to send");
         } else if (nrBytesSent == static_cast<int>(length)) {
-            LOG_INFO("Message sent: {}", std::string(data, length));
+            spdlog::level::level_enum current_level = spdlog::default_logger()->level();
+		    if (current_level == spdlog::level::debug) {
+			    std::string msgStr(data, length);
+			    std::replace(msgStr.begin(), msgStr.end(), '\x01', '|');
+			    LOG_DEBUG("Message sent: {}", msgStr);
+		    } else {
+                LOG_INFO("Message sent: {}", std::string(data, length));
+            }
         }
         return nrBytesSent;
 	}

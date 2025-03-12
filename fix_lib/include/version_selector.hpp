@@ -8,7 +8,7 @@ namespace qffixlib {
 
     enum class Version {
         v50sp2,
-        V44
+        v44
     };
 
     // VersionSelector picks the correct version based on the template argument
@@ -24,13 +24,14 @@ namespace qffixlib {
         using ResendRequest = v50sp2::Message::ResendRequest;
         using SequenceReset = v50sp2::Message::SequenceReset;
         using Heartbeat = v50sp2::Message::Heartbeat;
-        
+       static constexpr std::string_view VERSION_STR = "FIXT.1.1";
     };
 
     template <>
-    struct VersionSelector<Version::V44> {
+    struct VersionSelector<Version::v44> {
         //using Logon = v50sp2::Message::Logon;
         //using Logout = v50sp2::Message::Logout;
+        static constexpr std::string_view VERSION_STR = "FIX.4.4.";
     };
 }
 

@@ -8,7 +8,6 @@
 namespace qfapp {
 
     #ifdef __APPLE__
-    // macOS (kqueue implementation)
     EventManager::EventManager() : isRunning(false) {
         kqueueFd = kqueue();
         if (kqueueFd == -1) {
@@ -24,8 +23,6 @@ namespace qfapp {
 
     void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG rw) {
         struct kevent event;
-        //EV_SET(&event, fd->getFd(), EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, fd.get());
-        //EV_SET(&event, fd->getFd(), EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, fd.get());
         int flag = (rw == RW_FLAG::FL_READ) ? EVFILT_READ : EVFILT_WRITE;
         EV_SET(&event, fd->getFd(), flag, EV_ADD | EV_ENABLE, 0, 0, fd);
 
@@ -45,7 +42,6 @@ namespace qfapp {
         EV_SET(&event, fd, flag, EV_ADD | EV_ENABLE, 0, 0, nullptr);
 
         if (kevent(kqueueFd, &event, 1, nullptr, 0, nullptr) == -1) {
-            perror("kevent");
             LOG_ERROR("kevent add fd={} failed", fd);
             throw std::runtime_error("Failed to add file descriptor to kqueue");
         }
@@ -54,7 +50,6 @@ namespace qfapp {
         EV_SET(&event, fd, flag, EV_ADD | EV_ENABLE, 0, 0,  fdMap[fd]);
 
         if (kevent(kqueueFd, &event, 1, nullptr, 0, nullptr) == -1) {
-            perror("kevent");
             LOG_ERROR("kevent add fd={} failed", fd);
             throw std::runtime_error("Failed to add file descriptor to kqueue");
         }
@@ -62,7 +57,6 @@ namespace qfapp {
 
     void EventManager::removeFileDescriptor(int fd, RW_FLAG rw) {
         struct kevent event;
-        //EV_SET(&event, fd, EVFILT_READ, EV_DELETE, 0, 0, nullptr);
         int flag = (rw == RW_FLAG::FL_READ) ? EVFILT_READ : EVFILT_WRITE ;
         EV_SET(&event, fd, flag, EV_DELETE, 0, 0, nullptr);
 
@@ -92,19 +86,17 @@ namespace qfapp {
 
 
     void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG) {
-        std::cout << "addFileDes " << fd->getFd() << std::endl;
+        LOG_DEBUG( "addFileDes {}", fd->getFd());
         struct epoll_event event;
         event.data.ptr = fd;
         event.events = EPOLLIN | EPOLLOUT | EPOLLERR | EPOLLET;
-
-        std::cout << "bef added fd=" << " event " << event.data.fd << std::endl; 
 
         if (epoll_ctl(epollFd, EPOLL_CTL_ADD, fd->getFd(), &event) == -1) {
             perror("epoll_ctl");
             throw std::runtime_error("Failed to add file descriptor to epoll");
         }
         
-        std::cout << "added fd=" << fd->getFd() << " event " << event.data.fd << std::endl; 
+        LOG_DEBUG("added fd={} events={}", fd->getFd(), event.events); 
         fdMap[fd->getFd()] = fd;
     }
 
@@ -163,29 +155,13 @@ namespace qfapp {
             {
                 for (int i = 0; i < numEvents; ++i) {
                     auto* fd = static_cast<FileDescriptor*>(events[i].udata);
-                    //LOG_DEBUG("onEvent {} ident {}", events[i].flags, events[i].ident);
+                    
                     if(events[i].filter == EVFILT_WRITE ) {
                         if (!fd->isConnected()) {
-                            int ssl_res = fd->onWrite();                                                           
-                            if (ssl_res == 1) {
-                                LOG_DEBUG("SSL handshake done!");
-
-                                //struct kevent event;
-                                // Remove the write event:
-                                //EV_SET(&event, fd->getFd(), EVFILT_WRITE, EV_DELETE, 0, 0, fdMap[fd->getFd()].get());
-                                //if (kevent(kqueueFd, &event, 1, nullptr, 0, nullptr) == -1) {
-                                //    perror("kevent");
-                                //    LOG_ERROR("kevent add fd={} failed", fd->getFd());
-                                //    throw std::runtime_error("Failed to add file descriptor to kqueue");
-                                //}
+                            int connect_result = fd->onWrite();                                                           
+                            if (connect_result == 1) {
+                                LOG_INFO("nonblocking connect succseeded!");
                                 removeFileDescriptor(fd->getFd(), RW_FLAG::FL_WRITE);
-                                // Read the event: 
-                                //EV_SET(&event, fd->getFd(), EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, fdMap[fd->getFd()].get());
-                                //if (kevent(kqueueFd, &event, 1, nullptr, 0, nullptr) == -1) {
-                                //    perror("kevent");
-                                //    LOG_ERROR("kevent add fd={} failed", fd->getFd());
-                                //    throw std::runtime_error("Failed to add file descriptor to kqueue");
-                                //}
                                 addFileDescriptor(fd, RW_FLAG::FL_READ);
                                 fd->onConnected();
                             }

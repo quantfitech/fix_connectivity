@@ -5,7 +5,6 @@
 
 namespace qffixlib
 {
-
     enum class SessionState
     {
         disconnected,

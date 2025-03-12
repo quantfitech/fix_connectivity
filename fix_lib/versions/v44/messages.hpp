@@ -7,7 +7,7 @@
 
 namespace qffixlib
 {
-	namespace v50sp2
+	namespace v44
 	{
 		namespace Message
 		{

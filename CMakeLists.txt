@@ -36,4 +36,4 @@ add_subdirectory(coinbase_market_data)
 #enable_testing()
 add_subdirectory(tests)
 
-add_subdirectory(redis)
+#add_subdirectory(redis)

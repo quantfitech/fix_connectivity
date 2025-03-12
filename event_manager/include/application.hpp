@@ -12,7 +12,7 @@ namespace qfapp {
 
     class Application {
     public:
-        Application(AppOptions options, LoggerOptions loggerOptions);
+        Application(AppOptions options, LoggerOptions loggerOptions, const spdlog::pattern_time_type);
 
         Application(const Application &) = delete;
         Application(Application &&) = delete;
@@ -20,18 +20,16 @@ namespace qfapp {
         Application &operator=(Application &&) = delete;
         virtual ~Application() = default;
 
-        void add_timer(std::chrono::milliseconds, TimerCallback);
-        void add_file_descriptor(FileDescriptor*, RW_FLAG); 
-
-        void start();
+        virtual void setup() {}
+        virtual void start() {}
         virtual void run();
 
 
-    private:
+    protected:
 
         Logger mLogger;
         AppOptions mAppOptions;
-        EventManager mEventManager;
+        std::shared_ptr<EventManager> mEventManager;
     };
 
 }

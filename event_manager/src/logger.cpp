@@ -5,12 +5,12 @@
 
 using namespace qfapp;
 
-Logger::Logger(const LoggerOptions &options, const std::string &app_name)
+Logger::Logger(const LoggerOptions &options, const std::string &app_name, const spdlog::pattern_time_type time_type)
 {
-  Init(options, app_name);
+  Init(options, app_name, time_type);
 }
 
-void Logger::Init(const LoggerOptions &options, const std::string &app_name)
+void Logger::Init(const LoggerOptions &options, const std::string &app_name, const spdlog::pattern_time_type time_type)
 {
   if (options.rotating_logger) {
     auto error_logger{std::make_shared<spdlog::sinks::daily_file_sink_mt>(options.error_log_filename, 0, 0)};
