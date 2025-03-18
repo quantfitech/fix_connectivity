@@ -98,18 +98,6 @@ namespace qfapp {
         }
     }
 
-
-    void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG flag) {
-        LOG_DEBUG("addFileDes fd={}", fd->getFd());
-        struct epoll_event event;
-        event.data.ptr = fd;
-        if (flag == RW_FLAG::FL_WRITE) {
-            event.events = EPOLLOUT;
-        } else if (flag == RW_FLAG::FL_READ) {
-             event.events = EPOLLIN;
-        }
-    }
-
     void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG flag) {
         LOG_DEBUG("addFileDes fd={}", fd->getFd());
         struct epoll_event event;
@@ -238,10 +226,10 @@ namespace qfapp {
             }
             
             for (int i = 0; i < numEvents; ++i) {
-                LOG_DEBUG("handling {} fd={}", events[i].events, events[i].data.fd);
+                LOG_DEBUG("handling fd={}", events[i].data.fd);
                 
                 auto* handler = static_cast<FileDescriptor*>(events[i].data.ptr);
-                LOG_DEBUG("handler data fd={} events={}", handler->getFd(), events[i].events);
+                //LOG_DEBUG("handler data fd={} events={}", handler->getFd(), events[i].events);
 
                 if (events[i].events & EPOLLERR) {
                     handler->onError();
@@ -258,8 +246,8 @@ namespace qfapp {
                     //handler->onData();
                 } else if (events[i].events & EPOLLOUT) {
                     if (!handler->isConnected()) {
-                        int ssl_res = handler->onWrite(); 
-                        if (ssl_res == 1) {
+                        int connect_result = handler->onWrite(); 
+                        if (connect_result == 1) {
                             LOG_DEBUG("SSL handshake done!");
                             removeFileDescriptor(handler->getFd(), RW_FLAG::FL_WRITE);
                             addFileDescriptor(handler, RW_FLAG::FL_READ);
