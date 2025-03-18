@@ -2,6 +2,7 @@
 #define FIX_CHARS_HPP
 
 #include <string>
+#include <array>
     
 namespace qffixlib {
 
