@@ -53,6 +53,8 @@ namespace qffixlib {
             return !(*this == other);
         }
 
+        std::string getString() { return std::string(mData, mLength); }
+
     private:
         const char* mData{nullptr};
         size_t mLength{0};

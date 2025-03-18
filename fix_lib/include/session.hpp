@@ -14,6 +14,10 @@
 #include "version_selector.hpp"
 #include "logger.hpp"
 #include "base64_hmac.h"
+#include "fix_values.hpp"
+#include <map>
+#include <set>
+
 
 namespace qffixlib
 {
@@ -30,6 +34,8 @@ namespace qffixlib
         constexpr int standard_no_sending = set_checksum | set_body_length | set_begin_string | set_msg_seq_num;
     }
 
+    constexpr std::array<char,8> SessionMessages = {'0', '1', '2', '3', '4', '5', 'A', '\x01'};
+
     template<Version V>
     class Session : public ConnectionInterface
     {
@@ -41,6 +47,8 @@ namespace qffixlib
         using ResendRequest = typename VersionSelector<V>::ResendRequest;
         using TestRequest = typename VersionSelector<V>::TestRequest;
 
+        //using Header = typename VersionSelector<V>::Header
+
         public:
        
         Session(std::shared_ptr<EventManagerInterface> event_manager)
@@ -51,6 +59,34 @@ namespace qffixlib
         void setWriter(std::shared_ptr<Writer> writer)
         {
             mWriter = writer;
+        }
+
+        bool isSessionMessage(const MsgChars& msgType) {
+            auto it = std::find(SessionMessages.begin(), SessionMessages.end(), msgType[0]);
+            return it != SessionMessages.end();
+        }
+
+        void flushBufferedMessages() {
+             for (auto it = mQueuedMessages.begin(); it != mQueuedMessages.end();) {
+                TokenIterator iter(it->second.data(), it->second.length());
+                while(iter->tag != 35) {
+                    ++iter;
+                }
+                MsgChars msgType;
+                if (iter->length == 1) {
+                    msgType[0] = *(iter->data);
+                    msgType[1] = '\n';
+                } else if (iter->length == 2) {
+                    msgType[0] = *(iter->data);
+                    msgType[1] = *(iter->data+1);
+                } else {
+                    throw std::runtime_error("unexpected messagetype, length {}" + std::to_string(iter->length));
+                }
+                if (!isSessionMessage(msgType)) {
+                   onMessage(msgType, iter);
+                }
+                it = mQueuedMessages.erase(it);
+            }
         }
 
         void fillHeader(Header& header){
@@ -153,7 +189,7 @@ namespace qffixlib
                 
                 SequenceReset sequenceReset(&header);
                 sequenceReset.deserialize(fixIter);
-                processSequenceReset(sequenceReset);
+                processSequenceReset(sequenceReset, fixIter);
                 return;
             }
 
@@ -171,15 +207,20 @@ namespace qffixlib
                 }
             }
             else {
-                if (!validateSequenceNumbers(msgSeqNum)) {
+                if (!validateSequenceNumbers(msgSeqNum, fixIter)) {
                     return;
                 }
             }
 
-            if (state() == SessionState::resending && mIncomingTargetMsgSeqNum == msgSeqNum) {
-                LOG_INFO("Resend complete");
-                state(SessionState::logged_on);
-                removeResendTImer();
+            if (state() == SessionState::resending) {
+                mQueuedMessages.emplace(std::make_pair(msgSeqNum, fixIter.getString()));
+                mMissingSequences.erase(msgSeqNum);
+                if (mMissingSequences.empty()) {
+                    LOG_INFO("Resend complete");
+                    flushBufferedMessages();                    
+                    state(SessionState::logged_on);
+                    removeResendTImer();
+                }
             }
 
             incomingMsgSeqNum(msgSeqNum + 1);
@@ -237,9 +278,10 @@ namespace qffixlib
             mIncommingMsgTimer->reset();
         }
 
-        bool validateSequenceNumbers(int msgSeqNum)
+        bool validateSequenceNumbers(int msgSeqNum, TokenIterator& fixIter)
         {
             if (sequenceNumberIsHigh(msgSeqNum)) {
+                mQueuedMessages.emplace(std::make_pair(msgSeqNum, fixIter.getString()));
                 return false;
             }
 
@@ -288,19 +330,23 @@ namespace qffixlib
                 mResendTimer = std::make_shared<Timer>([this]() { this->resendingTimerOut(); }, std::chrono::seconds(10), "resend_timer");
                 mEventManagerInterface->addTimer(mResendTimer);
             }
+            // collect missing sequence number
+            for(auto seq = incomingMsgSeqNum(); seq < received_msg_seq_num; ++seq) {
+                mMissingSequences.insert(seq);
+            }
 
             state(SessionState::resending);
 
             mIncomingResentMsgSeqNum = incomingMsgSeqNum();
-            mIncomingTargetMsgSeqNum = received_msg_seq_num;
+            mIncomingTargetMsgSeqNum = received_msg_seq_num - 1;
 
             LOG_INFO("Requesting resend, BeginSeqNo " + std::to_string(incomingMsgSeqNum()) + 
                         " EndSeqNo " + std::to_string(received_msg_seq_num));
 
             ResendRequest resendRequest(&mHeader);
 
-            resendRequest. template set<FIX::Tag::BeginSeqNo>(incomingMsgSeqNum());
-            resendRequest. template set<FIX::Tag::EndSeqNo>(received_msg_seq_num);
+            resendRequest. template set<FIX::Tag::BeginSeqNo>(mIncomingResentMsgSeqNum);
+            resendRequest. template set<FIX::Tag::EndSeqNo>(mIncomingTargetMsgSeqNum);
 
             send(resendRequest);
         }
@@ -338,14 +384,13 @@ namespace qffixlib
                 msg.mHeader-> template set<FIX::Tag::ResetSeqNumFlag>(reset_seq_num_flag);
             }
 
-            msg. template set<FIX::Tag::EncryptMethod>('0');
+            msg. template set<FIX::Tag::EncryptMethod>(Values::EncryptMethod::None);
             msg. template set<FIX::Tag::HeartBtInt>(heartbeatInterval());
             msg. template set<FIX::Tag::ResetSeqNumFlag>(true);
             msg. template set<FIX::Tag::Username>(username());
             msg. template set<FIX::Tag::Password>(password());
-            std::string text = sending_time + username() + targetCompId() + password();
-            msg. template set<FIX::Tag::Text>(hmac_sha256_base64(secretKey(), text));
-            msg. template set<FIX::Tag::DefaultApplVerID>('9');
+            msg. template set<FIX::Tag::Text>(hmac_sha256_base64(password(), secretKey(), std::format("{}{}{}{}", sending_time , username() , targetCompId(), password())));
+            msg. template set<FIX::Tag::DefaultApplVerID>(Values::DefaultApplVerID::FIX50SP2);
 
             send(msg, encode_options::standard_no_sending);
             state(SessionState::logging_on);
@@ -521,7 +566,7 @@ namespace qffixlib
         }
 
         template<MsgChars MsgType, typename... Args>
-        void processSequenceReset(const FIXMessage<MsgType, Args...>& sequenceReset)
+        void processSequenceReset(const FIXMessage<MsgType, Args...>& sequenceReset, TokenIterator& fixIter)
         {
             if (!sequenceReset. template isSet<FIX::Tag::NewSeqNo>()) {
                 const std::string text = "SequenceReset does not contain a NewSeqNo field";
@@ -547,7 +592,7 @@ namespace qffixlib
 
             if (GapFill) {
                         
-                if (!validateSequenceNumbers(sequenceReset.mHeader-> template get<FIX::Tag::MsgSeqNum>())) {
+                if (!validateSequenceNumbers(sequenceReset.mHeader-> template get<FIX::Tag::MsgSeqNum>(), fixIter)) {
                     return;
                 }
 
@@ -569,8 +614,10 @@ namespace qffixlib
                 LOG_INFO("SeqenceReset (Reset) received, NewSeqNo = " + std::to_string(NewSeqNo));
             }
 
-            if (state() == SessionState::resending && mIncomingResentMsgSeqNum >= mIncomingTargetMsgSeqNum) {
-                LOG_INFO("Resend complete");
+            if (state() == SessionState::resending && mIncomingResentMsgSeqNum >= mIncomingTargetMsgSeqNum) {                
+                LOG_INFO("Resend gap filled");
+                mMissingSequences.clear();
+                mQueuedMessages.clear();
                 state(SessionState::logged_on);
                 removeResendTImer();
                 sendTestRequest();
@@ -792,7 +839,6 @@ namespace qffixlib
         std::optional<uint32_t> mExpectedTestRequestId {};
         uint32_t mNextTestRequestId {0};
         
-        // TODO - these two need to go into a struct for persistence
         uint32_t mIncomingMsgSeqNum {1};
         uint32_t mOutgoingMsgSeqNum {1};
 
@@ -806,6 +852,9 @@ namespace qffixlib
 
         std::shared_ptr<Writer> mWriter {nullptr};
         std::shared_ptr<EventManagerInterface> mEventManagerInterface {nullptr};
+
+        std::set<int64_t> mMissingSequences;
+        std::map<int64_t, std::string> mQueuedMessages;
     };
 }
 

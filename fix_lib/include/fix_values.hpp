@@ -7,6 +7,14 @@
 
     namespace Values {
 
+    namespace DefaultApplVerID {
+        constexpr int64_t FIX44 = 6;
+        constexpr int64_t FIX50 = 7;
+        constexpr int64_t FIX50SP1 = 8;
+        constexpr int64_t FIX50SP2 = 9;
+
+    }
+
     namespace  AdvSide {
         constexpr char Buy = 'B';
         constexpr char Sell = 'S';
@@ -206,30 +214,30 @@
         constexpr char PlanSponsor = '6';
     }
     namespace  AllocStatus {
-        constexpr int Accepted = 0;
-        constexpr int BlockLevelReject = 1;
-        constexpr int AccountLevelReject = 2;
-        constexpr int Received = 3;
-        constexpr int Incomplete = 4;
-        constexpr int RejectedByIntermediary = 5;
-        constexpr int AllocationPending = 6;
-        constexpr int Reversed = 7;
+        constexpr int64_t Accepted = 0;
+        constexpr int64_t BlockLevelReject = 1;
+        constexpr int64_t AccountLevelReject = 2;
+        constexpr int64_t Received = 3;
+        constexpr int64_t Incomplete = 4;
+        constexpr int64_t RejectedByIntermediary = 5;
+        constexpr int64_t AllocationPending = 6;
+        constexpr int64_t Reversed = 7;
     }
     namespace  AllocRejCode {
-        constexpr int UnknownAccount = 0;
-        constexpr int IncorrectQuantity = 1;
-        constexpr int IncorrectAveragegPrice = 2;
-        constexpr int UnknownExecutingBrokerMnemonic = 3;
-        constexpr int CommissionDifference = 4;
-        constexpr int UnknownOrderID = 5;
-        constexpr int UnknownListID = 6;
-        constexpr int OtherSeeText = 7;
-        constexpr int IncorrectAllocatedQuantity = 8;
-        constexpr int CalculationDifference = 9;
-        constexpr int UnknownOrStaleExecID = 10;
-        constexpr int MismatchedData = 11;
-        constexpr int UnknownClOrdID = 12;
-        constexpr int WarehouseRequestRejected = 13;
+        constexpr int64_t UnknownAccount = 0;
+        constexpr int64_t IncorrectQuantity = 1;
+        constexpr int64_t IncorrectAveragegPrice = 2;
+        constexpr int64_t UnknownExecutingBrokerMnemonic = 3;
+        constexpr int64_t CommissionDifference = 4;
+        constexpr int64_t UnknownOrderID = 5;
+        constexpr int64_t UnknownListID = 6;
+        constexpr int64_t OtherSeeText = 7;
+        constexpr int64_t IncorrectAllocatedQuantity = 8;
+        constexpr int64_t CalculationDifference = 9;
+        constexpr int64_t UnknownOrStaleExecID = 10;
+        constexpr int64_t MismatchedData = 11;
+        constexpr int64_t UnknownClOrdID = 12;
+        constexpr int64_t WarehouseRequestRejected = 13;
     }
     namespace  EmailType {
         constexpr char New = '0';
@@ -241,47 +249,47 @@
         constexpr char PossibleResend = 'Y';
     }
     namespace  EncryptMethod {
-        constexpr int None = 0;
-        constexpr int PKCS = 1;
-        constexpr int DES = 2;
-        constexpr int PKCSDES = 3;
-        constexpr int PGPDES = 4;
-        constexpr int PGPDESMD5 = 5;
-        constexpr int PEM = 6;
+        constexpr int64_t None = 0;
+        constexpr int64_t PKCS = 1;
+        constexpr int64_t DES = 2;
+        constexpr int64_t PKCSDES = 3;
+        constexpr int64_t PGPDES = 4;
+        constexpr int64_t PGPDESMD5 = 5;
+        constexpr int64_t PEM = 6;
     }
     namespace  CxlRejReason {
-        constexpr int TooLateToCancel = 0;
-        constexpr int UnknownOrder = 1;
-        constexpr int BrokerCredit = 2;
-        constexpr int OrderAlreadyInPendingStatus = 3;
-        constexpr int UnableToProcessOrderMassCancelRequest = 4;
-        constexpr int OrigOrdModTime = 5;
-        constexpr int DuplicateClOrdID = 6;
-        constexpr int PriceExceedsCurrentPrice = 7;
-        constexpr int PriceExceedsCurrentPriceBand = 8;
-        constexpr int InvalidPriceIncrement = 18;
-        constexpr int Other = 99;
+        constexpr int64_t TooLateToCancel = 0;
+        constexpr int64_t UnknownOrder = 1;
+        constexpr int64_t BrokerCredit = 2;
+        constexpr int64_t OrderAlreadyInPendingStatus = 3;
+        constexpr int64_t UnableToProcessOrderMassCancelRequest = 4;
+        constexpr int64_t OrigOrdModTime = 5;
+        constexpr int64_t DuplicateClOrdID = 6;
+        constexpr int64_t PriceExceedsCurrentPrice = 7;
+        constexpr int64_t PriceExceedsCurrentPriceBand = 8;
+        constexpr int64_t InvalidPriceIncrement = 18;
+        constexpr int64_t Other = 99;
     }
     namespace  OrdRejReason {
-        constexpr int BrokerCredit = 0;
-        constexpr int UnknownSymbol = 1;
-        constexpr int ExchangeClosed = 2;
-        constexpr int OrderExceedsLimit = 3;
-        constexpr int TooLateToEnter = 4;
-        constexpr int UnknownOrder = 5;
-        constexpr int DuplicateOrder = 6;
-        constexpr int DuplicateOfAVerballyCommunicatedOrder = 7;
-        constexpr int StaleOrder = 8;
-        constexpr int TradeAlongRequired = 9;
-        constexpr int InvalidInvestorID = 10;
-        constexpr int UnsupportedOrderCharacteristic = 11;
-        constexpr int SurveillenceOption = 12;
-        constexpr int IncorrectQuantity = 13;
-        constexpr int IncorrectAllocatedQuantity = 14;
-        constexpr int UnknownAccount = 15;
-        constexpr int PriceExceedsCurrentPriceBand = 16;
-        constexpr int InvalidPriceIncrement = 18;
-        constexpr int Other = 99;
+        constexpr int64_t BrokerCredit = 0;
+        constexpr int64_t UnknownSymbol = 1;
+        constexpr int64_t ExchangeClosed = 2;
+        constexpr int64_t OrderExceedsLimit = 3;
+        constexpr int64_t TooLateToEnter = 4;
+        constexpr int64_t UnknownOrder = 5;
+        constexpr int64_t DuplicateOrder = 6;
+        constexpr int64_t DuplicateOfAVerballyCommunicatedOrder = 7;
+        constexpr int64_t StaleOrder = 8;
+        constexpr int64_t TradeAlongRequired = 9;
+        constexpr int64_t InvalidInvestorID = 10;
+        constexpr int64_t UnsupportedOrderCharacteristic = 11;
+        constexpr int64_t SurveillenceOption = 12;
+        constexpr int64_t IncorrectQuantity = 13;
+        constexpr int64_t IncorrectAllocatedQuantity = 14;
+        constexpr int64_t UnknownAccount = 15;
+        constexpr int64_t PriceExceedsCurrentPriceBand = 16;
+        constexpr int64_t InvalidPriceIncrement = 18;
+        constexpr int64_t Other = 99;
     }
     namespace  IOIQualifier {
         constexpr char AllOrNone = 'A';
@@ -514,44 +522,44 @@
         constexpr std::string_view Cash = "CASH";
     }
     namespace  StandInstDbType {
-        constexpr int Other = 0;
-        constexpr int DTCSID = 1;
-        constexpr int ThomsonALERT = 2;
-        constexpr int AGlobalCustodian = 3;
-        constexpr int AccountNet = 4;
+        constexpr int64_t Other = 0;
+        constexpr int64_t DTCSID = 1;
+        constexpr int64_t ThomsonALERT = 2;
+        constexpr int64_t AGlobalCustodian = 3;
+        constexpr int64_t AccountNet = 4;
     }
     namespace  SettlDeliveryType {
-        constexpr int Versus = 0;
-        constexpr int Free = 1;
-        constexpr int TriParty = 2;
-        constexpr int HoldInCustody = 3;
+        constexpr int64_t Versus = 0;
+        constexpr int64_t Free = 1;
+        constexpr int64_t TriParty = 2;
+        constexpr int64_t HoldInCustody = 3;
     }
     namespace  AllocLinkType {
-        constexpr int FXNetting = 0;
-        constexpr int FXSwap = 1;
+        constexpr int64_t FXNetting = 0;
+        constexpr int64_t FXSwap = 1;
     }
     namespace  PutOrCall {
-        constexpr int Put = 0;
-        constexpr int Call = 1;
+        constexpr int64_t Put = 0;
+        constexpr int64_t Call = 1;
     }
     namespace  CoveredOrUncovered {
-        constexpr int Covered = 0;
-        constexpr int Uncovered = 1;
+        constexpr int64_t Covered = 0;
+        constexpr int64_t Uncovered = 1;
     }
     namespace  NotifyBrokerOfCredit {
         constexpr char DetailsShouldNotBeCommunicated = 'N';
         constexpr char DetailsShouldBeCommunicated = 'Y';
     }
     namespace  AllocHandlInst {
-        constexpr int Match = 1;
-        constexpr int Forward = 2;
-        constexpr int ForwardAndMatch = 3;
+        constexpr int64_t Match = 1;
+        constexpr int64_t Forward = 2;
+        constexpr int64_t ForwardAndMatch = 3;
     }
     namespace  RoutingType {
-        constexpr int TargetFirm = 1;
-        constexpr int TargetList = 2;
-        constexpr int BlockFirm = 3;
-        constexpr int BlockList = 4;
+        constexpr int64_t TargetFirm = 1;
+        constexpr int64_t TargetList = 2;
+        constexpr int64_t BlockFirm = 3;
+        constexpr int64_t BlockList = 4;
     }
     namespace  BenchmarkCurveName {
         constexpr std::string_view EONIA = "EONIA";
@@ -695,8 +703,8 @@
         constexpr char DisablePreviousSnapshot = '2';
     }
     namespace  MDUpdateType {
-        constexpr int FullRefresh = 0;
-        constexpr int IncrementalRefresh = 1;
+        constexpr int64_t FullRefresh = 0;
+        constexpr int64_t IncrementalRefresh = 1;
     }
     namespace  AggregatedBook {
         constexpr char BookEntriesToBeAggregated = 'Y';
@@ -915,108 +923,108 @@
     namespace  CorporateAction {
     }
     namespace  QuoteStatus {
-        constexpr int Accepted = 0;
-        constexpr int CancelForSymbol = 1;
-        constexpr int CanceledForSecurityType = 2;
-        constexpr int CanceledForUnderlying = 3;
-        constexpr int CanceledAll = 4;
-        constexpr int Rejected = 5;
-        constexpr int RemovedFromMarket = 6;
-        constexpr int Expired = 7;
-        constexpr int Query = 8;
-        constexpr int QuoteNotFound = 9;
-        constexpr int Pending = 10;
-        constexpr int Pass = 11;
-        constexpr int LockedMarketWarning = 12;
-        constexpr int CrossMarketWarning = 13;
-        constexpr int CanceledDueToLockMarket = 14;
-        constexpr int CanceledDueToCrossMarket = 15;
-        constexpr int Active = 16;
-        constexpr int Canceled = 17;
-        constexpr int UnsolicitedQuoteReplenishment = 18;
-        constexpr int PendingEndTrade = 19;
-        constexpr int TooLateToEnd = 20;
+        constexpr int64_t Accepted = 0;
+        constexpr int64_t CancelForSymbol = 1;
+        constexpr int64_t CanceledForSecurityType = 2;
+        constexpr int64_t CanceledForUnderlying = 3;
+        constexpr int64_t CanceledAll = 4;
+        constexpr int64_t Rejected = 5;
+        constexpr int64_t RemovedFromMarket = 6;
+        constexpr int64_t Expired = 7;
+        constexpr int64_t Query = 8;
+        constexpr int64_t QuoteNotFound = 9;
+        constexpr int64_t Pending = 10;
+        constexpr int64_t Pass = 11;
+        constexpr int64_t LockedMarketWarning = 12;
+        constexpr int64_t CrossMarketWarning = 13;
+        constexpr int64_t CanceledDueToLockMarket = 14;
+        constexpr int64_t CanceledDueToCrossMarket = 15;
+        constexpr int64_t Active = 16;
+        constexpr int64_t Canceled = 17;
+        constexpr int64_t UnsolicitedQuoteReplenishment = 18;
+        constexpr int64_t PendingEndTrade = 19;
+        constexpr int64_t TooLateToEnd = 20;
     }
     namespace  QuoteCancelType {
-        constexpr int CancelForOneOrMoreSecurities = 1;
-        constexpr int CancelForSecurityType = 2;
-        constexpr int CancelForUnderlyingSecurity = 3;
-        constexpr int CancelAllQuotes = 4;
-        constexpr int CancelQuoteSpecifiedInQuoteID = 5;
+        constexpr int64_t CancelForOneOrMoreSecurities = 1;
+        constexpr int64_t CancelForSecurityType = 2;
+        constexpr int64_t CancelForUnderlyingSecurity = 3;
+        constexpr int64_t CancelAllQuotes = 4;
+        constexpr int64_t CancelQuoteSpecifiedInQuoteID = 5;
     }
     namespace  QuoteRejectReason {
-        constexpr int UnknownSymbol = 1;
-        constexpr int Exchange = 2;
-        constexpr int QuoteRequestExceedsLimit = 3;
-        constexpr int TooLateToEnter = 4;
-        constexpr int UnknownQuote = 5;
-        constexpr int DuplicateQuote = 6;
-        constexpr int InvalidBid = 7;
-        constexpr int InvalidPrice = 8;
-        constexpr int NotAuthorizedToQuoteSecurity = 9;
-        constexpr int PriceExceedsCurrentPriceBand = 10;
-        constexpr int QuoteLocked = 11;
-        constexpr int Other = 99;
+        constexpr int64_t UnknownSymbol = 1;
+        constexpr int64_t Exchange = 2;
+        constexpr int64_t QuoteRequestExceedsLimit = 3;
+        constexpr int64_t TooLateToEnter = 4;
+        constexpr int64_t UnknownQuote = 5;
+        constexpr int64_t DuplicateQuote = 6;
+        constexpr int64_t InvalidBid = 7;
+        constexpr int64_t InvalidPrice = 8;
+        constexpr int64_t NotAuthorizedToQuoteSecurity = 9;
+        constexpr int64_t PriceExceedsCurrentPriceBand = 10;
+        constexpr int64_t QuoteLocked = 11;
+        constexpr int64_t Other = 99;
     }
     namespace  QuoteResponseLevel {
-        constexpr int NoAcknowledgement = 0;
-        constexpr int AcknowledgeOnlyNegativeOrErroneousQuotes = 1;
-        constexpr int AcknowledgeEachQuoteMessage = 2;
-        constexpr int SummaryAcknowledgement = 3;
+        constexpr int64_t NoAcknowledgement = 0;
+        constexpr int64_t AcknowledgeOnlyNegativeOrErroneousQuotes = 1;
+        constexpr int64_t AcknowledgeEachQuoteMessage = 2;
+        constexpr int64_t SummaryAcknowledgement = 3;
     }
     namespace  QuoteRequestType {
-        constexpr int Manual = 1;
-        constexpr int Automatic = 2;
+        constexpr int64_t Manual = 1;
+        constexpr int64_t Automatic = 2;
     }
     namespace  SecurityRequestType {
-        constexpr int RequestSecurityIdentityAndSpecifications = 0;
-        constexpr int RequestSecurityIdentityForSpecifications = 1;
-        constexpr int RequestListSecurityTypes = 2;
-        constexpr int RequestListSecurities = 3;
-        constexpr int Symbol = 4;
-        constexpr int SecurityTypeAndOrCFICode = 5;
-        constexpr int Product = 6;
-        constexpr int TradingSessionID = 7;
-        constexpr int AllSecurities = 8;
-        constexpr int MarketIDOrMarketID = 9;
+        constexpr int64_t RequestSecurityIdentityAndSpecifications = 0;
+        constexpr int64_t RequestSecurityIdentityForSpecifications = 1;
+        constexpr int64_t RequestListSecurityTypes = 2;
+        constexpr int64_t RequestListSecurities = 3;
+        constexpr int64_t Symbol = 4;
+        constexpr int64_t SecurityTypeAndOrCFICode = 5;
+        constexpr int64_t Product = 6;
+        constexpr int64_t TradingSessionID = 7;
+        constexpr int64_t AllSecurities = 8;
+        constexpr int64_t MarketIDOrMarketID = 9;
     }
     namespace  SecurityResponseType {
-        constexpr int AcceptAsIs = 1;
-        constexpr int AcceptWithRevisions = 2;
-        constexpr int ListOfSecurityTypesReturnedPerRequest = 3;
-        constexpr int ListOfSecuritiesReturnedPerRequest = 4;
-        constexpr int RejectSecurityProposal = 5;
-        constexpr int CannotMatchSelectionCriteria = 6;
+        constexpr int64_t AcceptAsIs = 1;
+        constexpr int64_t AcceptWithRevisions = 2;
+        constexpr int64_t ListOfSecurityTypesReturnedPerRequest = 3;
+        constexpr int64_t ListOfSecuritiesReturnedPerRequest = 4;
+        constexpr int64_t RejectSecurityProposal = 5;
+        constexpr int64_t CannotMatchSelectionCriteria = 6;
     }
     namespace  UnsolicitedIndicator {
         constexpr char MessageIsBeingSentAsAResultOfAPriorRequest = 'N';
         constexpr char MessageIsBeingSentUnsolicited = 'Y';
     }
     namespace  SecurityTradingStatus {
-        constexpr int OpeningDelay = 1;
-        constexpr int TradingHalt = 2;
-        constexpr int Resume = 3;
-        constexpr int NoOpen = 4;
-        constexpr int PriceIndication = 5;
-        constexpr int TradingRangeIndication = 6;
-        constexpr int MarketImbalanceBuy = 7;
-        constexpr int MarketImbalanceSell = 8;
-        constexpr int MarketOnCloseImbalanceBuy = 9;
-        constexpr int MarketOnCloseImbalanceSell = 10;
-        constexpr int NoMarketImbalance = 12;
-        constexpr int NoMarketOnCloseImbalance = 13;
-        constexpr int ITSPreOpening = 14;
-        constexpr int NewPriceIndication = 15;
-        constexpr int TradeDisseminationTime = 16;
-        constexpr int ReadyToTrade = 17;
-        constexpr int NotAvailableForTrading = 18;
-        constexpr int NotTradedOnThisMarket = 19;
-        constexpr int UnknownOrInvalid = 20;
-        constexpr int PreOpen = 21;
-        constexpr int OpeningRotation = 22;
-        constexpr int FastMarket = 23;
-        constexpr int PreCross = 24;
-        constexpr int Cross = 25;
+        constexpr int64_t OpeningDelay = 1;
+        constexpr int64_t TradingHalt = 2;
+        constexpr int64_t Resume = 3;
+        constexpr int64_t NoOpen = 4;
+        constexpr int64_t PriceIndication = 5;
+        constexpr int64_t TradingRangeIndication = 6;
+        constexpr int64_t MarketImbalanceBuy = 7;
+        constexpr int64_t MarketImbalanceSell = 8;
+        constexpr int64_t MarketOnCloseImbalanceBuy = 9;
+        constexpr int64_t MarketOnCloseImbalanceSell = 10;
+        constexpr int64_t NoMarketImbalance = 12;
+        constexpr int64_t NoMarketOnCloseImbalance = 13;
+        constexpr int64_t ITSPreOpening = 14;
+        constexpr int64_t NewPriceIndication = 15;
+        constexpr int64_t TradeDisseminationTime = 16;
+        constexpr int64_t ReadyToTrade = 17;
+        constexpr int64_t NotAvailableForTrading = 18;
+        constexpr int64_t NotTradedOnThisMarket = 19;
+        constexpr int64_t UnknownOrInvalid = 20;
+        constexpr int64_t PreOpen = 21;
+        constexpr int64_t OpeningRotation = 22;
+        constexpr int64_t FastMarket = 23;
+        constexpr int64_t PreCross = 24;
+        constexpr int64_t Cross = 25;
     }
     namespace  InViewOfCommon {
         constexpr char HaltWasNotRelatedToAHaltOfTheCommonStock = 'N';
@@ -1027,9 +1035,9 @@
         constexpr char RelatedToSecurityHalt = 'Y';
     }
     namespace  Adjustment {
-        constexpr int Cancel = 1;
-        constexpr int Error = 2;
-        constexpr int Correction = 3;
+        constexpr int64_t Cancel = 1;
+        constexpr int64_t Error = 2;
+        constexpr int64_t Correction = 3;
     }
     namespace  TradingSessionID {
         constexpr char Day = '1';
@@ -1040,45 +1048,45 @@
         constexpr char AfterHours = '6';
     }
     namespace  TradSesMethod {
-        constexpr int Electronic = 1;
-        constexpr int OpenOutcry = 2;
-        constexpr int TwoParty = 3;
+        constexpr int64_t Electronic = 1;
+        constexpr int64_t OpenOutcry = 2;
+        constexpr int64_t TwoParty = 3;
     }
     namespace  TradSesMode {
-        constexpr int Testing = 1;
-        constexpr int Simulated = 2;
-        constexpr int Production = 3;
+        constexpr int64_t Testing = 1;
+        constexpr int64_t Simulated = 2;
+        constexpr int64_t Production = 3;
     }
     namespace  TradSesStatus {
-        constexpr int Unknown = 0;
-        constexpr int Halted = 1;
-        constexpr int Open = 2;
-        constexpr int Closed = 3;
-        constexpr int PreOpen = 4;
-        constexpr int PreClose = 5;
-        constexpr int RequestRejected = 6;
+        constexpr int64_t Unknown = 0;
+        constexpr int64_t Halted = 1;
+        constexpr int64_t Open = 2;
+        constexpr int64_t Closed = 3;
+        constexpr int64_t PreOpen = 4;
+        constexpr int64_t PreClose = 5;
+        constexpr int64_t RequestRejected = 6;
     }
     namespace  SessionRejectReason {
-        constexpr int InvalidTagNumber = 0;
-        constexpr int RequiredTagMissing = 1;
-        constexpr int TagNotDefinedForThisMessageType = 2;
-        constexpr int UndefinedTag = 3;
-        constexpr int TagSpecifiedWithoutAValue = 4;
-        constexpr int ValueIsIncorrect = 5;
-        constexpr int IncorrectDataFormatForValue = 6;
-        constexpr int DecryptionProblem = 7;
-        constexpr int SignatureProblem = 8;
-        constexpr int CompIDProblem = 9;
-        constexpr int SendingTimeAccuracyProblem = 10;
-        constexpr int InvalidMsgType = 11;
-        constexpr int XMLValidationError = 12;
-        constexpr int TagAppearsMoreThanOnce = 13;
-        constexpr int TagSpecifiedOutOfRequiredOrder = 14;
-        constexpr int RepeatingGroupFieldsOutOfOrder = 15;
-        constexpr int IncorrectNumInGroupCountForRepeatingGroup = 16;
-        constexpr int Non = 17;
-        constexpr int Invalid = 18;
-        constexpr int Other = 99;
+        constexpr int64_t InvalidTagNumber = 0;
+        constexpr int64_t RequiredTagMissing = 1;
+        constexpr int64_t TagNotDefinedForThisMessageType = 2;
+        constexpr int64_t UndefinedTag = 3;
+        constexpr int64_t TagSpecifiedWithoutAValue = 4;
+        constexpr int64_t ValueIsIncorrect = 5;
+        constexpr int64_t IncorrectDataFormatForValue = 6;
+        constexpr int64_t DecryptionProblem = 7;
+        constexpr int64_t SignatureProblem = 8;
+        constexpr int64_t CompIDProblem = 9;
+        constexpr int64_t SendingTimeAccuracyProblem = 10;
+        constexpr int64_t InvalidMsgType = 11;
+        constexpr int64_t XMLValidationError = 12;
+        constexpr int64_t TagAppearsMoreThanOnce = 13;
+        constexpr int64_t TagSpecifiedOutOfRequiredOrder = 14;
+        constexpr int64_t RepeatingGroupFieldsOutOfOrder = 15;
+        constexpr int64_t IncorrectNumInGroupCountForRepeatingGroup = 16;
+        constexpr int64_t Non = 17;
+        constexpr int64_t Invalid = 18;
+        constexpr int64_t Other = 99;
     }
     namespace  BidRequestTransType {
         constexpr char Cancel = 'C';
@@ -1089,30 +1097,30 @@
         constexpr char WasSolicited = 'Y';
     }
     namespace  ExecRestatementReason {
-        constexpr int GTCorporateAction = 0;
-        constexpr int GTRenewal = 1;
-        constexpr int VerbalChange = 2;
-        constexpr int RepricingOfOrder = 3;
-        constexpr int BrokerOption = 4;
-        constexpr int PartialDeclineOfOrderQty = 5;
-        constexpr int CancelOnTradingHalt = 6;
-        constexpr int CancelOnSystemFailure = 7;
-        constexpr int Market = 8;
-        constexpr int Canceled = 9;
-        constexpr int WarehouseRecap = 10;
-        constexpr int PegRefresh = 11;
-        constexpr int Other = 99;
+        constexpr int64_t GTCorporateAction = 0;
+        constexpr int64_t GTRenewal = 1;
+        constexpr int64_t VerbalChange = 2;
+        constexpr int64_t RepricingOfOrder = 3;
+        constexpr int64_t BrokerOption = 4;
+        constexpr int64_t PartialDeclineOfOrderQty = 5;
+        constexpr int64_t CancelOnTradingHalt = 6;
+        constexpr int64_t CancelOnSystemFailure = 7;
+        constexpr int64_t Market = 8;
+        constexpr int64_t Canceled = 9;
+        constexpr int64_t WarehouseRecap = 10;
+        constexpr int64_t PegRefresh = 11;
+        constexpr int64_t Other = 99;
     }
     namespace  BusinessRejectReason {
-        constexpr int Other = 0;
-        constexpr int UnknownID = 1;
-        constexpr int UnknownSecurity = 2;
-        constexpr int UnsupportedMessageType = 3;
-        constexpr int ApplicationNotAvailable = 4;
-        constexpr int ConditionallyRequiredFieldMissing = 5;
-        constexpr int NotAuthorized = 6;
-        constexpr int DeliverToFirmNotAvailableAtThisTime = 7;
-        constexpr int InvalidPriceIncrement = 18;
+        constexpr int64_t Other = 0;
+        constexpr int64_t UnknownID = 1;
+        constexpr int64_t UnknownSecurity = 2;
+        constexpr int64_t UnsupportedMessageType = 3;
+        constexpr int64_t ApplicationNotAvailable = 4;
+        constexpr int64_t ConditionallyRequiredFieldMissing = 5;
+        constexpr int64_t NotAuthorized = 6;
+        constexpr int64_t DeliverToFirmNotAvailableAtThisTime = 7;
+        constexpr int64_t InvalidPriceIncrement = 18;
     }
     namespace  MsgDirection {
         constexpr char Receive = 'R';
@@ -1129,37 +1137,37 @@
         constexpr char AveragePriceGuarantee = '7';
     }
     namespace  BidType {
-        constexpr int NonDisclosed = 1;
-        constexpr int Disclosed = 2;
-        constexpr int NoBiddingProcess = 3;
+        constexpr int64_t NonDisclosed = 1;
+        constexpr int64_t Disclosed = 2;
+        constexpr int64_t NoBiddingProcess = 3;
     }
     namespace  BidDescriptorType {
-        constexpr int Sector = 1;
-        constexpr int Country = 2;
-        constexpr int Index = 3;
+        constexpr int64_t Sector = 1;
+        constexpr int64_t Country = 2;
+        constexpr int64_t Index = 3;
     }
     namespace  SideValueInd {
-        constexpr int SideValue1 = 1;
-        constexpr int SideValue2 = 2;
+        constexpr int64_t SideValue1 = 1;
+        constexpr int64_t SideValue2 = 2;
     }
     namespace  LiquidityIndType {
-        constexpr int FiveDayMovingAverage = 1;
-        constexpr int TwentyDayMovingAverage = 2;
-        constexpr int NormalMarketSize = 3;
-        constexpr int Other = 4;
+        constexpr int64_t FiveDayMovingAverage = 1;
+        constexpr int64_t TwentyDayMovingAverage = 2;
+        constexpr int64_t NormalMarketSize = 3;
+        constexpr int64_t Other = 4;
     }
     namespace  ExchangeForPhysical {
         constexpr char False = 'N';
         constexpr char True = 'Y';
     }
     namespace  ProgRptReqs {
-        constexpr int BuySideRequests = 1;
-        constexpr int SellSideSends = 2;
-        constexpr int RealTimeExecutionReports = 3;
+        constexpr int64_t BuySideRequests = 1;
+        constexpr int64_t SellSideSends = 2;
+        constexpr int64_t RealTimeExecutionReports = 3;
     }
     namespace  IncTaxInd {
-        constexpr int Net = 1;
-        constexpr int Gross = 2;
+        constexpr int64_t Net = 1;
+        constexpr int64_t Gross = 2;
     }
     namespace  BidTradeType {
         constexpr char Agency = 'A';
@@ -1183,50 +1191,50 @@
         constexpr char Others = 'Z';
     }
     namespace  PriceType {
-        constexpr int Percentage = 1;
-        constexpr int PerUnit = 2;
-        constexpr int FixedAmount = 3;
-        constexpr int Discount = 4;
-        constexpr int Premium = 5;
-        constexpr int Spread = 6;
-        constexpr int TEDPrice = 7;
-        constexpr int TEDYield = 8;
-        constexpr int Yield = 9;
-        constexpr int FixedCabinetTradePrice = 10;
-        constexpr int VariableCabinetTradePrice = 11;
-        constexpr int ProductTicksInHalfs = 13;
-        constexpr int ProductTicksInFourths = 14;
-        constexpr int ProductTicksInEights = 15;
-        constexpr int ProductTicksInSixteenths = 16;
-        constexpr int ProductTicksInThirtySeconds = 17;
-        constexpr int ProductTicksInSixtyForths = 18;
-        constexpr int ProductTicksInOneTwentyEights = 19;
+        constexpr int64_t Percentage = 1;
+        constexpr int64_t PerUnit = 2;
+        constexpr int64_t FixedAmount = 3;
+        constexpr int64_t Discount = 4;
+        constexpr int64_t Premium = 5;
+        constexpr int64_t Spread = 6;
+        constexpr int64_t TEDPrice = 7;
+        constexpr int64_t TEDYield = 8;
+        constexpr int64_t Yield = 9;
+        constexpr int64_t FixedCabinetTradePrice = 10;
+        constexpr int64_t VariableCabinetTradePrice = 11;
+        constexpr int64_t ProductTicksInHalfs = 13;
+        constexpr int64_t ProductTicksInFourths = 14;
+        constexpr int64_t ProductTicksInEights = 15;
+        constexpr int64_t ProductTicksInSixteenths = 16;
+        constexpr int64_t ProductTicksInThirtySeconds = 17;
+        constexpr int64_t ProductTicksInSixtyForths = 18;
+        constexpr int64_t ProductTicksInOneTwentyEights = 19;
     }
     namespace  GTBookingInst {
-        constexpr int BookOutAllTradesOnDayOfExecution = 0;
-        constexpr int AccumulateUntilFilledOrExpired = 1;
-        constexpr int AccumulateUntilVerballyNotifiedOtherwise = 2;
+        constexpr int64_t BookOutAllTradesOnDayOfExecution = 0;
+        constexpr int64_t AccumulateUntilFilledOrExpired = 1;
+        constexpr int64_t AccumulateUntilVerballyNotifiedOtherwise = 2;
     }
     namespace  ListStatusType {
-        constexpr int Ack = 1;
-        constexpr int Response = 2;
-        constexpr int Timed = 3;
-        constexpr int ExecStarted = 4;
-        constexpr int AllDone = 5;
-        constexpr int Alert = 6;
+        constexpr int64_t Ack = 1;
+        constexpr int64_t Response = 2;
+        constexpr int64_t Timed = 3;
+        constexpr int64_t ExecStarted = 4;
+        constexpr int64_t AllDone = 5;
+        constexpr int64_t Alert = 6;
     }
     namespace  NetGrossInd {
-        constexpr int Net = 1;
-        constexpr int Gross = 2;
+        constexpr int64_t Net = 1;
+        constexpr int64_t Gross = 2;
     }
     namespace  ListOrderStatus {
-        constexpr int InBiddingProcess = 1;
-        constexpr int ReceivedForExecution = 2;
-        constexpr int Executing = 3;
-        constexpr int Cancelling = 4;
-        constexpr int Alert = 5;
-        constexpr int AllDone = 6;
-        constexpr int Reject = 7;
+        constexpr int64_t InBiddingProcess = 1;
+        constexpr int64_t ReceivedForExecution = 2;
+        constexpr int64_t Executing = 3;
+        constexpr int64_t Cancelling = 4;
+        constexpr int64_t Alert = 5;
+        constexpr int64_t AllDone = 6;
+        constexpr int64_t Reject = 7;
     }
     namespace  ListExecInstType {
         constexpr char Immediate = '1';
@@ -1265,101 +1273,101 @@
         constexpr char CSDParticipant = 'H';
     }
     namespace  PartyRole {
-        constexpr int ExecutingFirm = 1;
-        constexpr int BrokerOfCredit = 2;
-        constexpr int ClientID = 3;
-        constexpr int ClearingFirm = 4;
-        constexpr int InvestorID = 5;
-        constexpr int IntroducingFirm = 6;
-        constexpr int EnteringFirm = 7;
-        constexpr int Locate = 8;
-        constexpr int FundManagerClientID = 9;
-        constexpr int SettlementLocation = 10;
-        constexpr int OrderOriginationTrader = 11;
-        constexpr int ExecutingTrader = 12;
-        constexpr int OrderOriginationFirm = 13;
-        constexpr int GiveupClearingFirm = 14;
-        constexpr int CorrespondantClearingFirm = 15;
-        constexpr int ExecutingSystem = 16;
-        constexpr int ContraFirm = 17;
-        constexpr int ContraClearingFirm = 18;
-        constexpr int SponsoringFirm = 19;
-        constexpr int UnderlyingContraFirm = 20;
-        constexpr int ClearingOrganization = 21;
-        constexpr int Exchange = 22;
-        constexpr int CustomerAccount = 24;
-        constexpr int CorrespondentClearingOrganization = 25;
-        constexpr int CorrespondentBroker = 26;
-        constexpr int Buyer = 27;
-        constexpr int Custodian = 28;
-        constexpr int Intermediary = 29;
-        constexpr int Agent = 30;
-        constexpr int SubCustodian = 31;
-        constexpr int Beneficiary = 32;
-        constexpr int InterestedParty = 33;
-        constexpr int RegulatoryBody = 34;
-        constexpr int LiquidityProvider = 35;
-        constexpr int EnteringTrader = 36;
-        constexpr int ContraTrader = 37;
-        constexpr int PositionAccount = 38;
-        constexpr int ContraInvestorID = 39;
-        constexpr int TransferToFirm = 40;
-        constexpr int ContraPositionAccount = 41;
-        constexpr int ContraExchange = 42;
-        constexpr int InternalCarryAccount = 43;
-        constexpr int OrderEntryOperatorID = 44;
-        constexpr int SecondaryAccountNumber = 45;
-        constexpr int ForeignFirm = 46;
-        constexpr int ThirdPartyAllocationFirm = 47;
-        constexpr int ClaimingAccount = 48;
-        constexpr int AssetManager = 49;
-        constexpr int PledgorAccount = 50;
-        constexpr int PledgeeAccount = 51;
-        constexpr int LargeTraderReportableAccount = 52;
-        constexpr int TraderMnemonic = 53;
-        constexpr int SenderLocation = 54;
-        constexpr int SessionID = 55;
-        constexpr int AcceptableCounterparty = 56;
-        constexpr int UnacceptableCounterparty = 57;
-        constexpr int EnteringUnit = 58;
-        constexpr int ExecutingUnit = 59;
-        constexpr int IntroducingBroker = 60;
-        constexpr int QuoteOriginator = 61;
-        constexpr int ReportOriginator = 62;
-        constexpr int SystematicInternaliser = 63;
-        constexpr int MultilateralTradingFacility = 64;
-        constexpr int RegulatedMarket = 65;
-        constexpr int MarketMaker = 66;
-        constexpr int InvestmentFirm = 67;
-        constexpr int HostCompetentAuthority = 68;
-        constexpr int HomeCompetentAuthority = 69;
-        constexpr int CompetentAuthorityLiquidity = 70;
-        constexpr int CompetentAuthorityTransactionVenue = 71;
-        constexpr int ReportingIntermediary = 72;
-        constexpr int ExecutionVenue = 73;
-        constexpr int MarketDataEntryOriginator = 74;
-        constexpr int LocationID = 75;
-        constexpr int DeskID = 76;
-        constexpr int MarketDataMarket = 77;
-        constexpr int AllocationEntity = 78;
-        constexpr int PrimeBroker = 79;
-        constexpr int StepOutFirm = 80;
-        constexpr int BrokerClearingID = 81;
+        constexpr int64_t ExecutingFirm = 1;
+        constexpr int64_t BrokerOfCredit = 2;
+        constexpr int64_t ClientID = 3;
+        constexpr int64_t ClearingFirm = 4;
+        constexpr int64_t InvestorID = 5;
+        constexpr int64_t IntroducingFirm = 6;
+        constexpr int64_t EnteringFirm = 7;
+        constexpr int64_t Locate = 8;
+        constexpr int64_t FundManagerClientID = 9;
+        constexpr int64_t SettlementLocation = 10;
+        constexpr int64_t OrderOriginationTrader = 11;
+        constexpr int64_t ExecutingTrader = 12;
+        constexpr int64_t OrderOriginationFirm = 13;
+        constexpr int64_t GiveupClearingFirm = 14;
+        constexpr int64_t CorrespondantClearingFirm = 15;
+        constexpr int64_t ExecutingSystem = 16;
+        constexpr int64_t ContraFirm = 17;
+        constexpr int64_t ContraClearingFirm = 18;
+        constexpr int64_t SponsoringFirm = 19;
+        constexpr int64_t UnderlyingContraFirm = 20;
+        constexpr int64_t ClearingOrganization = 21;
+        constexpr int64_t Exchange = 22;
+        constexpr int64_t CustomerAccount = 24;
+        constexpr int64_t CorrespondentClearingOrganization = 25;
+        constexpr int64_t CorrespondentBroker = 26;
+        constexpr int64_t Buyer = 27;
+        constexpr int64_t Custodian = 28;
+        constexpr int64_t Intermediary = 29;
+        constexpr int64_t Agent = 30;
+        constexpr int64_t SubCustodian = 31;
+        constexpr int64_t Beneficiary = 32;
+        constexpr int64_t InterestedParty = 33;
+        constexpr int64_t RegulatoryBody = 34;
+        constexpr int64_t LiquidityProvider = 35;
+        constexpr int64_t EnteringTrader = 36;
+        constexpr int64_t ContraTrader = 37;
+        constexpr int64_t PositionAccount = 38;
+        constexpr int64_t ContraInvestorID = 39;
+        constexpr int64_t TransferToFirm = 40;
+        constexpr int64_t ContraPositionAccount = 41;
+        constexpr int64_t ContraExchange = 42;
+        constexpr int64_t InternalCarryAccount = 43;
+        constexpr int64_t OrderEntryOperatorID = 44;
+        constexpr int64_t SecondaryAccountNumber = 45;
+        constexpr int64_t ForeignFirm = 46;
+        constexpr int64_t ThirdPartyAllocationFirm = 47;
+        constexpr int64_t ClaimingAccount = 48;
+        constexpr int64_t AssetManager = 49;
+        constexpr int64_t PledgorAccount = 50;
+        constexpr int64_t PledgeeAccount = 51;
+        constexpr int64_t LargeTraderReportableAccount = 52;
+        constexpr int64_t TraderMnemonic = 53;
+        constexpr int64_t SenderLocation = 54;
+        constexpr int64_t SessionID = 55;
+        constexpr int64_t AcceptableCounterparty = 56;
+        constexpr int64_t UnacceptableCounterparty = 57;
+        constexpr int64_t EnteringUnit = 58;
+        constexpr int64_t ExecutingUnit = 59;
+        constexpr int64_t IntroducingBroker = 60;
+        constexpr int64_t QuoteOriginator = 61;
+        constexpr int64_t ReportOriginator = 62;
+        constexpr int64_t SystematicInternaliser = 63;
+        constexpr int64_t MultilateralTradingFacility = 64;
+        constexpr int64_t RegulatedMarket = 65;
+        constexpr int64_t MarketMaker = 66;
+        constexpr int64_t InvestmentFirm = 67;
+        constexpr int64_t HostCompetentAuthority = 68;
+        constexpr int64_t HomeCompetentAuthority = 69;
+        constexpr int64_t CompetentAuthorityLiquidity = 70;
+        constexpr int64_t CompetentAuthorityTransactionVenue = 71;
+        constexpr int64_t ReportingIntermediary = 72;
+        constexpr int64_t ExecutionVenue = 73;
+        constexpr int64_t MarketDataEntryOriginator = 74;
+        constexpr int64_t LocationID = 75;
+        constexpr int64_t DeskID = 76;
+        constexpr int64_t MarketDataMarket = 77;
+        constexpr int64_t AllocationEntity = 78;
+        constexpr int64_t PrimeBroker = 79;
+        constexpr int64_t StepOutFirm = 80;
+        constexpr int64_t BrokerClearingID = 81;
     }
     namespace  Product {
-        constexpr int AGENCY = 1;
-        constexpr int COMMODITY = 2;
-        constexpr int CORPORATE = 3;
-        constexpr int CURRENCY = 4;
-        constexpr int EQUITY = 5;
-        constexpr int GOVERNMENT = 6;
-        constexpr int INDEX = 7;
-        constexpr int LOAN = 8;
-        constexpr int MONEYMARKET = 9;
-        constexpr int MORTGAGE = 10;
-        constexpr int MUNICIPAL = 11;
-        constexpr int OTHER = 12;
-        constexpr int FINANCING = 13;
+        constexpr int64_t AGENCY = 1;
+        constexpr int64_t COMMODITY = 2;
+        constexpr int64_t CORPORATE = 3;
+        constexpr int64_t CURRENCY = 4;
+        constexpr int64_t EQUITY = 5;
+        constexpr int64_t GOVERNMENT = 6;
+        constexpr int64_t INDEX = 7;
+        constexpr int64_t LOAN = 8;
+        constexpr int64_t MONEYMARKET = 9;
+        constexpr int64_t MORTGAGE = 10;
+        constexpr int64_t MUNICIPAL = 11;
+        constexpr int64_t OTHER = 12;
+        constexpr int64_t FINANCING = 13;
     }
     namespace  TestMessageIndicator {
         constexpr char Fales = 'N';
@@ -1371,18 +1379,18 @@
         constexpr char RoundUp = '2';
     }
     namespace  DistribPaymentMethod {
-        constexpr int CREST = 1;
-        constexpr int NSCC = 2;
-        constexpr int Euroclear = 3;
-        constexpr int Clearstream = 4;
-        constexpr int Cheque = 5;
-        constexpr int TelegraphicTransfer = 6;
-        constexpr int FedWire = 7;
-        constexpr int DirectCredit = 8;
-        constexpr int ACHCredit = 9;
-        constexpr int BPAY = 10;
-        constexpr int HighValueClearingSystemHVACS = 11;
-        constexpr int ReinvestInFund = 12;
+        constexpr int64_t CREST = 1;
+        constexpr int64_t NSCC = 2;
+        constexpr int64_t Euroclear = 3;
+        constexpr int64_t Clearstream = 4;
+        constexpr int64_t Cheque = 5;
+        constexpr int64_t TelegraphicTransfer = 6;
+        constexpr int64_t FedWire = 7;
+        constexpr int64_t DirectCredit = 8;
+        constexpr int64_t ACHCredit = 9;
+        constexpr int64_t BPAY = 10;
+        constexpr int64_t HighValueClearingSystemHVACS = 11;
+        constexpr int64_t ReinvestInFund = 12;
     }
     namespace  CancellationRights {
         constexpr char Yes = 'Y';
@@ -1408,62 +1416,62 @@
         constexpr char SinglePrice = 'S';
     }
     namespace  TradeReportTransType {
-        constexpr int New = 0;
-        constexpr int Cancel = 1;
-        constexpr int Replace = 2;
-        constexpr int Release = 3;
-        constexpr int Reverse = 4;
-        constexpr int CancelDueToBackOutOfTrade = 5;
+        constexpr int64_t New = 0;
+        constexpr int64_t Cancel = 1;
+        constexpr int64_t Replace = 2;
+        constexpr int64_t Release = 3;
+        constexpr int64_t Reverse = 4;
+        constexpr int64_t CancelDueToBackOutOfTrade = 5;
     }
     namespace  PaymentMethod {
-        constexpr int CREST = 1;
-        constexpr int NSCC = 2;
-        constexpr int Euroclear = 3;
-        constexpr int Clearstream = 4;
-        constexpr int Cheque = 5;
-        constexpr int TelegraphicTransfer = 6;
-        constexpr int FedWire = 7;
-        constexpr int DebitCard = 8;
-        constexpr int DirectDebit = 9;
-        constexpr int DirectCredit = 10;
-        constexpr int CreditCard = 11;
-        constexpr int ACHDebit = 12;
-        constexpr int ACHCredit = 13;
-        constexpr int BPAY = 14;
-        constexpr int HighValueClearingSystem = 15;
+        constexpr int64_t CREST = 1;
+        constexpr int64_t NSCC = 2;
+        constexpr int64_t Euroclear = 3;
+        constexpr int64_t Clearstream = 4;
+        constexpr int64_t Cheque = 5;
+        constexpr int64_t TelegraphicTransfer = 6;
+        constexpr int64_t FedWire = 7;
+        constexpr int64_t DebitCard = 8;
+        constexpr int64_t DirectDebit = 9;
+        constexpr int64_t DirectCredit = 10;
+        constexpr int64_t CreditCard = 11;
+        constexpr int64_t ACHDebit = 12;
+        constexpr int64_t ACHCredit = 13;
+        constexpr int64_t BPAY = 14;
+        constexpr int64_t HighValueClearingSystem = 15;
     }
     namespace  TaxAdvantageType {
-        constexpr int None = 0;
-        constexpr int MaxiISA = 1;
-        constexpr int TESSA = 2;
-        constexpr int MiniCashISA = 3;
-        constexpr int MiniStocksAndSharesISA = 4;
-        constexpr int MiniInsuranceISA = 5;
-        constexpr int CurrentYearPayment = 6;
-        constexpr int PriorYearPayment = 7;
-        constexpr int AssetTransfer = 8;
-        constexpr int EmployeePriorYear = 9;
-        constexpr int EmployeeCurrentYear = 10;
-        constexpr int EmployerPriorYear = 11;
-        constexpr int EmployerCurrentYear = 12;
-        constexpr int NonFundPrototypeIRA = 13;
-        constexpr int NonFundQualifiedPlan = 14;
-        constexpr int DefinedContributionPlan = 15;
-        constexpr int IRA = 16;
-        constexpr int IRARollover = 17;
-        constexpr int KEOGH = 18;
-        constexpr int ProfitSharingPlan = 19;
-        constexpr int US401K = 20;
-        constexpr int SelfDirectedIRA = 21;
-        constexpr int US403b = 22;
-        constexpr int US457 = 23;
-        constexpr int RothIRAPrototype = 24;
-        constexpr int RothIRANonPrototype = 25;
-        constexpr int RothConversionIRAPrototype = 26;
-        constexpr int RothConversionIRANonPrototype = 27;
-        constexpr int EducationIRAPrototype = 28;
-        constexpr int EducationIRANonPrototype = 29;
-        constexpr int Other = 999;
+        constexpr int64_t None = 0;
+        constexpr int64_t MaxiISA = 1;
+        constexpr int64_t TESSA = 2;
+        constexpr int64_t MiniCashISA = 3;
+        constexpr int64_t MiniStocksAndSharesISA = 4;
+        constexpr int64_t MiniInsuranceISA = 5;
+        constexpr int64_t CurrentYearPayment = 6;
+        constexpr int64_t PriorYearPayment = 7;
+        constexpr int64_t AssetTransfer = 8;
+        constexpr int64_t EmployeePriorYear = 9;
+        constexpr int64_t EmployeeCurrentYear = 10;
+        constexpr int64_t EmployerPriorYear = 11;
+        constexpr int64_t EmployerCurrentYear = 12;
+        constexpr int64_t NonFundPrototypeIRA = 13;
+        constexpr int64_t NonFundQualifiedPlan = 14;
+        constexpr int64_t DefinedContributionPlan = 15;
+        constexpr int64_t IRA = 16;
+        constexpr int64_t IRARollover = 17;
+        constexpr int64_t KEOGH = 18;
+        constexpr int64_t ProfitSharingPlan = 19;
+        constexpr int64_t US401K = 20;
+        constexpr int64_t SelfDirectedIRA = 21;
+        constexpr int64_t US403b = 22;
+        constexpr int64_t US457 = 23;
+        constexpr int64_t RothIRAPrototype = 24;
+        constexpr int64_t RothIRANonPrototype = 25;
+        constexpr int64_t RothConversionIRAPrototype = 26;
+        constexpr int64_t RothConversionIRANonPrototype = 27;
+        constexpr int64_t EducationIRAPrototype = 28;
+        constexpr int64_t EducationIRANonPrototype = 29;
+        constexpr int64_t Other = 999;
     }
     namespace  FundRenewWaiv {
         constexpr char No = 'N';
@@ -1476,25 +1484,25 @@
         constexpr char Reminder = 'N';
     }
     namespace  RegistRejReasonCode {
-        constexpr int InvalidAccountType = 1;
-        constexpr int InvalidTaxExemptType = 2;
-        constexpr int InvalidOwnershipType = 3;
-        constexpr int NoRegDetails = 4;
-        constexpr int InvalidRegSeqNo = 5;
-        constexpr int InvalidRegDetails = 6;
-        constexpr int InvalidMailingDetails = 7;
-        constexpr int InvalidMailingInstructions = 8;
-        constexpr int InvalidInvestorID = 9;
-        constexpr int InvalidInvestorIDSource = 10;
-        constexpr int InvalidDateOfBirth = 11;
-        constexpr int InvalidCountry = 12;
-        constexpr int InvalidDistribInstns = 13;
-        constexpr int InvalidPercentage = 14;
-        constexpr int InvalidPaymentMethod = 15;
-        constexpr int InvalidAccountName = 16;
-        constexpr int InvalidAgentCode = 17;
-        constexpr int InvalidAccountNum = 18;
-        constexpr int Other = 99;
+        constexpr int64_t InvalidAccountType = 1;
+        constexpr int64_t InvalidTaxExemptType = 2;
+        constexpr int64_t InvalidOwnershipType = 3;
+        constexpr int64_t NoRegDetails = 4;
+        constexpr int64_t InvalidRegSeqNo = 5;
+        constexpr int64_t InvalidRegDetails = 6;
+        constexpr int64_t InvalidMailingDetails = 7;
+        constexpr int64_t InvalidMailingInstructions = 8;
+        constexpr int64_t InvalidInvestorID = 9;
+        constexpr int64_t InvalidInvestorIDSource = 10;
+        constexpr int64_t InvalidDateOfBirth = 11;
+        constexpr int64_t InvalidCountry = 12;
+        constexpr int64_t InvalidDistribInstns = 13;
+        constexpr int64_t InvalidPercentage = 14;
+        constexpr int64_t InvalidPaymentMethod = 15;
+        constexpr int64_t InvalidAccountName = 16;
+        constexpr int64_t InvalidAgentCode = 17;
+        constexpr int64_t InvalidAccountNum = 18;
+        constexpr int64_t Other = 99;
     }
     namespace  RegistTransType {
         constexpr char New = '0';
@@ -1507,36 +1515,36 @@
         constexpr char JointTrustees = '2';
     }
     namespace  ContAmtType {
-        constexpr int CommissionAmount = 1;
-        constexpr int CommissionPercent = 2;
-        constexpr int InitialChargeAmount = 3;
-        constexpr int InitialChargePercent = 4;
-        constexpr int DiscountAmount = 5;
-        constexpr int DiscountPercent = 6;
-        constexpr int DilutionLevyAmount = 7;
-        constexpr int DilutionLevyPercent = 8;
-        constexpr int ExitChargeAmount = 9;
-        constexpr int ExitChargePercent = 10;
-        constexpr int FundBasedRenewalCommissionPercent = 11;
-        constexpr int ProjectedFundValue = 12;
-        constexpr int FundBasedRenewalCommissionOnOrder = 13;
-        constexpr int FundBasedRenewalCommissionOnFund = 14;
-        constexpr int NetSettlementAmount = 15;
+        constexpr int64_t CommissionAmount = 1;
+        constexpr int64_t CommissionPercent = 2;
+        constexpr int64_t InitialChargeAmount = 3;
+        constexpr int64_t InitialChargePercent = 4;
+        constexpr int64_t DiscountAmount = 5;
+        constexpr int64_t DiscountPercent = 6;
+        constexpr int64_t DilutionLevyAmount = 7;
+        constexpr int64_t DilutionLevyPercent = 8;
+        constexpr int64_t ExitChargeAmount = 9;
+        constexpr int64_t ExitChargePercent = 10;
+        constexpr int64_t FundBasedRenewalCommissionPercent = 11;
+        constexpr int64_t ProjectedFundValue = 12;
+        constexpr int64_t FundBasedRenewalCommissionOnOrder = 13;
+        constexpr int64_t FundBasedRenewalCommissionOnFund = 14;
+        constexpr int64_t NetSettlementAmount = 15;
     }
     namespace  OwnerType {
-        constexpr int IndividualInvestor = 1;
-        constexpr int PublicCompany = 2;
-        constexpr int PrivateCompany = 3;
-        constexpr int IndividualTrustee = 4;
-        constexpr int CompanyTrustee = 5;
-        constexpr int PensionPlan = 6;
-        constexpr int CustodianUnderGiftsToMinorsAct = 7;
-        constexpr int Trusts = 8;
-        constexpr int Fiduciaries = 9;
-        constexpr int NetworkingSubAccount = 10;
-        constexpr int NonProfitOrganization = 11;
-        constexpr int CorporateBody = 12;
-        constexpr int Nominee = 13;
+        constexpr int64_t IndividualInvestor = 1;
+        constexpr int64_t PublicCompany = 2;
+        constexpr int64_t PrivateCompany = 3;
+        constexpr int64_t IndividualTrustee = 4;
+        constexpr int64_t CompanyTrustee = 5;
+        constexpr int64_t PensionPlan = 6;
+        constexpr int64_t CustodianUnderGiftsToMinorsAct = 7;
+        constexpr int64_t Trusts = 8;
+        constexpr int64_t Fiduciaries = 9;
+        constexpr int64_t NetworkingSubAccount = 10;
+        constexpr int64_t NonProfitOrganization = 11;
+        constexpr int64_t CorporateBody = 12;
+        constexpr int64_t Nominee = 13;
     }
     namespace  OrderCapacity {
         constexpr char Agency = 'A';
@@ -1574,23 +1582,23 @@
         constexpr char CancelOrdersForASecurityGroup = 'A';
     }
     namespace  MassCancelRejectReason {
-        constexpr int MassCancelNotSupported = 0;
-        constexpr int InvalidOrUnknownSecurity = 1;
-        constexpr int InvalidOrUnkownUnderlyingSecurity = 2;
-        constexpr int InvalidOrUnknownProduct = 3;
-        constexpr int InvalidOrUnknownCFICode = 4;
-        constexpr int InvalidOrUnknownSecurityType = 5;
-        constexpr int InvalidOrUnknownTradingSession = 6;
-        constexpr int InvalidOrUnknownMarket = 7;
-        constexpr int InvalidOrUnkownMarketSegment = 8;
-        constexpr int InvalidOrUnknownSecurityGroup = 9;
-        constexpr int Other = 99;
+        constexpr int64_t MassCancelNotSupported = 0;
+        constexpr int64_t InvalidOrUnknownSecurity = 1;
+        constexpr int64_t InvalidOrUnkownUnderlyingSecurity = 2;
+        constexpr int64_t InvalidOrUnknownProduct = 3;
+        constexpr int64_t InvalidOrUnknownCFICode = 4;
+        constexpr int64_t InvalidOrUnknownSecurityType = 5;
+        constexpr int64_t InvalidOrUnknownTradingSession = 6;
+        constexpr int64_t InvalidOrUnknownMarket = 7;
+        constexpr int64_t InvalidOrUnkownMarketSegment = 8;
+        constexpr int64_t InvalidOrUnknownSecurityGroup = 9;
+        constexpr int64_t Other = 99;
     }
     namespace  QuoteType {
-        constexpr int Indicative = 0;
-        constexpr int Tradeable = 1;
-        constexpr int RestrictedTradeable = 2;
-        constexpr int Counter = 3;
+        constexpr int64_t Indicative = 0;
+        constexpr int64_t Tradeable = 1;
+        constexpr int64_t RestrictedTradeable = 2;
+        constexpr int64_t Counter = 3;
     }
     namespace  CashMargin {
         constexpr char Cash = '1';
@@ -1604,49 +1612,49 @@
         constexpr char Yes = 'Y';
     }
     namespace  CrossType {
-        constexpr int CrossAON = 1;
-        constexpr int CrossIOC = 2;
-        constexpr int CrossOneSide = 3;
-        constexpr int CrossSamePrice = 4;
+        constexpr int64_t CrossAON = 1;
+        constexpr int64_t CrossIOC = 2;
+        constexpr int64_t CrossOneSide = 3;
+        constexpr int64_t CrossSamePrice = 4;
     }
     namespace  CrossPrioritization {
-        constexpr int None = 0;
-        constexpr int BuySideIsPrioritized = 1;
-        constexpr int SellSideIsPrioritized = 2;
+        constexpr int64_t None = 0;
+        constexpr int64_t BuySideIsPrioritized = 1;
+        constexpr int64_t SellSideIsPrioritized = 2;
     }
     namespace  NoSides {
     }
     namespace  SecurityListRequestType {
-        constexpr int Symbol = 0;
-        constexpr int SecurityTypeAnd = 1;
-        constexpr int Product = 2;
-        constexpr int TradingSessionID = 3;
-        constexpr int AllSecurities = 4;
-        constexpr int MarketIDOrMarketID = 5;
+        constexpr int64_t Symbol = 0;
+        constexpr int64_t SecurityTypeAnd = 1;
+        constexpr int64_t Product = 2;
+        constexpr int64_t TradingSessionID = 3;
+        constexpr int64_t AllSecurities = 4;
+        constexpr int64_t MarketIDOrMarketID = 5;
     }
     namespace  SecurityRequestResult {
-        constexpr int ValidRequest = 0;
-        constexpr int InvalidOrUnsupportedRequest = 1;
-        constexpr int NoInstrumentsFound = 2;
-        constexpr int NotAuthorizedToRetrieveInstrumentData = 3;
-        constexpr int InstrumentDataTemporarilyUnavailable = 4;
-        constexpr int RequestForInstrumentDataNotSupported = 5;
+        constexpr int64_t ValidRequest = 0;
+        constexpr int64_t InvalidOrUnsupportedRequest = 1;
+        constexpr int64_t NoInstrumentsFound = 2;
+        constexpr int64_t NotAuthorizedToRetrieveInstrumentData = 3;
+        constexpr int64_t InstrumentDataTemporarilyUnavailable = 4;
+        constexpr int64_t RequestForInstrumentDataNotSupported = 5;
     }
     namespace  MultiLegRptTypeReq {
-        constexpr int ReportByMulitlegSecurityOnly = 0;
-        constexpr int ReportByMultilegSecurityAndInstrumentLegs = 1;
-        constexpr int ReportByInstrumentLegsOnly = 2;
+        constexpr int64_t ReportByMulitlegSecurityOnly = 0;
+        constexpr int64_t ReportByMultilegSecurityAndInstrumentLegs = 1;
+        constexpr int64_t ReportByInstrumentLegsOnly = 2;
     }
     namespace  TradSesStatusRejReason {
-        constexpr int UnknownOrInvalidTradingSessionID = 1;
-        constexpr int Other = 99;
+        constexpr int64_t UnknownOrInvalidTradingSessionID = 1;
+        constexpr int64_t Other = 99;
     }
     namespace  TradeRequestType {
-        constexpr int AllTrades = 0;
-        constexpr int MatchedTradesMatchingCriteria = 1;
-        constexpr int UnmatchedTradesThatMatchCriteria = 2;
-        constexpr int UnreportedTradesThatMatchCriteria = 3;
-        constexpr int AdvisoriesThatMatchCriteria = 4;
+        constexpr int64_t AllTrades = 0;
+        constexpr int64_t MatchedTradesMatchingCriteria = 1;
+        constexpr int64_t UnmatchedTradesThatMatchCriteria = 2;
+        constexpr int64_t UnreportedTradesThatMatchCriteria = 3;
+        constexpr int64_t AdvisoriesThatMatchCriteria = 4;
     }
     namespace  PreviouslyReported {
         constexpr char NotReportedToCounterparty = 'N';
@@ -1690,45 +1698,45 @@
         constexpr char TreatAsOddLot = 'Y';
     }
     namespace  ClearingInstruction {
-        constexpr int ProcessNormally = 0;
-        constexpr int ExcludeFromAllNetting = 1;
-        constexpr int BilateralNettingOnly = 2;
-        constexpr int ExClearing = 3;
-        constexpr int SpecialTrade = 4;
-        constexpr int MultilateralNetting = 5;
-        constexpr int ClearAgainstCentralCounterparty = 6;
-        constexpr int ExcludeFromCentralCounterparty = 7;
-        constexpr int ManualMode = 8;
-        constexpr int AutomaticPostingMode = 9;
-        constexpr int AutomaticGiveUpMode = 10;
-        constexpr int QualifiedServiceRepresentativeQSR = 11;
-        constexpr int CustomerTrade = 12;
-        constexpr int SelfClearing = 13;
+        constexpr int64_t ProcessNormally = 0;
+        constexpr int64_t ExcludeFromAllNetting = 1;
+        constexpr int64_t BilateralNettingOnly = 2;
+        constexpr int64_t ExClearing = 3;
+        constexpr int64_t SpecialTrade = 4;
+        constexpr int64_t MultilateralNetting = 5;
+        constexpr int64_t ClearAgainstCentralCounterparty = 6;
+        constexpr int64_t ExcludeFromCentralCounterparty = 7;
+        constexpr int64_t ManualMode = 8;
+        constexpr int64_t AutomaticPostingMode = 9;
+        constexpr int64_t AutomaticGiveUpMode = 10;
+        constexpr int64_t QualifiedServiceRepresentativeQSR = 11;
+        constexpr int64_t CustomerTrade = 12;
+        constexpr int64_t SelfClearing = 13;
     }
     namespace  AccountType {
-        constexpr int CarriedCustomerSide = 1;
-        constexpr int CarriedNonCustomerSide = 2;
-        constexpr int HouseTrader = 3;
-        constexpr int FloorTrader = 4;
-        constexpr int CarriedNonCustomerSideCrossMargined = 6;
-        constexpr int HouseTraderCrossMargined = 7;
-        constexpr int JointBackOfficeAccount = 8;
+        constexpr int64_t CarriedCustomerSide = 1;
+        constexpr int64_t CarriedNonCustomerSide = 2;
+        constexpr int64_t HouseTrader = 3;
+        constexpr int64_t FloorTrader = 4;
+        constexpr int64_t CarriedNonCustomerSideCrossMargined = 6;
+        constexpr int64_t HouseTraderCrossMargined = 7;
+        constexpr int64_t JointBackOfficeAccount = 8;
     }
     namespace  CustOrderCapacity {
-        constexpr int MemberTradingForTheirOwnAccount = 1;
-        constexpr int ClearingFirmTradingForItsProprietaryAccount = 2;
-        constexpr int MemberTradingForAnotherMember = 3;
-        constexpr int AllOther = 4;
+        constexpr int64_t MemberTradingForTheirOwnAccount = 1;
+        constexpr int64_t ClearingFirmTradingForItsProprietaryAccount = 2;
+        constexpr int64_t MemberTradingForAnotherMember = 3;
+        constexpr int64_t AllOther = 4;
     }
     namespace  MassStatusReqType {
-        constexpr int StatusForOrdersForASecurity = 1;
-        constexpr int StatusForOrdersForAnUnderlyingSecurity = 2;
-        constexpr int StatusForOrdersForAProduct = 3;
-        constexpr int StatusForOrdersForACFICode = 4;
-        constexpr int StatusForOrdersForASecurityType = 5;
-        constexpr int StatusForOrdersForATradingSession = 6;
-        constexpr int StatusForAllOrders = 7;
-        constexpr int StatusForOrdersForAPartyID = 8;
+        constexpr int64_t StatusForOrdersForASecurity = 1;
+        constexpr int64_t StatusForOrdersForAnUnderlyingSecurity = 2;
+        constexpr int64_t StatusForOrdersForAProduct = 3;
+        constexpr int64_t StatusForOrdersForACFICode = 4;
+        constexpr int64_t StatusForOrdersForASecurityType = 5;
+        constexpr int64_t StatusForOrdersForATradingSession = 6;
+        constexpr int64_t StatusForAllOrders = 7;
+        constexpr int64_t StatusForOrdersForAPartyID = 8;
     }
     namespace  DayBookingInst {
         constexpr char Auto = '0';
@@ -1754,20 +1762,20 @@
         constexpr char Quiescent = '7';
     }
     namespace  AllocType {
-        constexpr int Calculated = 1;
-        constexpr int Preliminary = 2;
-        constexpr int SellsideCalculatedUsingPreliminary = 3;
-        constexpr int SellsideCalculatedWithoutPreliminary = 4;
-        constexpr int ReadyToBook = 5;
-        constexpr int BuysideReadyToBook = 6;
-        constexpr int WarehouseInstruction = 7;
-        constexpr int RequestToIntermediary = 8;
-        constexpr int Accept = 9;
-        constexpr int Reject = 10;
-        constexpr int AcceptPending = 11;
-        constexpr int IncompleteGroup = 12;
-        constexpr int CompleteGroup = 13;
-        constexpr int ReversalPending = 14;
+        constexpr int64_t Calculated = 1;
+        constexpr int64_t Preliminary = 2;
+        constexpr int64_t SellsideCalculatedUsingPreliminary = 3;
+        constexpr int64_t SellsideCalculatedWithoutPreliminary = 4;
+        constexpr int64_t ReadyToBook = 5;
+        constexpr int64_t BuysideReadyToBook = 6;
+        constexpr int64_t WarehouseInstruction = 7;
+        constexpr int64_t RequestToIntermediary = 8;
+        constexpr int64_t Accept = 9;
+        constexpr int64_t Reject = 10;
+        constexpr int64_t AcceptPending = 11;
+        constexpr int64_t IncompleteGroup = 12;
+        constexpr int64_t CompleteGroup = 13;
+        constexpr int64_t ReversalPending = 14;
     }
     namespace  ClearingFeeIndicator {
         constexpr char FirstYearDelegate = '1';
@@ -1790,78 +1798,78 @@
         constexpr char Working = 'Y';
     }
     namespace  PriorityIndicator {
-        constexpr int PriorityUnchanged = 0;
-        constexpr int LostPriorityAsResultOfOrderChange = 1;
+        constexpr int64_t PriorityUnchanged = 0;
+        constexpr int64_t LostPriorityAsResultOfOrderChange = 1;
     }
     namespace  LegalConfirm {
         constexpr char DoesNotConsituteALegalConfirm = 'N';
         constexpr char LegalConfirm = 'Y';
     }
     namespace  QuoteRequestRejectReason {
-        constexpr int UnknownSymbol = 1;
-        constexpr int Exchange = 2;
-        constexpr int QuoteRequestExceedsLimit = 3;
-        constexpr int TooLateToEnter = 4;
-        constexpr int InvalidPrice = 5;
-        constexpr int NotAuthorizedToRequestQuote = 6;
-        constexpr int NoMatchForInquiry = 7;
-        constexpr int NoMarketForInstrument = 8;
-        constexpr int NoInventory = 9;
-        constexpr int Pass = 10;
-        constexpr int InsufficientCredit = 11;
-        constexpr int Other = 99;
+        constexpr int64_t UnknownSymbol = 1;
+        constexpr int64_t Exchange = 2;
+        constexpr int64_t QuoteRequestExceedsLimit = 3;
+        constexpr int64_t TooLateToEnter = 4;
+        constexpr int64_t InvalidPrice = 5;
+        constexpr int64_t NotAuthorizedToRequestQuote = 6;
+        constexpr int64_t NoMatchForInquiry = 7;
+        constexpr int64_t NoMarketForInstrument = 8;
+        constexpr int64_t NoInventory = 9;
+        constexpr int64_t Pass = 10;
+        constexpr int64_t InsufficientCredit = 11;
+        constexpr int64_t Other = 99;
     }
     namespace  AcctIDSource {
-        constexpr int BIC = 1;
-        constexpr int SIDCode = 2;
-        constexpr int TFM = 3;
-        constexpr int OMGEO = 4;
-        constexpr int DTCCCode = 5;
-        constexpr int Other = 99;
+        constexpr int64_t BIC = 1;
+        constexpr int64_t SIDCode = 2;
+        constexpr int64_t TFM = 3;
+        constexpr int64_t OMGEO = 4;
+        constexpr int64_t DTCCCode = 5;
+        constexpr int64_t Other = 99;
     }
     namespace  ConfirmStatus {
-        constexpr int Received = 1;
-        constexpr int MismatchedAccount = 2;
-        constexpr int MissingSettlementInstructions = 3;
-        constexpr int Confirmed = 4;
-        constexpr int RequestRejected = 5;
+        constexpr int64_t Received = 1;
+        constexpr int64_t MismatchedAccount = 2;
+        constexpr int64_t MissingSettlementInstructions = 3;
+        constexpr int64_t Confirmed = 4;
+        constexpr int64_t RequestRejected = 5;
     }
     namespace  ConfirmTransType {
-        constexpr int New = 0;
-        constexpr int Replace = 1;
-        constexpr int Cancel = 2;
+        constexpr int64_t New = 0;
+        constexpr int64_t Replace = 1;
+        constexpr int64_t Cancel = 2;
     }
     namespace  DeliveryForm {
-        constexpr int BookEntry = 1;
-        constexpr int Bearer = 2;
+        constexpr int64_t BookEntry = 1;
+        constexpr int64_t Bearer = 2;
     }
     namespace  LegSwapType {
-        constexpr int ParForPar = 1;
-        constexpr int ModifiedDuration = 2;
-        constexpr int Risk = 4;
-        constexpr int Proceeds = 5;
+        constexpr int64_t ParForPar = 1;
+        constexpr int64_t ModifiedDuration = 2;
+        constexpr int64_t Risk = 4;
+        constexpr int64_t Proceeds = 5;
     }
     namespace  QuotePriceType {
-        constexpr int Percent = 1;
-        constexpr int PerShare = 2;
-        constexpr int FixedAmount = 3;
-        constexpr int Discount = 4;
-        constexpr int Premium = 5;
-        constexpr int Spread = 6;
-        constexpr int TEDPrice = 7;
-        constexpr int TEDYield = 8;
-        constexpr int YieldSpread = 9;
-        constexpr int Yield = 10;
+        constexpr int64_t Percent = 1;
+        constexpr int64_t PerShare = 2;
+        constexpr int64_t FixedAmount = 3;
+        constexpr int64_t Discount = 4;
+        constexpr int64_t Premium = 5;
+        constexpr int64_t Spread = 6;
+        constexpr int64_t TEDPrice = 7;
+        constexpr int64_t TEDYield = 8;
+        constexpr int64_t YieldSpread = 9;
+        constexpr int64_t Yield = 10;
     }
     namespace  QuoteRespType {
-        constexpr int Hit = 1;
-        constexpr int Counter = 2;
-        constexpr int Expired = 3;
-        constexpr int Cover = 4;
-        constexpr int DoneAway = 5;
-        constexpr int Pass = 6;
-        constexpr int EndTrade = 7;
-        constexpr int TimedOut = 8;
+        constexpr int64_t Hit = 1;
+        constexpr int64_t Counter = 2;
+        constexpr int64_t Expired = 3;
+        constexpr int64_t Cover = 4;
+        constexpr int64_t DoneAway = 5;
+        constexpr int64_t Pass = 6;
+        constexpr int64_t EndTrade = 7;
+        constexpr int64_t TimedOut = 8;
     }
     namespace  PosType {
         constexpr std::string_view AllocationTradeQty = "ALC";
@@ -1890,9 +1898,9 @@
         constexpr std::string_view PrivatelyNegotiatedTradeQty = "PNTN";
     }
     namespace  PosQtyStatus {
-        constexpr int Submitted = 0;
-        constexpr int Accepted = 1;
-        constexpr int Rejected = 2;
+        constexpr int64_t Submitted = 0;
+        constexpr int64_t Accepted = 1;
+        constexpr int64_t Rejected = 2;
     }
     namespace  PosAmtType {
         constexpr std::string_view CashAmount = "CASH";
@@ -1906,18 +1914,18 @@
         constexpr std::string_view SettlementValue = "SETL";
     }
     namespace  PosTransType {
-        constexpr int Exercise = 1;
-        constexpr int DoNotExercise = 2;
-        constexpr int PositionAdjustment = 3;
-        constexpr int PositionChangeSubmission = 4;
-        constexpr int Pledge = 5;
-        constexpr int LargeTraderSubmission = 6;
+        constexpr int64_t Exercise = 1;
+        constexpr int64_t DoNotExercise = 2;
+        constexpr int64_t PositionAdjustment = 3;
+        constexpr int64_t PositionChangeSubmission = 4;
+        constexpr int64_t Pledge = 5;
+        constexpr int64_t LargeTraderSubmission = 6;
     }
     namespace  PosMaintAction {
-        constexpr int New = 1;
-        constexpr int Replace = 2;
-        constexpr int Cancel = 3;
-        constexpr int Reverse = 4;
+        constexpr int64_t New = 1;
+        constexpr int64_t Replace = 2;
+        constexpr int64_t Cancel = 3;
+        constexpr int64_t Reverse = 4;
     }
     namespace  SettlSessID {
         constexpr std::string_view Intraday = "ITD";
@@ -1926,51 +1934,51 @@
         constexpr std::string_view EndOfDay = "EOD";
     }
     namespace  AdjustmentType {
-        constexpr int ProcessRequestAsMarginDisposition = 0;
-        constexpr int DeltaPlus = 1;
-        constexpr int DeltaMinus = 2;
-        constexpr int Final = 3;
+        constexpr int64_t ProcessRequestAsMarginDisposition = 0;
+        constexpr int64_t DeltaPlus = 1;
+        constexpr int64_t DeltaMinus = 2;
+        constexpr int64_t Final = 3;
     }
     namespace  PosMaintStatus {
-        constexpr int Accepted = 0;
-        constexpr int AcceptedWithWarnings = 1;
-        constexpr int Rejected = 2;
-        constexpr int Completed = 3;
-        constexpr int CompletedWithWarnings = 4;
+        constexpr int64_t Accepted = 0;
+        constexpr int64_t AcceptedWithWarnings = 1;
+        constexpr int64_t Rejected = 2;
+        constexpr int64_t Completed = 3;
+        constexpr int64_t CompletedWithWarnings = 4;
     }
     namespace  PosMaintResult {
-        constexpr int SuccessfulCompletion = 0;
-        constexpr int Rejected = 1;
-        constexpr int Other = 99;
+        constexpr int64_t SuccessfulCompletion = 0;
+        constexpr int64_t Rejected = 1;
+        constexpr int64_t Other = 99;
     }
     namespace  PosReqType {
-        constexpr int Positions = 0;
-        constexpr int Trades = 1;
-        constexpr int Exercises = 2;
-        constexpr int Assignments = 3;
-        constexpr int SettlementActivity = 4;
-        constexpr int BackoutMessage = 5;
+        constexpr int64_t Positions = 0;
+        constexpr int64_t Trades = 1;
+        constexpr int64_t Exercises = 2;
+        constexpr int64_t Assignments = 3;
+        constexpr int64_t SettlementActivity = 4;
+        constexpr int64_t BackoutMessage = 5;
     }
     namespace  ResponseTransportType {
-        constexpr int Inband = 0;
-        constexpr int OutOfBand = 1;
+        constexpr int64_t Inband = 0;
+        constexpr int64_t OutOfBand = 1;
     }
     namespace  PosReqResult {
-        constexpr int ValidRequest = 0;
-        constexpr int InvalidOrUnsupportedRequest = 1;
-        constexpr int NoPositionsFoundThatMatchCriteria = 2;
-        constexpr int NotAuthorizedToRequestPositions = 3;
-        constexpr int RequestForPositionNotSupported = 4;
-        constexpr int Other = 99;
+        constexpr int64_t ValidRequest = 0;
+        constexpr int64_t InvalidOrUnsupportedRequest = 1;
+        constexpr int64_t NoPositionsFoundThatMatchCriteria = 2;
+        constexpr int64_t NotAuthorizedToRequestPositions = 3;
+        constexpr int64_t RequestForPositionNotSupported = 4;
+        constexpr int64_t Other = 99;
     }
     namespace  PosReqStatus {
-        constexpr int Completed = 0;
-        constexpr int CompletedWithWarnings = 1;
-        constexpr int Rejected = 2;
+        constexpr int64_t Completed = 0;
+        constexpr int64_t CompletedWithWarnings = 1;
+        constexpr int64_t Rejected = 2;
     }
     namespace  SettlPriceType {
-        constexpr int Final = 1;
-        constexpr int Theoretical = 2;
+        constexpr int64_t Final = 1;
+        constexpr int64_t Theoretical = 2;
     }
     namespace  AssignmentMethod {
         constexpr char ProRata = 'P';
@@ -1981,595 +1989,595 @@
         constexpr char Manual = 'M';
     }
     namespace  TradeRequestResult {
-        constexpr int Successful = 0;
-        constexpr int InvalidOrUnknownInstrument = 1;
-        constexpr int InvalidTypeOfTradeRequested = 2;
-        constexpr int InvalidParties = 3;
-        constexpr int InvalidTransportTypeRequested = 4;
-        constexpr int InvalidDestinationRequested = 5;
-        constexpr int TradeRequestTypeNotSupported = 8;
-        constexpr int NotAuthorized = 9;
-        constexpr int Other = 99;
+        constexpr int64_t Successful = 0;
+        constexpr int64_t InvalidOrUnknownInstrument = 1;
+        constexpr int64_t InvalidTypeOfTradeRequested = 2;
+        constexpr int64_t InvalidParties = 3;
+        constexpr int64_t InvalidTransportTypeRequested = 4;
+        constexpr int64_t InvalidDestinationRequested = 5;
+        constexpr int64_t TradeRequestTypeNotSupported = 8;
+        constexpr int64_t NotAuthorized = 9;
+        constexpr int64_t Other = 99;
     }
     namespace  TradeRequestStatus {
-        constexpr int Accepted = 0;
-        constexpr int Completed = 1;
-        constexpr int Rejected = 2;
+        constexpr int64_t Accepted = 0;
+        constexpr int64_t Completed = 1;
+        constexpr int64_t Rejected = 2;
     }
     namespace  TradeReportRejectReason {
-        constexpr int Successful = 0;
-        constexpr int InvalidPartyOnformation = 1;
-        constexpr int UnknownInstrument = 2;
-        constexpr int UnauthorizedToReportTrades = 3;
-        constexpr int InvalidTradeType = 4;
-        constexpr int Other = 99;
+        constexpr int64_t Successful = 0;
+        constexpr int64_t InvalidPartyOnformation = 1;
+        constexpr int64_t UnknownInstrument = 2;
+        constexpr int64_t UnauthorizedToReportTrades = 3;
+        constexpr int64_t InvalidTradeType = 4;
+        constexpr int64_t Other = 99;
     }
     namespace  SideMultiLegReportingType {
-        constexpr int SingleSecurity = 1;
-        constexpr int IndividualLegOfAMultilegSecurity = 2;
-        constexpr int MultilegSecurity = 3;
+        constexpr int64_t SingleSecurity = 1;
+        constexpr int64_t IndividualLegOfAMultilegSecurity = 2;
+        constexpr int64_t MultilegSecurity = 3;
     }
     namespace  TrdRegTimestampType {
-        constexpr int ExecutionTime = 1;
-        constexpr int TimeIn = 2;
-        constexpr int TimeOut = 3;
-        constexpr int BrokerReceipt = 4;
-        constexpr int BrokerExecution = 5;
-        constexpr int DeskReceipt = 6;
+        constexpr int64_t ExecutionTime = 1;
+        constexpr int64_t TimeIn = 2;
+        constexpr int64_t TimeOut = 3;
+        constexpr int64_t BrokerReceipt = 4;
+        constexpr int64_t BrokerExecution = 5;
+        constexpr int64_t DeskReceipt = 6;
     }
     namespace  ConfirmType {
-        constexpr int Status = 1;
-        constexpr int Confirmation = 2;
-        constexpr int ConfirmationRequestRejected = 3;
+        constexpr int64_t Status = 1;
+        constexpr int64_t Confirmation = 2;
+        constexpr int64_t ConfirmationRequestRejected = 3;
     }
     namespace  ConfirmRejReason {
-        constexpr int MismatchedAccount = 1;
-        constexpr int MissingSettlementInstructions = 2;
-        constexpr int Other = 99;
+        constexpr int64_t MismatchedAccount = 1;
+        constexpr int64_t MissingSettlementInstructions = 2;
+        constexpr int64_t Other = 99;
     }
     namespace  BookingType {
-        constexpr int RegularBooking = 0;
-        constexpr int CFD = 1;
-        constexpr int TotalReturnSwap = 2;
+        constexpr int64_t RegularBooking = 0;
+        constexpr int64_t CFD = 1;
+        constexpr int64_t TotalReturnSwap = 2;
     }
     namespace  AllocSettlInstType {
-        constexpr int UseDefaultInstructions = 0;
-        constexpr int DeriveFromParametersProvided = 1;
-        constexpr int FullDetailsProvided = 2;
-        constexpr int SSIDBIDsProvided = 3;
-        constexpr int PhoneForInstructions = 4;
+        constexpr int64_t UseDefaultInstructions = 0;
+        constexpr int64_t DeriveFromParametersProvided = 1;
+        constexpr int64_t FullDetailsProvided = 2;
+        constexpr int64_t SSIDBIDsProvided = 3;
+        constexpr int64_t PhoneForInstructions = 4;
     }
     namespace  DlvyInstType {
         constexpr char Cash = 'C';
         constexpr char Securities = 'S';
     }
     namespace  TerminationType {
-        constexpr int Overnight = 1;
-        constexpr int Term = 2;
-        constexpr int Flexible = 3;
-        constexpr int Open = 4;
+        constexpr int64_t Overnight = 1;
+        constexpr int64_t Term = 2;
+        constexpr int64_t Flexible = 3;
+        constexpr int64_t Open = 4;
     }
     namespace  SettlInstReqRejCode {
-        constexpr int UnableToProcessRequest = 0;
-        constexpr int UnknownAccount = 1;
-        constexpr int NoMatchingSettlementInstructionsFound = 2;
-        constexpr int Other = 99;
+        constexpr int64_t UnableToProcessRequest = 0;
+        constexpr int64_t UnknownAccount = 1;
+        constexpr int64_t NoMatchingSettlementInstructionsFound = 2;
+        constexpr int64_t Other = 99;
     }
     namespace  AllocReportType {
-        constexpr int PreliminaryRequestToIntermediary = 2;
-        constexpr int SellsideCalculatedUsingPreliminary = 3;
-        constexpr int SellsideCalculatedWithoutPreliminary = 4;
-        constexpr int WarehouseRecap = 5;
-        constexpr int RequestToIntermediary = 8;
-        constexpr int Accept = 9;
-        constexpr int Reject = 10;
-        constexpr int AcceptPending = 11;
-        constexpr int Complete = 12;
-        constexpr int ReversePending = 14;
+        constexpr int64_t PreliminaryRequestToIntermediary = 2;
+        constexpr int64_t SellsideCalculatedUsingPreliminary = 3;
+        constexpr int64_t SellsideCalculatedWithoutPreliminary = 4;
+        constexpr int64_t WarehouseRecap = 5;
+        constexpr int64_t RequestToIntermediary = 8;
+        constexpr int64_t Accept = 9;
+        constexpr int64_t Reject = 10;
+        constexpr int64_t AcceptPending = 11;
+        constexpr int64_t Complete = 12;
+        constexpr int64_t ReversePending = 14;
     }
     namespace  AllocCancReplaceReason {
-        constexpr int OriginalDetailsIncomplete = 1;
-        constexpr int ChangeInUnderlyingOrderDetails = 2;
-        constexpr int Other = 99;
+        constexpr int64_t OriginalDetailsIncomplete = 1;
+        constexpr int64_t ChangeInUnderlyingOrderDetails = 2;
+        constexpr int64_t Other = 99;
     }
     namespace  AllocAccountType {
-        constexpr int CarriedCustomerSide = 1;
-        constexpr int CarriedNonCustomerSide = 2;
-        constexpr int HouseTrader = 3;
-        constexpr int FloorTrader = 4;
-        constexpr int CarriedNonCustomerSideCrossMargined = 6;
-        constexpr int HouseTraderCrossMargined = 7;
-        constexpr int JointBackOfficeAccount = 8;
+        constexpr int64_t CarriedCustomerSide = 1;
+        constexpr int64_t CarriedNonCustomerSide = 2;
+        constexpr int64_t HouseTrader = 3;
+        constexpr int64_t FloorTrader = 4;
+        constexpr int64_t CarriedNonCustomerSideCrossMargined = 6;
+        constexpr int64_t HouseTraderCrossMargined = 7;
+        constexpr int64_t JointBackOfficeAccount = 8;
     }
     namespace  PartySubIDType {
-        constexpr int Firm = 1;
-        constexpr int Person = 2;
-        constexpr int System = 3;
-        constexpr int Application = 4;
-        constexpr int FullLegalNameOfFirm = 5;
-        constexpr int PostalAddress = 6;
-        constexpr int PhoneNumber = 7;
-        constexpr int EmailAddress = 8;
-        constexpr int ContactName = 9;
-        constexpr int SecuritiesAccountNumber = 10;
-        constexpr int RegistrationNumber = 11;
-        constexpr int RegisteredAddressForConfirmation = 12;
-        constexpr int RegulatoryStatus = 13;
-        constexpr int RegistrationName = 14;
-        constexpr int CashAccountNumber = 15;
-        constexpr int BIC = 16;
-        constexpr int CSDParticipantMemberCode = 17;
-        constexpr int RegisteredAddress = 18;
-        constexpr int FundAccountName = 19;
-        constexpr int TelexNumber = 20;
-        constexpr int FaxNumber = 21;
-        constexpr int SecuritiesAccountName = 22;
-        constexpr int CashAccountName = 23;
-        constexpr int Department = 24;
-        constexpr int LocationDesk = 25;
-        constexpr int PositionAccountType = 26;
-        constexpr int SecurityLocateID = 27;
-        constexpr int MarketMaker = 28;
-        constexpr int EligibleCounterparty = 29;
-        constexpr int ProfessionalClient = 30;
-        constexpr int Location = 31;
-        constexpr int ExecutionVenue = 32;
-        constexpr int CurrencyDeliveryIdentifier = 33;
+        constexpr int64_t Firm = 1;
+        constexpr int64_t Person = 2;
+        constexpr int64_t System = 3;
+        constexpr int64_t Application = 4;
+        constexpr int64_t FullLegalNameOfFirm = 5;
+        constexpr int64_t PostalAddress = 6;
+        constexpr int64_t PhoneNumber = 7;
+        constexpr int64_t EmailAddress = 8;
+        constexpr int64_t ContactName = 9;
+        constexpr int64_t SecuritiesAccountNumber = 10;
+        constexpr int64_t RegistrationNumber = 11;
+        constexpr int64_t RegisteredAddressForConfirmation = 12;
+        constexpr int64_t RegulatoryStatus = 13;
+        constexpr int64_t RegistrationName = 14;
+        constexpr int64_t CashAccountNumber = 15;
+        constexpr int64_t BIC = 16;
+        constexpr int64_t CSDParticipantMemberCode = 17;
+        constexpr int64_t RegisteredAddress = 18;
+        constexpr int64_t FundAccountName = 19;
+        constexpr int64_t TelexNumber = 20;
+        constexpr int64_t FaxNumber = 21;
+        constexpr int64_t SecuritiesAccountName = 22;
+        constexpr int64_t CashAccountName = 23;
+        constexpr int64_t Department = 24;
+        constexpr int64_t LocationDesk = 25;
+        constexpr int64_t PositionAccountType = 26;
+        constexpr int64_t SecurityLocateID = 27;
+        constexpr int64_t MarketMaker = 28;
+        constexpr int64_t EligibleCounterparty = 29;
+        constexpr int64_t ProfessionalClient = 30;
+        constexpr int64_t Location = 31;
+        constexpr int64_t ExecutionVenue = 32;
+        constexpr int64_t CurrencyDeliveryIdentifier = 33;
     }
     namespace  AllocIntermedReqType {
-        constexpr int PendingAccept = 1;
-        constexpr int PendingRelease = 2;
-        constexpr int PendingReversal = 3;
-        constexpr int Accept = 4;
-        constexpr int BlockLevelReject = 5;
-        constexpr int AccountLevelReject = 6;
+        constexpr int64_t PendingAccept = 1;
+        constexpr int64_t PendingRelease = 2;
+        constexpr int64_t PendingReversal = 3;
+        constexpr int64_t Accept = 4;
+        constexpr int64_t BlockLevelReject = 5;
+        constexpr int64_t AccountLevelReject = 6;
     }
     namespace  ApplQueueResolution {
-        constexpr int NoActionTaken = 0;
-        constexpr int QueueFlushed = 1;
-        constexpr int OverlayLast = 2;
-        constexpr int EndSession = 3;
+        constexpr int64_t NoActionTaken = 0;
+        constexpr int64_t QueueFlushed = 1;
+        constexpr int64_t OverlayLast = 2;
+        constexpr int64_t EndSession = 3;
     }
     namespace  ApplQueueAction {
-        constexpr int NoActionTaken = 0;
-        constexpr int QueueFlushed = 1;
-        constexpr int OverlayLast = 2;
-        constexpr int EndSession = 3;
+        constexpr int64_t NoActionTaken = 0;
+        constexpr int64_t QueueFlushed = 1;
+        constexpr int64_t OverlayLast = 2;
+        constexpr int64_t EndSession = 3;
     }
     namespace  AvgPxIndicator {
-        constexpr int NoAveragePricing = 0;
-        constexpr int Trade = 1;
-        constexpr int LastTrade = 2;
+        constexpr int64_t NoAveragePricing = 0;
+        constexpr int64_t Trade = 1;
+        constexpr int64_t LastTrade = 2;
     }
     namespace  TradeAllocIndicator {
-        constexpr int AllocationNotRequired = 0;
-        constexpr int AllocationRequired = 1;
-        constexpr int UseAllocationProvidedWithTheTrade = 2;
-        constexpr int AllocationGiveUpExecutor = 3;
-        constexpr int AllocationFromExecutor = 4;
-        constexpr int AllocationToClaimAccount = 5;
+        constexpr int64_t AllocationNotRequired = 0;
+        constexpr int64_t AllocationRequired = 1;
+        constexpr int64_t UseAllocationProvidedWithTheTrade = 2;
+        constexpr int64_t AllocationGiveUpExecutor = 3;
+        constexpr int64_t AllocationFromExecutor = 4;
+        constexpr int64_t AllocationToClaimAccount = 5;
     }
     namespace  ExpirationCycle {
-        constexpr int ExpireOnTradingSessionClose = 0;
-        constexpr int ExpireOnTradingSessionOpen = 1;
-        constexpr int SpecifiedExpiration = 2;
+        constexpr int64_t ExpireOnTradingSessionClose = 0;
+        constexpr int64_t ExpireOnTradingSessionOpen = 1;
+        constexpr int64_t SpecifiedExpiration = 2;
     }
     namespace  TrdType {
-        constexpr int RegularTrade = 0;
-        constexpr int BlockTrade = 1;
-        constexpr int EFP = 2;
-        constexpr int Transfer = 3;
-        constexpr int LateTrade = 4;
-        constexpr int TTrade = 5;
-        constexpr int WeightedAveragePriceTrade = 6;
-        constexpr int BunchedTrade = 7;
-        constexpr int LateBunchedTrade = 8;
-        constexpr int PriorReferencePriceTrade = 9;
-        constexpr int AfterHoursTrade = 10;
-        constexpr int ExchangeForRisk = 11;
-        constexpr int ExchangeForSwap = 12;
-        constexpr int ExchangeOfFuturesFor = 13;
-        constexpr int ExchangeOfOptionsForOptions = 14;
-        constexpr int TradingAtSettlement = 15;
-        constexpr int AllOrNone = 16;
-        constexpr int FuturesLargeOrderExecution = 17;
-        constexpr int ExchangeOfFuturesForFutures = 18;
-        constexpr int OptionInterimTrade = 19;
-        constexpr int OptionCabinetTrade = 20;
-        constexpr int PrivatelyNegotiatedTrades = 22;
-        constexpr int SubstitutionOfFuturesForForwards = 23;
-        constexpr int NonStandardSettlement = 48;
-        constexpr int DerivativeRelatedTransaction = 49;
-        constexpr int PortfolioTrade = 50;
-        constexpr int VolumeWeightedAverageTrade = 51;
-        constexpr int ExchangeGrantedTrade = 52;
-        constexpr int RepurchaseAgreement = 53;
-        constexpr int OTC = 54;
-        constexpr int ExchangeBasisFacility = 55;
-        constexpr int ErrorTrade = 24;
-        constexpr int SpecialCumDividend = 25;
-        constexpr int SpecialExDividend = 26;
-        constexpr int SpecialCumCoupon = 27;
-        constexpr int SpecialExCoupon = 28;
-        constexpr int CashSettlement = 29;
-        constexpr int SpecialPrice = 30;
-        constexpr int GuaranteedDelivery = 31;
-        constexpr int SpecialCumRights = 32;
-        constexpr int SpecialExRights = 33;
-        constexpr int SpecialCumCapitalRepayments = 34;
-        constexpr int SpecialExCapitalRepayments = 35;
-        constexpr int SpecialCumBonus = 36;
-        constexpr int SpecialExBonus = 37;
-        constexpr int LargeTrade = 38;
-        constexpr int WorkedPrincipalTrade = 39;
-        constexpr int BlockTrades = 40;
-        constexpr int NameChange = 41;
-        constexpr int PortfolioTransfer = 42;
-        constexpr int ProrogationBuy = 43;
-        constexpr int ProrogationSell = 44;
-        constexpr int OptionExercise = 45;
-        constexpr int DeltaNeutralTransaction = 46;
-        constexpr int FinancingTransaction = 47;
+        constexpr int64_t RegularTrade = 0;
+        constexpr int64_t BlockTrade = 1;
+        constexpr int64_t EFP = 2;
+        constexpr int64_t Transfer = 3;
+        constexpr int64_t LateTrade = 4;
+        constexpr int64_t TTrade = 5;
+        constexpr int64_t WeightedAveragePriceTrade = 6;
+        constexpr int64_t BunchedTrade = 7;
+        constexpr int64_t LateBunchedTrade = 8;
+        constexpr int64_t PriorReferencePriceTrade = 9;
+        constexpr int64_t AfterHoursTrade = 10;
+        constexpr int64_t ExchangeForRisk = 11;
+        constexpr int64_t ExchangeForSwap = 12;
+        constexpr int64_t ExchangeOfFuturesFor = 13;
+        constexpr int64_t ExchangeOfOptionsForOptions = 14;
+        constexpr int64_t TradingAtSettlement = 15;
+        constexpr int64_t AllOrNone = 16;
+        constexpr int64_t FuturesLargeOrderExecution = 17;
+        constexpr int64_t ExchangeOfFuturesForFutures = 18;
+        constexpr int64_t OptionInterimTrade = 19;
+        constexpr int64_t OptionCabinetTrade = 20;
+        constexpr int64_t PrivatelyNegotiatedTrades = 22;
+        constexpr int64_t SubstitutionOfFuturesForForwards = 23;
+        constexpr int64_t NonStandardSettlement = 48;
+        constexpr int64_t DerivativeRelatedTransaction = 49;
+        constexpr int64_t PortfolioTrade = 50;
+        constexpr int64_t VolumeWeightedAverageTrade = 51;
+        constexpr int64_t ExchangeGrantedTrade = 52;
+        constexpr int64_t RepurchaseAgreement = 53;
+        constexpr int64_t OTC = 54;
+        constexpr int64_t ExchangeBasisFacility = 55;
+        constexpr int64_t ErrorTrade = 24;
+        constexpr int64_t SpecialCumDividend = 25;
+        constexpr int64_t SpecialExDividend = 26;
+        constexpr int64_t SpecialCumCoupon = 27;
+        constexpr int64_t SpecialExCoupon = 28;
+        constexpr int64_t CashSettlement = 29;
+        constexpr int64_t SpecialPrice = 30;
+        constexpr int64_t GuaranteedDelivery = 31;
+        constexpr int64_t SpecialCumRights = 32;
+        constexpr int64_t SpecialExRights = 33;
+        constexpr int64_t SpecialCumCapitalRepayments = 34;
+        constexpr int64_t SpecialExCapitalRepayments = 35;
+        constexpr int64_t SpecialCumBonus = 36;
+        constexpr int64_t SpecialExBonus = 37;
+        constexpr int64_t LargeTrade = 38;
+        constexpr int64_t WorkedPrincipalTrade = 39;
+        constexpr int64_t BlockTrades = 40;
+        constexpr int64_t NameChange = 41;
+        constexpr int64_t PortfolioTransfer = 42;
+        constexpr int64_t ProrogationBuy = 43;
+        constexpr int64_t ProrogationSell = 44;
+        constexpr int64_t OptionExercise = 45;
+        constexpr int64_t DeltaNeutralTransaction = 46;
+        constexpr int64_t FinancingTransaction = 47;
     }
     namespace  TrdSubType {
-        constexpr int CMTA = 0;
-        constexpr int InternalTransferOrAdjustment = 1;
-        constexpr int ExternalTransferOrTransferOfAccount = 2;
-        constexpr int RejectForSubmittingSide = 3;
-        constexpr int AdvisoryForContraSide = 4;
-        constexpr int OffsetDueToAnAllocation = 5;
-        constexpr int OnsetDueToAnAllocation = 6;
-        constexpr int DifferentialSpread = 7;
-        constexpr int ImpliedSpreadLegExecutedAgainstAnOutright = 8;
-        constexpr int TransactionFromExercise = 9;
-        constexpr int TransactionFromAssignment = 10;
-        constexpr int ACATS = 11;
-        constexpr int OffHoursTrade = 33;
-        constexpr int OnHoursTrade = 34;
-        constexpr int OTCQuote = 35;
-        constexpr int ConvertedSWAP = 36;
-        constexpr int AI = 14;
-        constexpr int B = 15;
-        constexpr int K = 16;
-        constexpr int LC = 17;
-        constexpr int M = 18;
-        constexpr int N = 19;
-        constexpr int NM = 20;
-        constexpr int NR = 21;
-        constexpr int P = 22;
-        constexpr int PA = 23;
-        constexpr int PC = 24;
-        constexpr int PN = 25;
-        constexpr int R = 26;
-        constexpr int RO = 27;
-        constexpr int RT = 28;
-        constexpr int SW = 29;
-        constexpr int T = 30;
-        constexpr int WN = 31;
-        constexpr int WT = 32;
-        constexpr int CrossedTrade = 37;
-        constexpr int InterimProtectedTrade = 38;
-        constexpr int LargeInScale = 39;
+        constexpr int64_t CMTA = 0;
+        constexpr int64_t InternalTransferOrAdjustment = 1;
+        constexpr int64_t ExternalTransferOrTransferOfAccount = 2;
+        constexpr int64_t RejectForSubmittingSide = 3;
+        constexpr int64_t AdvisoryForContraSide = 4;
+        constexpr int64_t OffsetDueToAnAllocation = 5;
+        constexpr int64_t OnsetDueToAnAllocation = 6;
+        constexpr int64_t DifferentialSpread = 7;
+        constexpr int64_t ImpliedSpreadLegExecutedAgainstAnOutright = 8;
+        constexpr int64_t TransactionFromExercise = 9;
+        constexpr int64_t TransactionFromAssignment = 10;
+        constexpr int64_t ACATS = 11;
+        constexpr int64_t OffHoursTrade = 33;
+        constexpr int64_t OnHoursTrade = 34;
+        constexpr int64_t OTCQuote = 35;
+        constexpr int64_t ConvertedSWAP = 36;
+        constexpr int64_t AI = 14;
+        constexpr int64_t B = 15;
+        constexpr int64_t K = 16;
+        constexpr int64_t LC = 17;
+        constexpr int64_t M = 18;
+        constexpr int64_t N = 19;
+        constexpr int64_t NM = 20;
+        constexpr int64_t NR = 21;
+        constexpr int64_t P = 22;
+        constexpr int64_t PA = 23;
+        constexpr int64_t PC = 24;
+        constexpr int64_t PN = 25;
+        constexpr int64_t R = 26;
+        constexpr int64_t RO = 27;
+        constexpr int64_t RT = 28;
+        constexpr int64_t SW = 29;
+        constexpr int64_t T = 30;
+        constexpr int64_t WN = 31;
+        constexpr int64_t WT = 32;
+        constexpr int64_t CrossedTrade = 37;
+        constexpr int64_t InterimProtectedTrade = 38;
+        constexpr int64_t LargeInScale = 39;
     }
     namespace  PegMoveType {
-        constexpr int Floating = 0;
-        constexpr int Fixed = 1;
+        constexpr int64_t Floating = 0;
+        constexpr int64_t Fixed = 1;
     }
     namespace  PegOffsetType {
-        constexpr int Price = 0;
-        constexpr int BasisPoints = 1;
-        constexpr int Ticks = 2;
-        constexpr int PriceTier = 3;
+        constexpr int64_t Price = 0;
+        constexpr int64_t BasisPoints = 1;
+        constexpr int64_t Ticks = 2;
+        constexpr int64_t PriceTier = 3;
     }
     namespace  PegLimitType {
-        constexpr int OrBetter = 0;
-        constexpr int Strict = 1;
-        constexpr int OrWorse = 2;
+        constexpr int64_t OrBetter = 0;
+        constexpr int64_t Strict = 1;
+        constexpr int64_t OrWorse = 2;
     }
     namespace  PegRoundDirection {
-        constexpr int MoreAggressive = 1;
-        constexpr int MorePassive = 2;
+        constexpr int64_t MoreAggressive = 1;
+        constexpr int64_t MorePassive = 2;
     }
     namespace  PegScope {
-        constexpr int Local = 1;
-        constexpr int National = 2;
-        constexpr int Global = 3;
-        constexpr int NationalExcludingLocal = 4;
+        constexpr int64_t Local = 1;
+        constexpr int64_t National = 2;
+        constexpr int64_t Global = 3;
+        constexpr int64_t NationalExcludingLocal = 4;
     }
     namespace  DiscretionMoveType {
-        constexpr int Floating = 0;
-        constexpr int Fixed = 1;
+        constexpr int64_t Floating = 0;
+        constexpr int64_t Fixed = 1;
     }
     namespace  DiscretionOffsetType {
-        constexpr int Price = 0;
-        constexpr int BasisPoints = 1;
-        constexpr int Ticks = 2;
-        constexpr int PriceTier = 3;
+        constexpr int64_t Price = 0;
+        constexpr int64_t BasisPoints = 1;
+        constexpr int64_t Ticks = 2;
+        constexpr int64_t PriceTier = 3;
     }
     namespace  DiscretionLimitType {
-        constexpr int OrBetter = 0;
-        constexpr int Strict = 1;
-        constexpr int OrWorse = 2;
+        constexpr int64_t OrBetter = 0;
+        constexpr int64_t Strict = 1;
+        constexpr int64_t OrWorse = 2;
     }
     namespace  DiscretionRoundDirection {
-        constexpr int MoreAggressive = 1;
-        constexpr int MorePassive = 2;
+        constexpr int64_t MoreAggressive = 1;
+        constexpr int64_t MorePassive = 2;
     }
     namespace  DiscretionScope {
-        constexpr int Local = 1;
-        constexpr int National = 2;
-        constexpr int Global = 3;
-        constexpr int NationalExcludingLocal = 4;
+        constexpr int64_t Local = 1;
+        constexpr int64_t National = 2;
+        constexpr int64_t Global = 3;
+        constexpr int64_t NationalExcludingLocal = 4;
     }
     namespace  TargetStrategy {
-        constexpr int VWAP = 1;
-        constexpr int Participate = 2;
-        constexpr int MininizeMarketImpact = 3;
+        constexpr int64_t VWAP = 1;
+        constexpr int64_t Participate = 2;
+        constexpr int64_t MininizeMarketImpact = 3;
     }
     namespace  LastLiquidityInd {
-        constexpr int AddedLiquidity = 1;
-        constexpr int RemovedLiquidity = 2;
-        constexpr int LiquidityRoutedOut = 3;
-        constexpr int Auction = 4;
+        constexpr int64_t AddedLiquidity = 1;
+        constexpr int64_t RemovedLiquidity = 2;
+        constexpr int64_t LiquidityRoutedOut = 3;
+        constexpr int64_t Auction = 4;
     }
     namespace  PublishTrdIndicator {
         constexpr char DoNotReportTrade = 'N';
         constexpr char ReportTrade = 'Y';
     }
     namespace  ShortSaleReason {
-        constexpr int DealerSoldShort = 0;
-        constexpr int DealerSoldShortExempt = 1;
-        constexpr int SellingCustomerSoldShort = 2;
-        constexpr int SellingCustomerSoldShortExempt = 3;
-        constexpr int QualifiedServiceRepresentative = 4;
-        constexpr int QSROrAGUContraSideSoldShortExempt = 5;
+        constexpr int64_t DealerSoldShort = 0;
+        constexpr int64_t DealerSoldShortExempt = 1;
+        constexpr int64_t SellingCustomerSoldShort = 2;
+        constexpr int64_t SellingCustomerSoldShortExempt = 3;
+        constexpr int64_t QualifiedServiceRepresentative = 4;
+        constexpr int64_t QSROrAGUContraSideSoldShortExempt = 5;
     }
     namespace  QtyType {
-        constexpr int Units = 0;
-        constexpr int Contracts = 1;
-        constexpr int UnitsOfMeasurePerTimeUnit = 2;
+        constexpr int64_t Units = 0;
+        constexpr int64_t Contracts = 1;
+        constexpr int64_t UnitsOfMeasurePerTimeUnit = 2;
     }
     namespace  TradeReportType {
-        constexpr int Submit = 0;
-        constexpr int Alleged = 1;
-        constexpr int Accept = 2;
-        constexpr int Decline = 3;
-        constexpr int Addendum = 4;
-        constexpr int No = 5;
-        constexpr int TradeReportCancel = 6;
-        constexpr int LockedIn = 7;
-        constexpr int Defaulted = 8;
-        constexpr int InvalidCMTA = 9;
-        constexpr int Pended = 10;
-        constexpr int AllegedNew = 11;
-        constexpr int AllegedAddendum = 12;
-        constexpr int AllegedNo = 13;
-        constexpr int AllegedTradeReportCancel = 14;
-        constexpr int AllegedTradeBreak = 15;
+        constexpr int64_t Submit = 0;
+        constexpr int64_t Alleged = 1;
+        constexpr int64_t Accept = 2;
+        constexpr int64_t Decline = 3;
+        constexpr int64_t Addendum = 4;
+        constexpr int64_t No = 5;
+        constexpr int64_t TradeReportCancel = 6;
+        constexpr int64_t LockedIn = 7;
+        constexpr int64_t Defaulted = 8;
+        constexpr int64_t InvalidCMTA = 9;
+        constexpr int64_t Pended = 10;
+        constexpr int64_t AllegedNew = 11;
+        constexpr int64_t AllegedAddendum = 12;
+        constexpr int64_t AllegedNo = 13;
+        constexpr int64_t AllegedTradeReportCancel = 14;
+        constexpr int64_t AllegedTradeBreak = 15;
     }
     namespace  AllocNoOrdersType {
-        constexpr int NotSpecified = 0;
-        constexpr int ExplicitListProvided = 1;
+        constexpr int64_t NotSpecified = 0;
+        constexpr int64_t ExplicitListProvided = 1;
     }
     namespace  EventType {
-        constexpr int Put = 1;
-        constexpr int Call = 2;
-        constexpr int Tender = 3;
-        constexpr int SinkingFundCall = 4;
-        constexpr int Activation = 5;
-        constexpr int Inactiviation = 6;
-        constexpr int LastEligibleTradeDate = 7;
-        constexpr int SwapStartDate = 8;
-        constexpr int SwapEndDate = 9;
-        constexpr int SwapRollDate = 10;
-        constexpr int SwapNextStartDate = 11;
-        constexpr int SwapNextRollDate = 12;
-        constexpr int FirstDeliveryDate = 13;
-        constexpr int LastDeliveryDate = 14;
-        constexpr int InitialInventoryDueDate = 15;
-        constexpr int FinalInventoryDueDate = 16;
-        constexpr int FirstIntentDate = 17;
-        constexpr int LastIntentDate = 18;
-        constexpr int PositionRemovalDate = 19;
-        constexpr int Other = 99;
+        constexpr int64_t Put = 1;
+        constexpr int64_t Call = 2;
+        constexpr int64_t Tender = 3;
+        constexpr int64_t SinkingFundCall = 4;
+        constexpr int64_t Activation = 5;
+        constexpr int64_t Inactiviation = 6;
+        constexpr int64_t LastEligibleTradeDate = 7;
+        constexpr int64_t SwapStartDate = 8;
+        constexpr int64_t SwapEndDate = 9;
+        constexpr int64_t SwapRollDate = 10;
+        constexpr int64_t SwapNextStartDate = 11;
+        constexpr int64_t SwapNextRollDate = 12;
+        constexpr int64_t FirstDeliveryDate = 13;
+        constexpr int64_t LastDeliveryDate = 14;
+        constexpr int64_t InitialInventoryDueDate = 15;
+        constexpr int64_t FinalInventoryDueDate = 16;
+        constexpr int64_t FirstIntentDate = 17;
+        constexpr int64_t LastIntentDate = 18;
+        constexpr int64_t PositionRemovalDate = 19;
+        constexpr int64_t Other = 99;
     }
     namespace  InstrAttribType {
-        constexpr int Flat = 1;
-        constexpr int ZeroCoupon = 2;
-        constexpr int InterestBearing = 3;
-        constexpr int NoPeriodicPayments = 4;
-        constexpr int VariableRate = 5;
-        constexpr int LessFeeForPut = 6;
-        constexpr int SteppedCoupon = 7;
-        constexpr int CouponPeriod = 8;
-        constexpr int When = 9;
-        constexpr int OriginalIssueDiscount = 10;
-        constexpr int Callable = 11;
-        constexpr int EscrowedToMaturity = 12;
-        constexpr int EscrowedToRedemptionDate = 13;
-        constexpr int PreRefunded = 14;
-        constexpr int InDefault = 15;
-        constexpr int Unrated = 16;
-        constexpr int Taxable = 17;
-        constexpr int Indexed = 18;
-        constexpr int SubjectToAlternativeMinimumTax = 19;
-        constexpr int OriginalIssueDiscountPrice = 20;
-        constexpr int CallableBelowMaturityValue = 21;
-        constexpr int CallableWithoutNotice = 22;
-        constexpr int PriceTickRulesForSecurity = 23;
-        constexpr int TradeTypeEligibilityDetailsForSecurity = 24;
-        constexpr int InstrumentDenominator = 25;
-        constexpr int InstrumentNumerator = 26;
-        constexpr int InstrumentPricePrecision = 27;
-        constexpr int InstrumentStrikePrice = 28;
-        constexpr int TradeableIndicator = 29;
-        constexpr int Text = 99;
+        constexpr int64_t Flat = 1;
+        constexpr int64_t ZeroCoupon = 2;
+        constexpr int64_t InterestBearing = 3;
+        constexpr int64_t NoPeriodicPayments = 4;
+        constexpr int64_t VariableRate = 5;
+        constexpr int64_t LessFeeForPut = 6;
+        constexpr int64_t SteppedCoupon = 7;
+        constexpr int64_t CouponPeriod = 8;
+        constexpr int64_t When = 9;
+        constexpr int64_t OriginalIssueDiscount = 10;
+        constexpr int64_t Callable = 11;
+        constexpr int64_t EscrowedToMaturity = 12;
+        constexpr int64_t EscrowedToRedemptionDate = 13;
+        constexpr int64_t PreRefunded = 14;
+        constexpr int64_t InDefault = 15;
+        constexpr int64_t Unrated = 16;
+        constexpr int64_t Taxable = 17;
+        constexpr int64_t Indexed = 18;
+        constexpr int64_t SubjectToAlternativeMinimumTax = 19;
+        constexpr int64_t OriginalIssueDiscountPrice = 20;
+        constexpr int64_t CallableBelowMaturityValue = 21;
+        constexpr int64_t CallableWithoutNotice = 22;
+        constexpr int64_t PriceTickRulesForSecurity = 23;
+        constexpr int64_t TradeTypeEligibilityDetailsForSecurity = 24;
+        constexpr int64_t InstrumentDenominator = 25;
+        constexpr int64_t InstrumentNumerator = 26;
+        constexpr int64_t InstrumentPricePrecision = 27;
+        constexpr int64_t InstrumentStrikePrice = 28;
+        constexpr int64_t TradeableIndicator = 29;
+        constexpr int64_t Text = 99;
     }
     namespace  CPProgram {
-        constexpr int Program3a3 = 1;
-        constexpr int Program42 = 2;
-        constexpr int Other = 99;
+        constexpr int64_t Program3a3 = 1;
+        constexpr int64_t Program42 = 2;
+        constexpr int64_t Other = 99;
     }
     namespace  MiscFeeBasis {
-        constexpr int Absolute = 0;
-        constexpr int PerUnit = 1;
-        constexpr int Percentage = 2;
+        constexpr int64_t Absolute = 0;
+        constexpr int64_t PerUnit = 1;
+        constexpr int64_t Percentage = 2;
     }
     namespace  LastFragment {
         constexpr char NotLastMessage = 'N';
         constexpr char LastMessage = 'Y';
     }
     namespace  CollAsgnReason {
-        constexpr int Initial = 0;
-        constexpr int Scheduled = 1;
-        constexpr int TimeWarning = 2;
-        constexpr int MarginDeficiency = 3;
-        constexpr int MarginExcess = 4;
-        constexpr int ForwardCollateralDemand = 5;
-        constexpr int EventOfDefault = 6;
-        constexpr int AdverseTaxEvent = 7;
+        constexpr int64_t Initial = 0;
+        constexpr int64_t Scheduled = 1;
+        constexpr int64_t TimeWarning = 2;
+        constexpr int64_t MarginDeficiency = 3;
+        constexpr int64_t MarginExcess = 4;
+        constexpr int64_t ForwardCollateralDemand = 5;
+        constexpr int64_t EventOfDefault = 6;
+        constexpr int64_t AdverseTaxEvent = 7;
     }
     namespace  CollInquiryQualifier {
-        constexpr int TradeDate = 0;
-        constexpr int GCInstrument = 1;
-        constexpr int CollateralInstrument = 2;
-        constexpr int SubstitutionEligible = 3;
-        constexpr int NotAssigned = 4;
-        constexpr int PartiallyAssigned = 5;
-        constexpr int FullyAssigned = 6;
-        constexpr int OutstandingTrades = 7;
+        constexpr int64_t TradeDate = 0;
+        constexpr int64_t GCInstrument = 1;
+        constexpr int64_t CollateralInstrument = 2;
+        constexpr int64_t SubstitutionEligible = 3;
+        constexpr int64_t NotAssigned = 4;
+        constexpr int64_t PartiallyAssigned = 5;
+        constexpr int64_t FullyAssigned = 6;
+        constexpr int64_t OutstandingTrades = 7;
     }
     namespace  CollAsgnTransType {
-        constexpr int New = 0;
-        constexpr int Replace = 1;
-        constexpr int Cancel = 2;
-        constexpr int Release = 3;
-        constexpr int Reverse = 4;
+        constexpr int64_t New = 0;
+        constexpr int64_t Replace = 1;
+        constexpr int64_t Cancel = 2;
+        constexpr int64_t Release = 3;
+        constexpr int64_t Reverse = 4;
     }
     namespace  CollAsgnRespType {
-        constexpr int Received = 0;
-        constexpr int Accepted = 1;
-        constexpr int Declined = 2;
-        constexpr int Rejected = 3;
+        constexpr int64_t Received = 0;
+        constexpr int64_t Accepted = 1;
+        constexpr int64_t Declined = 2;
+        constexpr int64_t Rejected = 3;
     }
     namespace  CollAsgnRejectReason {
-        constexpr int UnknownDeal = 0;
-        constexpr int UnknownOrInvalidInstrument = 1;
-        constexpr int UnauthorizedTransaction = 2;
-        constexpr int InsufficientCollateral = 3;
-        constexpr int InvalidTypeOfCollateral = 4;
-        constexpr int ExcessiveSubstitution = 5;
-        constexpr int Other = 99;
+        constexpr int64_t UnknownDeal = 0;
+        constexpr int64_t UnknownOrInvalidInstrument = 1;
+        constexpr int64_t UnauthorizedTransaction = 2;
+        constexpr int64_t InsufficientCollateral = 3;
+        constexpr int64_t InvalidTypeOfCollateral = 4;
+        constexpr int64_t ExcessiveSubstitution = 5;
+        constexpr int64_t Other = 99;
     }
     namespace  CollStatus {
-        constexpr int Unassigned = 0;
-        constexpr int PartiallyAssigned = 1;
-        constexpr int AssignmentProposed = 2;
-        constexpr int Assigned = 3;
-        constexpr int Challenged = 4;
+        constexpr int64_t Unassigned = 0;
+        constexpr int64_t PartiallyAssigned = 1;
+        constexpr int64_t AssignmentProposed = 2;
+        constexpr int64_t Assigned = 3;
+        constexpr int64_t Challenged = 4;
     }
     namespace  LastRptRequested {
         constexpr char NotLastMessage = 'N';
         constexpr char LastMessage = 'Y';
     }
     namespace  DeliveryType {
-        constexpr int VersusPayment = 0;
-        constexpr int Free = 1;
-        constexpr int TriParty = 2;
-        constexpr int HoldInCustody = 3;
+        constexpr int64_t VersusPayment = 0;
+        constexpr int64_t Free = 1;
+        constexpr int64_t TriParty = 2;
+        constexpr int64_t HoldInCustody = 3;
     }
     namespace  UserRequestType {
-        constexpr int LogOnUser = 1;
-        constexpr int LogOffUser = 2;
-        constexpr int ChangePasswordForUser = 3;
-        constexpr int RequestIndividualUserStatus = 4;
+        constexpr int64_t LogOnUser = 1;
+        constexpr int64_t LogOffUser = 2;
+        constexpr int64_t ChangePasswordForUser = 3;
+        constexpr int64_t RequestIndividualUserStatus = 4;
     }
     namespace  UserStatus {
-        constexpr int LoggedIn = 1;
-        constexpr int NotLoggedIn = 2;
-        constexpr int UserNotRecognised = 3;
-        constexpr int PasswordIncorrect = 4;
-        constexpr int PasswordChanged = 5;
-        constexpr int Other = 6;
-        constexpr int ForcedUserLogoutByExchange = 7;
-        constexpr int SessionShutdownWarning = 8;
+        constexpr int64_t LoggedIn = 1;
+        constexpr int64_t NotLoggedIn = 2;
+        constexpr int64_t UserNotRecognised = 3;
+        constexpr int64_t PasswordIncorrect = 4;
+        constexpr int64_t PasswordChanged = 5;
+        constexpr int64_t Other = 6;
+        constexpr int64_t ForcedUserLogoutByExchange = 7;
+        constexpr int64_t SessionShutdownWarning = 8;
     }
     namespace  StatusValue {
-        constexpr int Connected = 1;
-        constexpr int NotConnectedUnexpected = 2;
-        constexpr int NotConnectedExpected = 3;
-        constexpr int InProcess = 4;
+        constexpr int64_t Connected = 1;
+        constexpr int64_t NotConnectedUnexpected = 2;
+        constexpr int64_t NotConnectedExpected = 3;
+        constexpr int64_t InProcess = 4;
     }
     namespace  NetworkRequestType {
-        constexpr int Snapshot = 1;
-        constexpr int Subscribe = 2;
-        constexpr int StopSubscribing = 4;
-        constexpr int LevelOfDetail = 8;
+        constexpr int64_t Snapshot = 1;
+        constexpr int64_t Subscribe = 2;
+        constexpr int64_t StopSubscribing = 4;
+        constexpr int64_t LevelOfDetail = 8;
     }
     namespace  NetworkStatusResponseType {
-        constexpr int Full = 1;
-        constexpr int IncrementalUpdate = 2;
+        constexpr int64_t Full = 1;
+        constexpr int64_t IncrementalUpdate = 2;
     }
     namespace  TrdRptStatus {
-        constexpr int Accepted = 0;
-        constexpr int Rejected = 1;
-        constexpr int AcceptedWithErrors = 3;
+        constexpr int64_t Accepted = 0;
+        constexpr int64_t Rejected = 1;
+        constexpr int64_t AcceptedWithErrors = 3;
     }
     namespace  AffirmStatus {
-        constexpr int Received = 1;
-        constexpr int ConfirmRejected = 2;
-        constexpr int Affirmed = 3;
+        constexpr int64_t Received = 1;
+        constexpr int64_t ConfirmRejected = 2;
+        constexpr int64_t Affirmed = 3;
     }
     namespace  CollAction {
-        constexpr int Retain = 0;
-        constexpr int Add = 1;
-        constexpr int Remove = 2;
+        constexpr int64_t Retain = 0;
+        constexpr int64_t Add = 1;
+        constexpr int64_t Remove = 2;
     }
     namespace  CollInquiryStatus {
-        constexpr int Accepted = 0;
-        constexpr int AcceptedWithWarnings = 1;
-        constexpr int Completed = 2;
-        constexpr int CompletedWithWarnings = 3;
-        constexpr int Rejected = 4;
+        constexpr int64_t Accepted = 0;
+        constexpr int64_t AcceptedWithWarnings = 1;
+        constexpr int64_t Completed = 2;
+        constexpr int64_t CompletedWithWarnings = 3;
+        constexpr int64_t Rejected = 4;
     }
     namespace  CollInquiryResult {
-        constexpr int Successful = 0;
-        constexpr int InvalidOrUnknownInstrument = 1;
-        constexpr int InvalidOrUnknownCollateralType = 2;
-        constexpr int InvalidParties = 3;
-        constexpr int InvalidTransportTypeRequested = 4;
-        constexpr int InvalidDestinationRequested = 5;
-        constexpr int NoCollateralFoundForTheTradeSpecified = 6;
-        constexpr int NoCollateralFoundForTheOrderSpecified = 7;
-        constexpr int CollateralInquiryTypeNotSupported = 8;
-        constexpr int UnauthorizedForCollateralInquiry = 9;
-        constexpr int Other = 99;
+        constexpr int64_t Successful = 0;
+        constexpr int64_t InvalidOrUnknownInstrument = 1;
+        constexpr int64_t InvalidOrUnknownCollateralType = 2;
+        constexpr int64_t InvalidParties = 3;
+        constexpr int64_t InvalidTransportTypeRequested = 4;
+        constexpr int64_t InvalidDestinationRequested = 5;
+        constexpr int64_t NoCollateralFoundForTheTradeSpecified = 6;
+        constexpr int64_t NoCollateralFoundForTheOrderSpecified = 7;
+        constexpr int64_t CollateralInquiryTypeNotSupported = 8;
+        constexpr int64_t UnauthorizedForCollateralInquiry = 9;
+        constexpr int64_t Other = 99;
     }
     namespace  StrategyParameterType {
-        constexpr int Int = 1;
-        constexpr int Length = 2;
-        constexpr int NumInGroup = 3;
-        constexpr int SeqNum = 4;
-        constexpr int TagNum = 5;
-        constexpr int Float = 6;
-        constexpr int Qty = 7;
-        constexpr int Price = 8;
-        constexpr int PriceOffset = 9;
-        constexpr int Amt = 10;
-        constexpr int Percentage = 11;
-        constexpr int Char = 12;
-        constexpr int Boolean = 13;
-        constexpr int String = 14;
-        constexpr int MultipleCharValue = 15;
-        constexpr int Currency = 16;
-        constexpr int Exchange = 17;
-        constexpr int MonthYear = 18;
-        constexpr int UTCTimestamp = 19;
-        constexpr int UTCTimeOnly = 20;
-        constexpr int LocalMktDate = 21;
-        constexpr int UTCDateOnly = 22;
-        constexpr int Data = 23;
-        constexpr int MultipleStringValue = 24;
+        constexpr int64_t Int = 1;
+        constexpr int64_t Length = 2;
+        constexpr int64_t NumInGroup = 3;
+        constexpr int64_t SeqNum = 4;
+        constexpr int64_t TagNum = 5;
+        constexpr int64_t Float = 6;
+        constexpr int64_t Qty = 7;
+        constexpr int64_t Price = 8;
+        constexpr int64_t PriceOffset = 9;
+        constexpr int64_t Amt = 10;
+        constexpr int64_t Percentage = 11;
+        constexpr int64_t Char = 12;
+        constexpr int64_t Boolean = 13;
+        constexpr int64_t String = 14;
+        constexpr int64_t MultipleCharValue = 15;
+        constexpr int64_t Currency = 16;
+        constexpr int64_t Exchange = 17;
+        constexpr int64_t MonthYear = 18;
+        constexpr int64_t UTCTimestamp = 19;
+        constexpr int64_t UTCTimeOnly = 20;
+        constexpr int64_t LocalMktDate = 21;
+        constexpr int64_t UTCDateOnly = 22;
+        constexpr int64_t Data = 23;
+        constexpr int64_t MultipleStringValue = 24;
     }
     namespace  SecurityStatus {
         constexpr char Active = '1';
@@ -2580,9 +2588,9 @@
         constexpr std::string_view DIFF = "DIFF";
     }
     namespace  UnderlyingSettlementType {
-        constexpr int TPlus1 = 2;
-        constexpr int TPlus3 = 4;
-        constexpr int TPlus4 = 5;
+        constexpr int64_t TPlus1 = 2;
+        constexpr int64_t TPlus3 = 4;
+        constexpr int64_t TPlus4 = 5;
     }
     namespace  SecurityUpdateAction {
         constexpr char Add = 'A';
@@ -2590,15 +2598,15 @@
         constexpr char Modify = 'M';
     }
     namespace  ExpirationQtyType {
-        constexpr int AutoExercise = 1;
-        constexpr int NonAutoExercise = 2;
-        constexpr int FinalWillBeExercised = 3;
-        constexpr int ContraryIntention = 4;
-        constexpr int Difference = 5;
+        constexpr int64_t AutoExercise = 1;
+        constexpr int64_t NonAutoExercise = 2;
+        constexpr int64_t FinalWillBeExercised = 3;
+        constexpr int64_t ContraryIntention = 4;
+        constexpr int64_t Difference = 5;
     }
     namespace  IndividualAllocType {
-        constexpr int SubAllocate = 1;
-        constexpr int ThirdPartyAllocation = 2;
+        constexpr int64_t SubAllocate = 1;
+        constexpr int64_t ThirdPartyAllocation = 2;
     }
     namespace  UnitOfMeasure {
         constexpr std::string_view BillionCubicFeet = "Bcf";
@@ -2624,23 +2632,23 @@
         constexpr std::string_view Year = "Yr";
     }
     namespace  AllocMethod {
-        constexpr int Automatic = 1;
-        constexpr int Guarantor = 2;
-        constexpr int Manual = 3;
+        constexpr int64_t Automatic = 1;
+        constexpr int64_t Guarantor = 2;
+        constexpr int64_t Manual = 3;
     }
     namespace  AsOfIndicator {
         constexpr char False = '0';
         constexpr char True = '1';
     }
     namespace  MDBookType {
-        constexpr int TopOfBook = 1;
-        constexpr int PriceDepth = 2;
-        constexpr int OrderDepth = 3;
+        constexpr int64_t TopOfBook = 1;
+        constexpr int64_t PriceDepth = 2;
+        constexpr int64_t OrderDepth = 3;
     }
     namespace  MDOriginType {
-        constexpr int Book = 0;
-        constexpr int OffBook = 1;
-        constexpr int Cross = 2;
+        constexpr int64_t Book = 0;
+        constexpr int64_t OffBook = 1;
+        constexpr int64_t Cross = 2;
     }
     namespace  CustOrderHandlingInst {
         constexpr std::string_view AddOnOrder = "ADD";
@@ -2669,7 +2677,7 @@
         constexpr std::string_view Work = "WRK";
     }
     namespace  OrderHandlingInstSource {
-        constexpr int NASDOATS = 1;
+        constexpr int64_t NASDOATS = 1;
     }
     namespace  DeskType {
         constexpr char Agency = 'A';
@@ -2685,7 +2693,7 @@
         constexpr char Trading = 'T';
     }
     namespace  DeskTypeSource {
-        constexpr int NASDOATS = 1;
+        constexpr int64_t NASDOATS = 1;
     }
     namespace  DeskOrderHandlingInst {
         constexpr std::string_view AddOnOrder = "ADD";
@@ -2719,8 +2727,8 @@
         constexpr char Don = '2';
     }
     namespace  CollApplType {
-        constexpr int SpecificDeposit = 0;
-        constexpr int General = 1;
+        constexpr int64_t SpecificDeposit = 0;
+        constexpr int64_t General = 1;
     }
     namespace  UnderlyingFXRateCalc {
         constexpr char Divide = 'D';
@@ -2737,11 +2745,11 @@
         constexpr char OrderInitiatorIsPassive = 'N';
     }
     namespace  MDQuoteType {
-        constexpr int Indicative = 0;
-        constexpr int Tradeable = 1;
-        constexpr int RestrictedTradeable = 2;
-        constexpr int Counter = 3;
-        constexpr int IndicativeAndTradeable = 4;
+        constexpr int64_t Indicative = 0;
+        constexpr int64_t Tradeable = 1;
+        constexpr int64_t RestrictedTradeable = 2;
+        constexpr int64_t Counter = 3;
+        constexpr int64_t IndicativeAndTradeable = 4;
     }
     namespace  RefOrderIDSource {
         constexpr char SecondaryOrderID = '0';
@@ -2770,14 +2778,14 @@
         constexpr char BlockLot = '3';
     }
     namespace  PegPriceType {
-        constexpr int LastPeg = 1;
-        constexpr int MidPricePeg = 2;
-        constexpr int OpeningPeg = 3;
-        constexpr int MarketPeg = 4;
-        constexpr int PrimaryPeg = 5;
-        constexpr int PegToVWAP = 7;
-        constexpr int TrailingStopPeg = 8;
-        constexpr int PegToLimitPrice = 9;
+        constexpr int64_t LastPeg = 1;
+        constexpr int64_t MidPricePeg = 2;
+        constexpr int64_t OpeningPeg = 3;
+        constexpr int64_t MarketPeg = 4;
+        constexpr int64_t PrimaryPeg = 5;
+        constexpr int64_t PegToVWAP = 7;
+        constexpr int64_t TrailingStopPeg = 8;
+        constexpr int64_t PegToLimitPrice = 9;
     }
     namespace  TriggerType {
         constexpr char PartialExecution = '1';
@@ -2850,14 +2858,14 @@
         constexpr char MIC = 'G';
     }
     namespace  ImpliedMarketIndicator {
-        constexpr int NotImplied = 0;
-        constexpr int ImpliedIn = 1;
-        constexpr int ImpliedOut = 2;
-        constexpr int BothImpliedInAndImpliedOut = 3;
+        constexpr int64_t NotImplied = 0;
+        constexpr int64_t ImpliedIn = 1;
+        constexpr int64_t ImpliedOut = 2;
+        constexpr int64_t BothImpliedInAndImpliedOut = 3;
     }
     namespace  SettlObligMode {
-        constexpr int Preliminary = 1;
-        constexpr int Final = 2;
+        constexpr int64_t Preliminary = 1;
+        constexpr int64_t Final = 2;
     }
     namespace  SettlObligTransType {
         constexpr char Cancel = 'C';
@@ -2871,53 +2879,53 @@
         constexpr char Investor = '3';
     }
     namespace  QuoteEntryStatus {
-        constexpr int Accepted = 0;
-        constexpr int Rejected = 5;
-        constexpr int RemovedFromMarket = 6;
-        constexpr int Expired = 7;
-        constexpr int LockedMarketWarning = 12;
-        constexpr int CrossMarketWarning = 13;
-        constexpr int CanceledDueToLockMarket = 14;
-        constexpr int CanceledDueToCrossMarket = 15;
-        constexpr int Active = 16;
+        constexpr int64_t Accepted = 0;
+        constexpr int64_t Rejected = 5;
+        constexpr int64_t RemovedFromMarket = 6;
+        constexpr int64_t Expired = 7;
+        constexpr int64_t LockedMarketWarning = 12;
+        constexpr int64_t CrossMarketWarning = 13;
+        constexpr int64_t CanceledDueToLockMarket = 14;
+        constexpr int64_t CanceledDueToCrossMarket = 15;
+        constexpr int64_t Active = 16;
     }
     namespace  PrivateQuote {
         constexpr char PrivateQuote = 'Y';
         constexpr char PublicQuote = 'N';
     }
     namespace  RespondentType {
-        constexpr int AllMarketParticipants = 1;
-        constexpr int SpecifiedMarketParticipants = 2;
-        constexpr int AllMarketMakers = 3;
-        constexpr int PrimaryMarketMaker = 4;
+        constexpr int64_t AllMarketParticipants = 1;
+        constexpr int64_t SpecifiedMarketParticipants = 2;
+        constexpr int64_t AllMarketMakers = 3;
+        constexpr int64_t PrimaryMarketMaker = 4;
     }
     namespace  SecurityTradingEvent {
-        constexpr int OrderImbalance = 1;
-        constexpr int TradingResumes = 2;
-        constexpr int PriceVolatilityInterruption = 3;
-        constexpr int ChangeOfTradingSession = 4;
-        constexpr int ChangeOfTradingSubsession = 5;
-        constexpr int ChangeOfSecurityTradingStatus = 6;
-        constexpr int ChangeOfBookType = 7;
-        constexpr int ChangeOfMarketDepth = 8;
+        constexpr int64_t OrderImbalance = 1;
+        constexpr int64_t TradingResumes = 2;
+        constexpr int64_t PriceVolatilityInterruption = 3;
+        constexpr int64_t ChangeOfTradingSession = 4;
+        constexpr int64_t ChangeOfTradingSubsession = 5;
+        constexpr int64_t ChangeOfSecurityTradingStatus = 6;
+        constexpr int64_t ChangeOfBookType = 7;
+        constexpr int64_t ChangeOfMarketDepth = 8;
     }
     namespace  StatsType {
-        constexpr int ExchangeLast = 1;
-        constexpr int High = 2;
-        constexpr int AveragePrice = 3;
-        constexpr int Turnover = 4;
+        constexpr int64_t ExchangeLast = 1;
+        constexpr int64_t High = 2;
+        constexpr int64_t AveragePrice = 3;
+        constexpr int64_t Turnover = 4;
     }
     namespace  MDSecSizeType {
-        constexpr int Customer = 1;
+        constexpr int64_t Customer = 1;
     }
     namespace  SettlMethod {
         constexpr char CashSettlementRequired = 'C';
         constexpr char PhysicalSettlementRequired = 'P';
     }
     namespace  ExerciseStyle {
-        constexpr int European = 0;
-        constexpr int American = 1;
-        constexpr int Bermuda = 2;
+        constexpr int64_t European = 0;
+        constexpr int64_t American = 1;
+        constexpr int64_t Bermuda = 2;
     }
     namespace  PriceQuoteMethod {
         constexpr std::string_view Standard = "STD";
@@ -2930,31 +2938,31 @@
         constexpr std::string_view FuturesStyleWithAnAttachedCashAdjustment = "FUTDA";
     }
     namespace  ListMethod {
-        constexpr int PreListedOnly = 0;
-        constexpr int UserRequested = 1;
+        constexpr int64_t PreListedOnly = 0;
+        constexpr int64_t UserRequested = 1;
     }
     namespace  TickRuleType {
-        constexpr int Regular = 0;
-        constexpr int Variable = 1;
-        constexpr int Fixed = 2;
-        constexpr int TradedAsASpreadLeg = 3;
-        constexpr int SettledAsASpreadLeg = 4;
+        constexpr int64_t Regular = 0;
+        constexpr int64_t Variable = 1;
+        constexpr int64_t Fixed = 2;
+        constexpr int64_t TradedAsASpreadLeg = 3;
+        constexpr int64_t SettledAsASpreadLeg = 4;
     }
     namespace  MaturityMonthYearIncrementUnits {
-        constexpr int Months = 0;
-        constexpr int Days = 1;
-        constexpr int Weeks = 2;
-        constexpr int Years = 3;
+        constexpr int64_t Months = 0;
+        constexpr int64_t Days = 1;
+        constexpr int64_t Weeks = 2;
+        constexpr int64_t Years = 3;
     }
     namespace  MaturityMonthYearFormat {
-        constexpr int YearMonthOnly = 0;
-        constexpr int YearMonthDay = 1;
-        constexpr int YearMonthWeek = 2;
+        constexpr int64_t YearMonthOnly = 0;
+        constexpr int64_t YearMonthDay = 1;
+        constexpr int64_t YearMonthWeek = 2;
     }
     namespace  PriceLimitType {
-        constexpr int Price = 0;
-        constexpr int Ticks = 1;
-        constexpr int Percentage = 2;
+        constexpr int64_t Price = 0;
+        constexpr int64_t Ticks = 1;
+        constexpr int64_t Percentage = 2;
     }
     namespace  MarketUpdateAction {
         constexpr char Add = 'A';
@@ -2962,124 +2970,124 @@
         constexpr char Modify = 'M';
     }
     namespace  SessionStatus {
-        constexpr int SessionActive = 0;
-        constexpr int SessionPasswordChanged = 1;
-        constexpr int SessionPasswordDueToExpire = 2;
-        constexpr int NewSessionPasswordDoesNotComplyWithPolicy = 3;
-        constexpr int SessionLogoutComplete = 4;
-        constexpr int InvalidUsernameOrPassword = 5;
-        constexpr int AccountLocked = 6;
-        constexpr int LogonsAreNotAllowedAtThisTime = 7;
-        constexpr int PasswordExpired = 8;
+        constexpr int64_t SessionActive = 0;
+        constexpr int64_t SessionPasswordChanged = 1;
+        constexpr int64_t SessionPasswordDueToExpire = 2;
+        constexpr int64_t NewSessionPasswordDoesNotComplyWithPolicy = 3;
+        constexpr int64_t SessionLogoutComplete = 4;
+        constexpr int64_t InvalidUsernameOrPassword = 5;
+        constexpr int64_t AccountLocked = 6;
+        constexpr int64_t LogonsAreNotAllowedAtThisTime = 7;
+        constexpr int64_t PasswordExpired = 8;
     }
     namespace  TradSesEvent {
-        constexpr int TradingResumes = 0;
-        constexpr int ChangeOfTradingSession = 1;
-        constexpr int ChangeOfTradingSubsession = 2;
-        constexpr int ChangeOfTradingStatus = 3;
+        constexpr int64_t TradingResumes = 0;
+        constexpr int64_t ChangeOfTradingSession = 1;
+        constexpr int64_t ChangeOfTradingSubsession = 2;
+        constexpr int64_t ChangeOfTradingStatus = 3;
     }
     namespace  MassActionType {
-        constexpr int SuspendOrders = 1;
-        constexpr int ReleaseOrdersFromSuspension = 2;
-        constexpr int CancelOrders = 3;
+        constexpr int64_t SuspendOrders = 1;
+        constexpr int64_t ReleaseOrdersFromSuspension = 2;
+        constexpr int64_t CancelOrders = 3;
     }
     namespace  MassActionScope {
-        constexpr int AllOrdersForASecurity = 1;
-        constexpr int AllOrdersForAnUnderlyingSecurity = 2;
-        constexpr int AllOrdersForAProduct = 3;
-        constexpr int AllOrdersForACFICode = 4;
-        constexpr int AllOrdersForASecurityType = 5;
-        constexpr int AllOrdersForATradingSession = 6;
-        constexpr int AllOrders = 7;
-        constexpr int AllOrdersForAMarket = 8;
-        constexpr int AllOrdersForAMarketSegment = 9;
-        constexpr int AllOrdersForASecurityGroup = 10;
+        constexpr int64_t AllOrdersForASecurity = 1;
+        constexpr int64_t AllOrdersForAnUnderlyingSecurity = 2;
+        constexpr int64_t AllOrdersForAProduct = 3;
+        constexpr int64_t AllOrdersForACFICode = 4;
+        constexpr int64_t AllOrdersForASecurityType = 5;
+        constexpr int64_t AllOrdersForATradingSession = 6;
+        constexpr int64_t AllOrders = 7;
+        constexpr int64_t AllOrdersForAMarket = 8;
+        constexpr int64_t AllOrdersForAMarketSegment = 9;
+        constexpr int64_t AllOrdersForASecurityGroup = 10;
     }
     namespace  MassActionResponse {
-        constexpr int Rejected = 0;
-        constexpr int Accepted = 1;
+        constexpr int64_t Rejected = 0;
+        constexpr int64_t Accepted = 1;
     }
     namespace  MassActionRejectReason {
-        constexpr int MassActionNotSupported = 0;
-        constexpr int InvalidOrUnknownSecurity = 1;
-        constexpr int InvalidOrUnknownUnderlyingSecurity = 2;
-        constexpr int InvalidOrUnknownProduct = 3;
-        constexpr int InvalidOrUnknownCFICode = 4;
-        constexpr int InvalidOrUnknownSecurityType = 5;
-        constexpr int InvalidOrUnknownTradingSession = 6;
-        constexpr int InvalidOrUnknownMarket = 7;
-        constexpr int InvalidOrUnknownMarketSegment = 8;
-        constexpr int InvalidOrUnknownSecurityGroup = 9;
-        constexpr int Other = 99;
+        constexpr int64_t MassActionNotSupported = 0;
+        constexpr int64_t InvalidOrUnknownSecurity = 1;
+        constexpr int64_t InvalidOrUnknownUnderlyingSecurity = 2;
+        constexpr int64_t InvalidOrUnknownProduct = 3;
+        constexpr int64_t InvalidOrUnknownCFICode = 4;
+        constexpr int64_t InvalidOrUnknownSecurityType = 5;
+        constexpr int64_t InvalidOrUnknownTradingSession = 6;
+        constexpr int64_t InvalidOrUnknownMarket = 7;
+        constexpr int64_t InvalidOrUnknownMarketSegment = 8;
+        constexpr int64_t InvalidOrUnknownSecurityGroup = 9;
+        constexpr int64_t Other = 99;
     }
     namespace  MultilegModel {
-        constexpr int PredefinedMultilegSecurity = 0;
-        constexpr int UserDefinedMultilegSecurity = 1;
-        constexpr int UserDefined = 2;
+        constexpr int64_t PredefinedMultilegSecurity = 0;
+        constexpr int64_t UserDefinedMultilegSecurity = 1;
+        constexpr int64_t UserDefined = 2;
     }
     namespace  MultilegPriceMethod {
-        constexpr int NetPrice = 0;
-        constexpr int ReversedNetPrice = 1;
-        constexpr int YieldDifference = 2;
-        constexpr int Individual = 3;
-        constexpr int ContractWeightedAveragePrice = 4;
-        constexpr int MultipliedPrice = 5;
+        constexpr int64_t NetPrice = 0;
+        constexpr int64_t ReversedNetPrice = 1;
+        constexpr int64_t YieldDifference = 2;
+        constexpr int64_t Individual = 3;
+        constexpr int64_t ContractWeightedAveragePrice = 4;
+        constexpr int64_t MultipliedPrice = 5;
     }
     namespace  ContingencyType {
-        constexpr int OneCancelsTheOther = 1;
-        constexpr int OneTriggersTheOther = 2;
-        constexpr int OneUpdatesTheOtherAbsolute = 3;
-        constexpr int OneUpdatesTheOtherProportional = 4;
+        constexpr int64_t OneCancelsTheOther = 1;
+        constexpr int64_t OneTriggersTheOther = 2;
+        constexpr int64_t OneUpdatesTheOtherAbsolute = 3;
+        constexpr int64_t OneUpdatesTheOtherProportional = 4;
     }
     namespace  ListRejectReason {
-        constexpr int BrokerCredit = 0;
-        constexpr int ExchangeClosed = 2;
-        constexpr int TooLateToEnter = 4;
-        constexpr int UnknownOrder = 5;
-        constexpr int DuplicateOrder = 6;
-        constexpr int UnsupportedOrderCharacteristic = 11;
-        constexpr int Other = 99;
+        constexpr int64_t BrokerCredit = 0;
+        constexpr int64_t ExchangeClosed = 2;
+        constexpr int64_t TooLateToEnter = 4;
+        constexpr int64_t UnknownOrder = 5;
+        constexpr int64_t DuplicateOrder = 6;
+        constexpr int64_t UnsupportedOrderCharacteristic = 11;
+        constexpr int64_t Other = 99;
     }
     namespace  TradePublishIndicator {
-        constexpr int DoNotPublishTrade = 0;
-        constexpr int PublishTrade = 1;
-        constexpr int DeferredPublication = 2;
+        constexpr int64_t DoNotPublishTrade = 0;
+        constexpr int64_t PublishTrade = 1;
+        constexpr int64_t DeferredPublication = 2;
     }
     namespace  ApplReqType {
-        constexpr int Retransmission = 0;
-        constexpr int Subscription = 1;
-        constexpr int RequestLastSeqNum = 2;
-        constexpr int RequestApplications = 3;
-        constexpr int Unsubscribe = 4;
+        constexpr int64_t Retransmission = 0;
+        constexpr int64_t Subscription = 1;
+        constexpr int64_t RequestLastSeqNum = 2;
+        constexpr int64_t RequestApplications = 3;
+        constexpr int64_t Unsubscribe = 4;
     }
     namespace  ApplResponseType {
-        constexpr int RequestSuccessfullyProcessed = 0;
-        constexpr int ApplicationDoesNotExist = 1;
-        constexpr int MessagesNotAvailable = 2;
+        constexpr int64_t RequestSuccessfullyProcessed = 0;
+        constexpr int64_t ApplicationDoesNotExist = 1;
+        constexpr int64_t MessagesNotAvailable = 2;
     }
     namespace  ApplResponseError {
-        constexpr int ApplicationDoesNotExist = 0;
-        constexpr int MessagesRequestedAreNotAvailable = 1;
-        constexpr int UserNotAuthorizedForApplication = 2;
+        constexpr int64_t ApplicationDoesNotExist = 0;
+        constexpr int64_t MessagesRequestedAreNotAvailable = 1;
+        constexpr int64_t UserNotAuthorizedForApplication = 2;
     }
     namespace  ApplReportType {
-        constexpr int ApplSeqNumReset = 0;
-        constexpr int LastMessageSent = 1;
-        constexpr int ApplicationAlive = 2;
+        constexpr int64_t ApplSeqNumReset = 0;
+        constexpr int64_t LastMessageSent = 1;
+        constexpr int64_t ApplicationAlive = 2;
     }
     namespace  OrderDelayUnit {
-        constexpr int Seconds = 0;
-        constexpr int TenthsOfASecond = 1;
-        constexpr int HundredthsOfASecond = 2;
-        constexpr int Milliseconds = 3;
-        constexpr int Microseconds = 4;
-        constexpr int Nanoseconds = 5;
-        constexpr int Minutes = 10;
-        constexpr int Hours = 11;
-        constexpr int Days = 12;
-        constexpr int Weeks = 13;
-        constexpr int Months = 14;
-        constexpr int Years = 15;
+        constexpr int64_t Seconds = 0;
+        constexpr int64_t TenthsOfASecond = 1;
+        constexpr int64_t HundredthsOfASecond = 2;
+        constexpr int64_t Milliseconds = 3;
+        constexpr int64_t Microseconds = 4;
+        constexpr int64_t Nanoseconds = 5;
+        constexpr int64_t Minutes = 10;
+        constexpr int64_t Hours = 11;
+        constexpr int64_t Days = 12;
+        constexpr int64_t Weeks = 13;
+        constexpr int64_t Months = 14;
+        constexpr int64_t Years = 15;
     }
     namespace  VenueType {
         constexpr char Electronic = 'E';
@@ -3087,18 +3095,18 @@
         constexpr char ExPit = 'X';
     }
     namespace  RefOrdIDReason {
-        constexpr int GTCFromPreviousDay = 0;
-        constexpr int PartialFillRemaining = 1;
-        constexpr int OrderChanged = 2;
+        constexpr int64_t GTCFromPreviousDay = 0;
+        constexpr int64_t PartialFillRemaining = 1;
+        constexpr int64_t OrderChanged = 2;
     }
     namespace  OrigCustOrderCapacity {
-        constexpr int MemberTradingForTheirOwnAccount = 1;
-        constexpr int ClearingFirmTradingForItsProprietaryAccount = 2;
-        constexpr int MemberTradingForAnotherMember = 3;
-        constexpr int AllOther = 4;
+        constexpr int64_t MemberTradingForTheirOwnAccount = 1;
+        constexpr int64_t ClearingFirmTradingForItsProprietaryAccount = 2;
+        constexpr int64_t MemberTradingForAnotherMember = 3;
+        constexpr int64_t AllOther = 4;
     }
     namespace  TrdRegTimestampType {
-        constexpr int SubmissionToClearing = 7;
+        constexpr int64_t SubmissionToClearing = 7;
     }
     namespace  RefOrderIDSource {
         constexpr char OriginalOrderID = '4';
@@ -3106,24 +3114,24 @@
     namespace  OrderRestrictions {
     }
     namespace  ApplReqType {
-        constexpr int CancelRetransmission = 5;
-        constexpr int CancelRetransmissionUnsubscribe = 6;
+        constexpr int64_t CancelRetransmission = 5;
+        constexpr int64_t CancelRetransmissionUnsubscribe = 6;
     }
     namespace  QuoteCancelType {
-        constexpr int CancelByQuoteType = 6;
+        constexpr int64_t CancelByQuoteType = 6;
     }
     namespace  DisplayMethod {
         constexpr char Undisclosed = '4';
     }
     namespace  PosReqType {
-        constexpr int DeltaPositions = 6;
+        constexpr int64_t DeltaPositions = 6;
     }
     namespace  PartyRole {
-        constexpr int CentralRegistrationDepository = 82;
+        constexpr int64_t CentralRegistrationDepository = 82;
     }
     namespace  ModelType {
-        constexpr int UtilityProvidedStandardModel = 0;
-        constexpr int ProprietaryModel = 1;
+        constexpr int64_t UtilityProvidedStandardModel = 0;
+        constexpr int64_t ProprietaryModel = 1;
     }
     namespace  PosType {
         constexpr std::string_view NetDeltaQty = "DLT";
@@ -3132,26 +3140,26 @@
         constexpr char RoundLotBasedUpon = '4';
     }
     namespace  ContractMultiplierUnit {
-        constexpr int Shares = 0;
-        constexpr int Hours = 1;
-        constexpr int Days = 2;
+        constexpr int64_t Shares = 0;
+        constexpr int64_t Hours = 1;
+        constexpr int64_t Days = 2;
     }
     namespace  FlowScheduleType {
-        constexpr int NERCEasternOffPeak = 0;
-        constexpr int NERCWesternOffPeak = 1;
-        constexpr int NERCCalendarAllDaysInMonth = 2;
-        constexpr int NERCEasternPeak = 3;
-        constexpr int NERCWesternPeak = 4;
+        constexpr int64_t NERCEasternOffPeak = 0;
+        constexpr int64_t NERCWesternOffPeak = 1;
+        constexpr int64_t NERCCalendarAllDaysInMonth = 2;
+        constexpr int64_t NERCEasternPeak = 3;
+        constexpr int64_t NERCWesternPeak = 4;
     }
     namespace  RateSource {
-        constexpr int Bloomberg = 0;
-        constexpr int Reuters = 1;
-        constexpr int Telerate = 2;
-        constexpr int Other = 99;
+        constexpr int64_t Bloomberg = 0;
+        constexpr int64_t Reuters = 1;
+        constexpr int64_t Telerate = 2;
+        constexpr int64_t Other = 99;
     }
     namespace  RateSourceType {
-        constexpr int Primary = 0;
-        constexpr int Secondary = 1;
+        constexpr int64_t Primary = 0;
+        constexpr int64_t Secondary = 1;
     }
     namespace  SecurityType {
         constexpr std::string_view NonDeliverableForward = "FXNDF";
@@ -3206,15 +3214,15 @@
         constexpr char CashRate = 'X';
     }
     namespace  SecurityTradingStatus {
-        constexpr int PostClose = 26;
+        constexpr int64_t PostClose = 26;
     }
     namespace  QuoteCancelType {
-        constexpr int CancelForSecurityIssuer = 7;
-        constexpr int CancelForIssuerOfUnderlyingSecurity = 8;
+        constexpr int64_t CancelForSecurityIssuer = 7;
+        constexpr int64_t CancelForIssuerOfUnderlyingSecurity = 8;
     }
     namespace  QuoteRejectReason {
-        constexpr int InvalidOrUnknownSecurityIssuer = 12;
-        constexpr int InvalidOrUnknownIssuerOfUnderlyingSecurity = 13;
+        constexpr int64_t InvalidOrUnknownSecurityIssuer = 12;
+        constexpr int64_t InvalidOrUnknownIssuerOfUnderlyingSecurity = 13;
     }
     namespace  MassCancelRequestType {
         constexpr char CancelOrdersForSecurityIssuer = 'B';
@@ -3225,128 +3233,128 @@
         constexpr char CancelOrdersForIssuerOfUnderlyingSecurity = 'C';
     }
     namespace  MassCancelRejectReason {
-        constexpr int InvalidOrUnknownSecurityIssuer = 10;
-        constexpr int InvalidOrUnknownIssuerOfUnderlyingSecurity = 11;
+        constexpr int64_t InvalidOrUnknownSecurityIssuer = 10;
+        constexpr int64_t InvalidOrUnknownIssuerOfUnderlyingSecurity = 11;
     }
     namespace  MassStatusReqType {
-        constexpr int StatusForSecurityIssuer = 9;
-        constexpr int StatusForIssuerOfUnderlyingSecurity = 10;
+        constexpr int64_t StatusForSecurityIssuer = 9;
+        constexpr int64_t StatusForIssuerOfUnderlyingSecurity = 10;
     }
     namespace  MassActionScope {
-        constexpr int CancelForSecurityIssuer = 11;
-        constexpr int CancelForIssuerOfUnderlyingSecurity = 12;
+        constexpr int64_t CancelForSecurityIssuer = 11;
+        constexpr int64_t CancelForIssuerOfUnderlyingSecurity = 12;
     }
     namespace  MassActionRejectReason {
-        constexpr int InvalidOrUnknownSecurityIssuer = 10;
-        constexpr int InvalidOrUnknownIssuerOfUnderlyingSecurity = 11;
+        constexpr int64_t InvalidOrUnknownSecurityIssuer = 10;
+        constexpr int64_t InvalidOrUnknownIssuerOfUnderlyingSecurity = 11;
     }
     namespace  HaltReason {
-        constexpr int NewsDissemination = 0;
-        constexpr int OrderInflux = 1;
-        constexpr int OrderImbalance = 2;
-        constexpr int AdditionalInformation = 3;
-        constexpr int NewsPending = 4;
-        constexpr int EquipmentChangeover = 5;
+        constexpr int64_t NewsDissemination = 0;
+        constexpr int64_t OrderInflux = 1;
+        constexpr int64_t OrderImbalance = 2;
+        constexpr int64_t AdditionalInformation = 3;
+        constexpr int64_t NewsPending = 4;
+        constexpr int64_t EquipmentChangeover = 5;
     }
     namespace  SecurityListType {
-        constexpr int IndustryClassification = 1;
-        constexpr int TradingList = 2;
-        constexpr int Market = 3;
-        constexpr int NewspaperList = 4;
+        constexpr int64_t IndustryClassification = 1;
+        constexpr int64_t TradingList = 2;
+        constexpr int64_t Market = 3;
+        constexpr int64_t NewspaperList = 4;
     }
     namespace  SecurityListTypeSource {
-        constexpr int ICB = 1;
-        constexpr int NAICS = 2;
-        constexpr int GICS = 3;
+        constexpr int64_t ICB = 1;
+        constexpr int64_t NAICS = 2;
+        constexpr int64_t GICS = 3;
     }
     namespace  UnitOfMeasure {
         constexpr std::string_view Allowances = "Alw";
     }
     namespace  NewsCategory {
-        constexpr int CompanyNews = 0;
-        constexpr int MarketplaceNews = 1;
-        constexpr int FinancialMarketNews = 2;
-        constexpr int TechnicalNews = 3;
-        constexpr int OtherNews = 99;
+        constexpr int64_t CompanyNews = 0;
+        constexpr int64_t MarketplaceNews = 1;
+        constexpr int64_t FinancialMarketNews = 2;
+        constexpr int64_t TechnicalNews = 3;
+        constexpr int64_t OtherNews = 99;
     }
     namespace  NewsRefType {
-        constexpr int Replacement = 0;
-        constexpr int OtherLanguage = 1;
-        constexpr int Complimentary = 2;
+        constexpr int64_t Replacement = 0;
+        constexpr int64_t OtherLanguage = 1;
+        constexpr int64_t Complimentary = 2;
     }
     namespace  ApplReportType {
-        constexpr int ResendComplete = 3;
+        constexpr int64_t ResendComplete = 3;
     }
     namespace  StrikePriceDeterminationMethod {
-        constexpr int FixedStrike = 1;
-        constexpr int StrikeSetAtExpiration = 2;
-        constexpr int StrikeSetToAverageAcrossLife = 3;
-        constexpr int StrikeSetToOptimalValue = 4;
+        constexpr int64_t FixedStrike = 1;
+        constexpr int64_t StrikeSetAtExpiration = 2;
+        constexpr int64_t StrikeSetToAverageAcrossLife = 3;
+        constexpr int64_t StrikeSetToOptimalValue = 4;
     }
     namespace  StrikePriceBoundaryMethod {
-        constexpr int LessThan = 1;
-        constexpr int LessThanOrEqual = 2;
-        constexpr int Equal = 3;
-        constexpr int GreaterThanOrEqual = 4;
-        constexpr int GreaterThan = 5;
+        constexpr int64_t LessThan = 1;
+        constexpr int64_t LessThanOrEqual = 2;
+        constexpr int64_t Equal = 3;
+        constexpr int64_t GreaterThanOrEqual = 4;
+        constexpr int64_t GreaterThan = 5;
     }
     namespace  UnderlyingPriceDeterminationMethod {
-        constexpr int Regular = 1;
-        constexpr int SpecialReference = 2;
-        constexpr int OptimalValue = 3;
-        constexpr int AverageValue = 4;
+        constexpr int64_t Regular = 1;
+        constexpr int64_t SpecialReference = 2;
+        constexpr int64_t OptimalValue = 3;
+        constexpr int64_t AverageValue = 4;
     }
     namespace  OptPayoutType {
-        constexpr int Vanilla = 1;
-        constexpr int Capped = 2;
-        constexpr int Binary = 3;
+        constexpr int64_t Vanilla = 1;
+        constexpr int64_t Capped = 2;
+        constexpr int64_t Binary = 3;
     }
     namespace  ComplexEventType {
-        constexpr int Capped = 1;
-        constexpr int Trigger = 2;
-        constexpr int KnockInUp = 3;
-        constexpr int KockInDown = 4;
-        constexpr int KnockOutUp = 5;
-        constexpr int KnockOutDown = 6;
-        constexpr int Underlying = 7;
-        constexpr int ResetBarrier = 8;
-        constexpr int RollingBarrier = 9;
+        constexpr int64_t Capped = 1;
+        constexpr int64_t Trigger = 2;
+        constexpr int64_t KnockInUp = 3;
+        constexpr int64_t KockInDown = 4;
+        constexpr int64_t KnockOutUp = 5;
+        constexpr int64_t KnockOutDown = 6;
+        constexpr int64_t Underlying = 7;
+        constexpr int64_t ResetBarrier = 8;
+        constexpr int64_t RollingBarrier = 9;
     }
     namespace  ComplexEventPriceBoundaryMethod {
-        constexpr int LessThanComplexEventPrice = 1;
-        constexpr int LessThanOrEqualToComplexEventPrice = 2;
-        constexpr int EqualToComplexEventPrice = 3;
-        constexpr int GreaterThanOrEqualToComplexEventPrice = 4;
-        constexpr int GreaterThanComplexEventPrice = 5;
+        constexpr int64_t LessThanComplexEventPrice = 1;
+        constexpr int64_t LessThanOrEqualToComplexEventPrice = 2;
+        constexpr int64_t EqualToComplexEventPrice = 3;
+        constexpr int64_t GreaterThanOrEqualToComplexEventPrice = 4;
+        constexpr int64_t GreaterThanComplexEventPrice = 5;
     }
     namespace  ComplexEventPriceTimeType {
-        constexpr int Expiration = 1;
-        constexpr int Immediate = 2;
-        constexpr int SpecifiedDate = 3;
+        constexpr int64_t Expiration = 1;
+        constexpr int64_t Immediate = 2;
+        constexpr int64_t SpecifiedDate = 3;
     }
     namespace  ComplexEventCondition {
-        constexpr int And = 1;
-        constexpr int Or = 2;
+        constexpr int64_t And = 1;
+        constexpr int64_t Or = 2;
     }
     namespace  StreamAsgnReqType {
-        constexpr int StreamAssignmentForNewCustomer = 1;
-        constexpr int StreamAssignmentForExistingCustomer = 2;
+        constexpr int64_t StreamAssignmentForNewCustomer = 1;
+        constexpr int64_t StreamAssignmentForExistingCustomer = 2;
     }
     namespace  StreamAsgnRejReason {
-        constexpr int UnknownClient = 0;
-        constexpr int ExceedsMaximumSize = 1;
-        constexpr int UnknownOrInvalidCurrencyPair = 2;
-        constexpr int NoAvailableStream = 3;
-        constexpr int Other = 99;
+        constexpr int64_t UnknownClient = 0;
+        constexpr int64_t ExceedsMaximumSize = 1;
+        constexpr int64_t UnknownOrInvalidCurrencyPair = 2;
+        constexpr int64_t NoAvailableStream = 3;
+        constexpr int64_t Other = 99;
     }
     namespace  StreamAsgnAckType {
-        constexpr int AssignmentAccepted = 0;
-        constexpr int AssignmentRejected = 1;
+        constexpr int64_t AssignmentAccepted = 0;
+        constexpr int64_t AssignmentRejected = 1;
     }
     namespace  StreamAsgnType {
-        constexpr int Assignment = 1;
-        constexpr int Rejected = 2;
-        constexpr int Terminate = 3;
+        constexpr int64_t Assignment = 1;
+        constexpr int64_t Rejected = 2;
+        constexpr int64_t Terminate = 3;
     }
     namespace  DealingCapacity {
         constexpr char Agent = 'A';
@@ -3358,19 +3366,19 @@
         constexpr char Random = 'R';
     }
     namespace  AllocRejCode {
-        constexpr int Other = 99;
+        constexpr int64_t Other = 99;
     }
     namespace  StrategyParameterType {
-        constexpr int Country = 25;
-        constexpr int Language = 26;
-        constexpr int TZTimeOnly = 27;
-        constexpr int TZTimestamp = 28;
-        constexpr int Tenor = 29;
+        constexpr int64_t Country = 25;
+        constexpr int64_t Language = 26;
+        constexpr int64_t TZTimeOnly = 27;
+        constexpr int64_t TZTimestamp = 28;
+        constexpr int64_t Tenor = 29;
     }
     namespace  PartyRole {
-        constexpr int ClearingAccount = 83;
-        constexpr int AcceptableSettlingCounterparty = 84;
-        constexpr int UnacceptableSettlingCounterparty = 85;
+        constexpr int64_t ClearingAccount = 83;
+        constexpr int64_t AcceptableSettlingCounterparty = 84;
+        constexpr int64_t UnacceptableSettlingCounterparty = 85;
     }
     namespace  ApplVerID {
         constexpr char FIX50SP2 = '9';
