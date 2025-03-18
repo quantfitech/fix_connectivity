@@ -27,7 +27,7 @@ using namespace qffixlib;
     public:
         virtual ~CoinbaseMdSession() {};
         CoinbaseMdSession(std::shared_ptr<EventManagerInterface> em):Session<V>(em){}
-        void onMessage(char msgType, TokenIterator& fixIter) override;
+        void onMessage(char msgType, TokenIterator& fixIter) override final;
         OrderBookManager mOrderBookManager;
 };
 
