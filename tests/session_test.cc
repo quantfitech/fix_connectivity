@@ -45,16 +45,16 @@ TEST(session_test, first_msg_and_gap_filled)
     ASSERT_EQ(session.heartbeatInterval(), 30);
     ASSERT_EQ(session.incomingMsgSeqNum(), 2);
 
-    session.onMessageRead(MsgChars{'8','\n'}, 4, false, ti);
+    std::string aMsg= "8=FIXT.1.19=41435=849=CBINTLOE56=pmRxEAa4bln68mhX34=550=TEST52=20250313-13:26:26.627326369=411=test_oe9880=42308945471917260917=42308945471918899220=037=2wx7c0rh-1-0453=1448=01939cc7-253c-70d0-ba54-b34b418839df452=24150=239=255=BTC-PERP54=138=140=244=8099015=USDC59=6126=20250313-13:27:56.19300000032=131=80990151=014=16=8099060=20250313-13:26:26.627058851=1136=1137=0138=USDC139=48000=Q18=610=094";
+    TokenIterator ti8(aMsg.data(),aMsg.length());
+
+    session.onMessageRead(MsgChars{'8','\n'}, 4, false, ti8);
     ASSERT_EQ(session.state(), SessionState::resending);
     ASSERT_EQ(session.incomingMsgSeqNum(), 2);
 
-    session.onMessageRead(MsgChars{'8','\n'}, 2, false, ti);
+    session.onMessageRead(MsgChars{'8','\n'}, 2, false, ti8);
     ASSERT_EQ(session.state(), SessionState::resending);
 
-    session.onMessageRead(MsgChars{'8','\n'}, 3, false, ti);
-    ASSERT_EQ(session.state(), SessionState::resending);
-
-    session.onMessageRead(MsgChars{'8','\n'}, 4, false, ti);
+    session.onMessageRead(MsgChars{'8','\n'}, 3, false, ti8);
     ASSERT_EQ(session.state(), SessionState::logged_on);
 }

@@ -70,6 +70,16 @@ namespace qffixlib
             using OrderCancelReplaceRequest = FIXMessage<FIX::MsgType::OrderCancelReplaceRequest, Types::ClOrdID, Group<FIX::Tag::NoPartyIDs, Types::PartyRole>, Types::OrigClOrdID, Types::OrderQty,  Types::Price, Types::Symbol,
                                                             Types::StopPx>;
 
+            using LastExecIDRequest = FIXMessage<FIX::MsgType::LastExecIDRequest, Types::TestReqID>;
+
+            using LastExecID = FIXMessage<FIX::MsgType::LastExecID, Types::RefSeqNum, Types::ExecID>;
+
+            using EventResendRequest = FIXMessage<FIX::MsgType::EventResendRequest, Types::BeginExecID, Types::EndExecID>;
+
+            using EventResendComplete = FIXMessage<FIX::MsgType::EventResendComplete, Types::RefSeqNum, Types::ResentEventCount>;
+
+            using EventResendReject = FIXMessage<FIX::MsgType::EventResendReject, Types::RefSeqNum, Types::EventResendRejectReason, Types::Text>;
+
 
 		} // namespace Message		
 	}

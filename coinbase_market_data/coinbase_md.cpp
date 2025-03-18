@@ -13,21 +13,6 @@ using namespace qffixlib;
 
 int main() {
 
-    setenv(SERVER_IP, "3.114.19.227", 1);
-    setenv("SERVER_PORT", "6120", 1);
-    setenv(CONSOLE_LOG_FLAG, "Y", 1);
-    setenv(LOG_TIME_FORMAT, "UTC", 1);
-    setenv("LOG_LEVEL", "debug", 1);
-
-    //setenv("SENDER_COMP_ID", "pv3hnDiPUkJrGS5K", 1);
-    //setenv("TARGET_COMP_ID", "CBINTLMD", 1);
-    //setenv("SESSION_PASSWORD", "jhgJHGJHFGHf765jhgffghg", 1);
-    //setenv("SESSION_SECRET", "QzAxdm1lUEZFWWoxSlZlNVNRNFpCOENUQ0pEbGZabkI3NE5yTlhjUUg4SkJsZGltN3pBbFg3SElRSzFlYUt4WQ==", 1);
-    setenv("SENDER_COMP_ID", "pmRxEAa4bln68mhX", 1);
-    setenv("TARGET_COMP_ID", "CBINTLMD", 1);
-    setenv("SESSION_PASSWORD", "JHG7887hjgjh786tgNJGFU^", 1);
-    setenv("SESSION_SECRET", "Wng4RjN3T0pEZHp6MXZNbzZYN1IwTDlnUlNIUGRhRW81Y0pkeEhsTXNaTjllOVYxU3JHOGkxZVk3OUNDaWNYQw==", 1);
-
     AppOptions app_options;
     app_options.application_name = "coinbase_md";
     LoggerOptions logging_options;

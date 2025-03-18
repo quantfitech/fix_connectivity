@@ -37,6 +37,12 @@ namespace FIX {
     using Qty = double;	
 	using MultipleValueString = std::string;
 	using Data = std::string;
+	using NumInGroup = int64_t;
+	using SeqNum = int64_t;
+	using MonthYear = std::string;
+	using Percentage = double;
+	using MultipleCharValue = std::string;
+
 
 
 	namespace MsgType {
@@ -48,17 +54,35 @@ namespace FIX {
 		constexpr std::array<char, 2> Logout = {'5', '\n'};
 		constexpr std::array<char, 2> Logon = {'A', '\n'};
 		//app messages
+		constexpr std::array<char, 2> MarketDataRequest = {'V', '\n'};
+		constexpr std::array<char, 2> MarketDataIncrementalRefresh = {'X', '\n'};
+		constexpr std::array<char, 2> MarketDataSnapshotFullRefresh = {'W', '\n'};
+		constexpr std::array<char, 2> MarketDataRequestReject = {'Y', '\n'};
 		constexpr std::array<char, 2> SecurityListRequest = {'x', '\n'};
 		constexpr std::array<char, 2> SecurityList = {'y', '\n'};
+		constexpr std::array<char, 2> SecurityDefRequest = {'c', '\n'};
 		constexpr std::array<char, 2> SecurityDefinition = {'d', '\n'};
-		constexpr std::array<char, 2> MarketDataRequest = {'V', '\n'};
-		constexpr std::array<char, 2> MarketDataRequestReject = {'Y', '\n'};
-		//app messages prices
-		constexpr std::array<char, 2> MarketDataSnapshotFullRefresh = {'W', '\n'};
-		constexpr std::array<char, 2> MarketDataIncrementalRefresh = {'X', '\n'};
-
+		//order entry
 		constexpr std::array<char, 2> NewOrderSingle = {'D', '\n'};
 		constexpr std::array<char, 2> OrderCancelReplaceRequest = {'G', '\n'};
+		constexpr std::array<char, 2> OrderCancelRequest = {'F', '\n'};
+		constexpr std::array<char, 2> MassOrder = {'D', 'J'};
+		constexpr std::array<char, 2> QuoteRequest = {'R', '\n'};
+		constexpr std::array<char, 2> Quote = {'S', '\n'};
+		constexpr std::array<char, 2> QuoteRequestReject = {'A', 'G'};
+		constexpr std::array<char, 2> OrderMassStatusRequest = {'A', 'F'};
+		constexpr std::array<char, 2> BusinessMessageReject = {'j', '\n'};
+		constexpr std::array<char, 2> OrderStatusRequest = {'H', '\n'};
+		constexpr std::array<char, 2> OrderCancelReject = {'9', '\n'};
+		constexpr std::array<char, 2> OrderMassCancelRequest = {'q', '\n'};
+		constexpr std::array<char, 2> OrderMassCancelReport = {'r', '\n'};
+		constexpr std::array<char, 2> ExecutionReport = {'8', '\n'};
+		//drop copy
+		constexpr std::array<char, 2> LastExecIDRequest = {'F', '1'};
+		constexpr std::array<char, 2> LastExecID = {'F', '2'};
+		constexpr std::array<char, 2> EventResendRequest = {'F', '3'};
+		constexpr std::array<char, 2> EventResendComplete = {'F', '4'};
+		constexpr std::array<char, 2> EventResendReject = {'F', '5'};
 	}
 	namespace Tag {
 		constexpr int BeginSeqNo = 7;
@@ -145,6 +169,8 @@ namespace FIX {
 		constexpr int DefaultSelfTradePreventionStrategy = 8001;
 		constexpr int CancelOrdersOnDisconnect = 8013;
 		constexpr int CancelOrdersOnInternalDisconnect = 8014;
+		constexpr int BeginExecID = 22003;
+		constexpr int EndExecID = 22004;
 	}
 }
 
