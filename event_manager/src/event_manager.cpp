@@ -42,17 +42,8 @@ namespace qfapp {
         EV_SET(&event, fd, flag, EV_DELETE, 0, 0, nullptr);
 
         if (kevent(kqueueFd, &event, 1, nullptr, 0, nullptr) == -1) {
-<<<<<<< HEAD
-<<<<<<< HEAD
             perror("kevent");
             LOG_ERROR("kevent remove fd={} failed", fd);
-=======
-            LOG_ERROR("kevent add fd={} failed", fd);
->>>>>>> d4e58a3 (post review/pull request  changes)
-=======
-            perror("kevent");
-            LOG_ERROR("kevent remove fd={} failed", fd);
->>>>>>> 294a3be (added docker file for the coinbase market data app, updated event core for linux distribution, added initial redis client example)
             throw std::runtime_error("Failed to add file descriptor to kqueue");
         }
 
