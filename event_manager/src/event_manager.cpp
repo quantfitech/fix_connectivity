@@ -108,6 +108,7 @@ namespace qfapp {
         } else if (flag == RW_FLAG::FL_READ) {
              event.events = EPOLLIN;
         }
+    }
 
     void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG flag) {
         LOG_DEBUG("addFileDes fd={}", fd->getFd());
