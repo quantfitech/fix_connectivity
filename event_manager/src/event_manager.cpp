@@ -226,10 +226,8 @@ namespace qfapp {
             }
             
             for (int i = 0; i < numEvents; ++i) {
-                LOG_DEBUG("handling fd={}", events[i].data.fd);
-                
                 auto* handler = static_cast<FileDescriptor*>(events[i].data.ptr);
-                //LOG_DEBUG("handler data fd={} events={}", handler->getFd(), events[i].events);
+                LOG_DEBUG("handler data from fd={}", handler->getFd());
 
                 if (events[i].events & EPOLLERR) {
                     handler->onError();
