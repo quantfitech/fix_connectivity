@@ -1,0 +1,16 @@
+if (APPLE)
+    #include_directories(/opt/homebrew/opt/tinyxml2/include)
+    #include_directories(/opt/homebrew/opt/tinyxml2/lib)
+    include_directories(/opt/homebrew/include)
+endif()
+
+find_package(OpenSSL REQUIRED)
+find_package(spdlog REQUIRED)
+
+add_executable(client tuples.cpp)
+if (APPLE)
+    target_link_libraries(client PRIVATE spdlog::spdlog_header_only fixlib OpenSSL::SSL event_manager)
+elseif(UNIX AND NOT APPLE)    
+    target_link_libraries(client PRIVATE fixlib)
+endif()
+target_include_directories(client PRIVATE ../fix_lib/include)
