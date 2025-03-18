@@ -99,8 +99,6 @@ namespace qfapp {
     }
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG flag) {
         LOG_DEBUG("addFileDes fd={}", fd->getFd());
         struct epoll_event event;
@@ -110,14 +108,6 @@ namespace qfapp {
         } else if (flag == RW_FLAG::FL_READ) {
              event.events = EPOLLIN;
         }
-=======
-    void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG) {
-        LOG_DEBUG( "addFileDes {}", fd->getFd());
-        struct epoll_event event;
-        event.data.ptr = fd;
-        event.events = EPOLLIN | EPOLLOUT | EPOLLERR | EPOLLET;
->>>>>>> d4e58a3 (post review/pull request  changes)
-=======
 
     void EventManager::addFileDescriptor(FileDescriptor* fd, RW_FLAG flag) {
         LOG_DEBUG("addFileDes fd={}", fd->getFd());
@@ -128,22 +118,12 @@ namespace qfapp {
         } else if (flag == RW_FLAG::FL_READ) {
              event.events = EPOLLIN;
         }
->>>>>>> 294a3be (added docker file for the coinbase market data app, updated event core for linux distribution, added initial redis client example)
 
         if (epoll_ctl(epollFd, EPOLL_CTL_ADD, fd->getFd(), &event) == -1) {
             perror("epoll_ctl");
             throw std::runtime_error("Failed to add file descriptor to epoll");
         }
         LOG_DEBUG("fd added fd={} event {}", fd->getFd(), int(flag)); 
-<<<<<<< HEAD
-        
-<<<<<<< HEAD
-=======
-        LOG_DEBUG("added fd={} events={}", fd->getFd(), event.events); 
->>>>>>> d4e58a3 (post review/pull request  changes)
-=======
-
->>>>>>> 294a3be (added docker file for the coinbase market data app, updated event core for linux distribution, added initial redis client example)
         fdMap[fd->getFd()] = fd;
     }
 
