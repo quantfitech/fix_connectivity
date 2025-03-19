@@ -389,7 +389,10 @@ namespace qffixlib
             msg. template set<FIX::Tag::ResetSeqNumFlag>(true);
             msg. template set<FIX::Tag::Username>(username());
             msg. template set<FIX::Tag::Password>(password());
-            msg. template set<FIX::Tag::Text>(hmac_sha256_base64(secretKey(), std::format("{}{}{}{}", sending_time , username() , targetCompId(), password())));
+	    std::stringstream ss;
+            ss << sending_time << username() << targetCompId() << password();
+            msg. template set<FIX::Tag::Text>(hmac_sha256_base64(secretKey(), ss.str()));
+            //msg. template set<FIX::Tag::Text>(hmac_sha256_base64(secretKey(), std::format("{}{}{}{}", sending_time , username() , targetCompId(), password())));
             msg. template set<FIX::Tag::DefaultApplVerID>(Values::DefaultApplVerID::FIX50SP2);
 
             send(msg, encode_options::standard_no_sending);

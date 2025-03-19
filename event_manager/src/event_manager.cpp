@@ -220,7 +220,7 @@ namespace qfapp {
 
             
             int numEvents = epoll_wait(epollFd, events, MAX_EVENTS, POLL_TIMEOUT);
-            if (numEvents < 0) {
+            if (numEvents < 0 && errno != EINTR) {
                 perror("Epoll wait failed");
                 break;
             }
