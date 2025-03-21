@@ -742,6 +742,11 @@
         constexpr char CumulativeValueAdjustmentForLongPositions = 'T';
         constexpr char DailyValueAdjustmentForShortPositions = 'U';
         constexpr char CumulativeValueAdjustmentForShortPositions = 'V';
+        constexpr char FairValueLimitUp = 'g';
+        constexpr char FairValueLimitDown = 'h';
+        constexpr char FinalFundingRate = 'f';
+        constexpr char MarkPrice = 'm';
+        constexpr char PredictedFundingRate = 'p';
     }
     namespace  TickDirection {
         constexpr char PlusTick = '0';
@@ -2740,6 +2745,12 @@
         constexpr char Rolled = 'R';
         constexpr char FIFO = 'F';
     }
+
+    namespace AggressorSide {
+        constexpr int64_t Buy = 1;
+        constexpr int64_t Sell = 2;
+    };
+
     namespace  AggressorIndicator {
         constexpr char OrderInitiatorIsAggressor = 'Y';
         constexpr char OrderInitiatorIsPassive = 'N';

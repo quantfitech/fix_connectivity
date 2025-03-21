@@ -5,7 +5,7 @@
 #include "logger.hpp"
 #include "session.hpp"
 #include "event_manager.hpp"
-
+#include "redis_endpoint.hpp"
 #include "client_connection.hpp"
 #include "ssl_socket.hpp"
 
@@ -19,7 +19,7 @@
 namespace qfapp { namespace coinbase_md {
  
 using namespace qffixlib;
- 
+using json = nlohmann::json;
 
  template<Version V>
  class CoinbaseMdSession : public Session<V> {
@@ -27,7 +27,20 @@ using namespace qffixlib;
         virtual ~CoinbaseMdSession() {};
         CoinbaseMdSession(std::shared_ptr<EventManagerInterface> em):Session<V>(em){}
         void onMessage(const MsgChars& msgType, TokenIterator& fixIter) override final;
+        void onSessionConnected() override final;
+        void onSessionDisconnected() override final {}
+        void publishTradeTick(const std::string&, double, double, int64_t, std::string&&);
+        void publishPrices(const std::string& );
+        std::string generateUniqueRequestId();
+
+        void setRedis(std::shared_ptr<RedisEndpoint> re) { mRedis = re;}
+
+    private:
+        
+        int64_t mCounter{0};
+
         OrderBookManager mOrderBookManager;
+        std::shared_ptr<RedisEndpoint> mRedis {nullptr};
 };
 
 }}

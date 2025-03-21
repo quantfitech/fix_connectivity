@@ -318,7 +318,7 @@ namespace qffixlib {
             isSet = true; 
         }
 
-         void serialize(SendingBuffer& buff) const {   
+        void serialize(SendingBuffer& buff) const {   
             if (!isSet) {
                 return;
             }
@@ -352,6 +352,7 @@ namespace qffixlib {
 
         void deserialize(TokenIterator& iter) {
             if ((*iter).tag == tag) {
+                //setRawValue(std::string((*iter).data, (*iter).length));
                 setValue(LexicalCast<ValueType>::cast((*iter).data, (*iter).length));
                 ++iter;
             }

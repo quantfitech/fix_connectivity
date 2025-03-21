@@ -83,6 +83,13 @@ namespace qffixlib {
             constexpr size_t index = get_index_by_tag<Tag, Fields...>();
             return std::get<index>(fields).value;
         }
+
+        template <int Tag>
+        const auto& getRaw() const {
+            constexpr size_t index = get_index_by_tag<Tag, Fields...>();
+            return std::get<index>(fields).rawValue;
+        }
+        
         
         // Compile-time setter: set<FieldTag>(newValue)
         template <int Tag, typename Value>

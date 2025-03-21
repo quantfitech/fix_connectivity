@@ -113,13 +113,13 @@ namespace qffixlib {
             }
             
             // Convert tm to time_t (local time) and then to time_point.
-            std::time_t tt = std::mktime(&tm);
+            std::time_t tt = std::mktime(&tm) - timezone;
             if(tt == -1)
                 throw std::runtime_error("mktime failed");
-            std::chrono::system_clock::time_point tp = std::chrono::system_clock::from_time_t(tt);
+            auto tp = std::chrono::system_clock::from_time_t(tt);
 
             // Now parse the fractional seconds, if any.
-            std::chrono::milliseconds ms(0);
+            std::chrono::microseconds ms(0);
             if (size > 17 && offset[17] == '.') { 
                 int fraction_size = size - 18;
                 // Optionally, limit to 3 digits for milliseconds.
@@ -131,10 +131,12 @@ namespace qffixlib {
                 }
                 // If the fractional part is not exactly 3 digits, adjust it:
                 if (fraction_size== 1)
-                    fractional *= 100;   // "7" -> 700 ms
+                    fractional *= 100000;   // "7" -> 700000 us
                 else if (fraction_size== 2)
-                    fractional *= 10;    // "78" -> 780 ms
-                ms = std::chrono::milliseconds(fractional);
+                    fractional *= 10000;    // "78" -> 780000 us
+                 else if (fraction_size== 3)
+                    fractional *= 1000;     // "123" -> 123000 us  
+                ms = std::chrono::microseconds(fractional);
             }
             
             tp += ms;

@@ -17,7 +17,8 @@ RUN apt-get update && apt-get install -y \
     libspdlog-dev \
     libhiredis-dev\
     libgtest-dev \ 
-    libbenchmark-dev
+    libbenchmark-dev \
+    nlohmann-json3-dev
 
 
 RUN apt-get update && apt-get install -y ca-certificates

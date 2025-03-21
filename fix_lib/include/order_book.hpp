@@ -4,28 +4,34 @@
 #include <vector>
 #include <chrono>
 #include <iomanip>
+#include <nlohmann/json.hpp>
 #include "logger.hpp"
 
 
 namespace qffixlib {
-// Enumeration for bid and ask sides.
+
+#define FEED_NAME "FEED_NAME"
+
 enum class Side { BID, ASK, UNKNOWN };
 
-//  price level.
+using json = nlohmann::json;
+
 struct PriceLevel {
-    int level; 
-    double price;
-    double volume;
-    std::string timestamp;
+    int level {0}; 
+    double price {0};
+    double volume {0};
+    int64_t timestamp;
 };
 
 class OrderBook {
 public:
-    // Vectors for bids and asks.
+
+    std::string mFeedName = std::getenv(FEED_NAME);
+
     std::vector<PriceLevel> bids;
     std::vector<PriceLevel> asks;
 
-    void addOrAmendLevel(Side side, int level, double price, double volume, const std::string& timestamp) {
+    void addOrAmendLevel(Side side, int level, double price, double volume, int64_t timestamp) {
         if (level < 1) {
             LOG_ERROR("revceived invalid price level")
             return; // Level must be at least 1.
@@ -36,12 +42,10 @@ public:
             book.resize(level);
         }
         // Update the price level.
-        //book.emplace_back(level, price, volume, timestamp); 
         book[level - 1] = PriceLevel{level, price, volume, timestamp};
     }
 
     // Delete a level on a given side.
-    // After deletion, the levels below are renumbered.
     void deleteLevel(Side side, double price) {        
         std::vector<PriceLevel>& book = (side == Side::BID) ? bids : asks;
         
@@ -59,17 +63,34 @@ public:
         }
     }
 
-    // Print the order book.
-    void print(const std::string& symbol) const {
-        LOG_INFO("Bids: {}", symbol);
-        for (const auto& lvl : bids) {
-            LOG_INFO("Level {} : Price={}, Volume={}, Timestamp={}", lvl.level, lvl.price, lvl.volume, lvl.timestamp);
+    json orderBookAsJson(const std::string& symbol) {
+        json jbids = json::array();
+        int64_t tstamp;
+        for(const auto& bid : bids) {
+           jbids.push_back({
+                {"price", bid.price},
+                {"size", bid.volume},
+            });
+            tstamp = std::max(tstamp, bid.timestamp);
         }
-         LOG_INFO("Asks:{}", symbol);
-        for (const auto& lvl : asks) {
-            LOG_INFO("Level {} : Price={}, Volume={}, Timestamp={}", lvl.level, lvl.price, lvl.volume, lvl.timestamp);
+        json jasks = json::array();
+        for(const auto& ask : asks) {
+           jasks.push_back({
+            {"price", ask.price},
+            {"size", ask.volume},
+            });
+            tstamp = std::max(tstamp, ask.timestamp);
         }
+        json orderBookFeed = {
+            {"feed", "COINBASE_INT"},
+            {"symbol", symbol},
+            {"timestamp", tstamp}, 
+            {"asks", jasks},
+            {"bids", jbids}
+        };
+        return orderBookFeed;
     }
+
 };
 
 class OrderBookManager {

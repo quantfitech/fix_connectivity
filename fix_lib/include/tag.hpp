@@ -137,6 +137,7 @@ namespace FIX {
 		constexpr int MDEntrySize = 271;
 		constexpr int MDEntryID = 278;
 		constexpr int MDUpdateAction = 279;
+		constexpr int MDReqRejReason = 281;
 		constexpr int SecurityReqID = 320;
 		constexpr int MessageEncoding = 347;
 		constexpr int EncodedTextLen = 354;

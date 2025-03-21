@@ -101,11 +101,14 @@ namespace qffixlib
         }
 
         virtual void onMessage(const MsgChars& msgType, TokenIterator& fixIter) {}
+        virtual void onSessionConnected() {}
+        virtual void onSessionDisconnected() {}
 
         void onConnected() override
         {
             LOG_INFO("session senderCompId=({}) connected", senderCompId());
             state(SessionState::connected);
+             onSessionConnected();
             // set header fields
             fillHeader(mHeader);
             sendLogon(false);
@@ -829,6 +832,8 @@ namespace qffixlib
                 mOutgoingMsgTimer->reset();
             }
         }
+    protected:
+        std::shared_ptr<EventManagerInterface> mEventManagerInterface {nullptr};
 
     private:
 
@@ -854,7 +859,6 @@ namespace qffixlib
         std::shared_ptr<RecurringTimer> mOutgoingMsgTimer {nullptr};
 
         std::shared_ptr<Writer> mWriter {nullptr};
-        std::shared_ptr<EventManagerInterface> mEventManagerInterface {nullptr};
 
         std::set<int64_t> mMissingSequences;
         std::map<int64_t, std::string> mQueuedMessages;
